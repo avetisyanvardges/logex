@@ -1,0 +1,1 @@
+export const API_HOST = process.env.REACT_APP_PUBLIC_API_HOST || 'http://localhost:3000';
