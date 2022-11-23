@@ -1,8 +1,7 @@
 import React from 'react';
-import "./style.scss";
-import {Button} from 'antd';
-import {useDispatch} from 'react-redux';
-import {showModal} from 'state/modals/actions';
+import "./style.scss";import { Button } from 'antd';
+import { useDispatch } from 'react-redux';
+import { showModal } from 'state/modals/actions';
 
 const Home = () => {
     const dispatch = useDispatch();

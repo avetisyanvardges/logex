@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Modal } from 'antd';
-import {IModalProps} from 'state/modals/types';
+import { IModalProps } from 'state/modals/types';
 
 interface Props extends IModalProps {
     title: 'title',
