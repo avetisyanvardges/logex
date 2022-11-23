@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import Home from "views/Home";
+import ExampleModal from 'views/shared/modals/ExampleModal';
 
 interface IModalComponents {
-    [key: string]: FC,
+    [key: string]: FC<any>,
 }
 
 const MODAL_COMPONENTS: IModalComponents = {
-    LOCATION_MAP_MODAL: Home,
+    EXAMPLE_MODAL: ExampleModal,
 };
 
 export default MODAL_COMPONENTS;

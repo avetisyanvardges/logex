@@ -27,7 +27,6 @@ export interface IModalRoot extends IShowModalPayload {
     onClose: () => IHideModalAction,
 }
 
-export interface IModalComponent {
-    modalProps?: object,
+export interface IModalProps {
     onClose: () => IHideModalAction,
 }

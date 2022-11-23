@@ -7,6 +7,7 @@ import { store } from "state/store";
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import './index.css';
+import 'antd/dist/antd.min.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
