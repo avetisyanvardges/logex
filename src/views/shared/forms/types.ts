@@ -1,3 +1,5 @@
+import {FC} from 'react';
+
 export interface IFormField {
     label?: string,
     name: string,
@@ -7,4 +9,6 @@ export interface IFormField {
     props?: any,
     className?: any,
     type?: string,
+    bordered?: boolean,
+    prefix?: any,
 }

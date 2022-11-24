@@ -2,8 +2,10 @@ import React from 'react';
 import {FormikProvider} from "formik";
 import {Input, Form} from "antd";
 import InputFiled from 'views/shared/forms/InputField';
+import AuthLayout from "views/layouts/Auth";
+import MessageSvg from 'assets/svg/MessageSvg';
+import PasswordSvg from 'assets/svg/PasswordSvg';
 import useContainer from "./hook";
-import AuthLayout from "views/shared/layouts/Auth";
 import "./style.scss";
 
 const SignIn = () => {
@@ -12,20 +14,27 @@ const SignIn = () => {
     return (
         <AuthLayout>
             <div className='signIn'>
-                <div className='menuContainer'>
-                    <div className='menu'>
-
-                    </div>
-                </div>
-                <div className='formContainer'>
-                    <p className='title'>Մուտք</p>
-                    <Form onFinish={formik.handleSubmit} className='form'>
-                        <FormikProvider value={formik}>
-                            <InputFiled name="email" label="Email" type="email" className="signInInput" />
-                            <InputFiled name="password" label="Password" className="signInInput" asComponent={Input.Password} />
-                        </FormikProvider>
-                    </Form>
-                </div>
+               <p className='title'>Մուտք</p>
+               <Form onFinish={formik.handleSubmit} className='form'>
+                   <FormikProvider value={formik}>
+                       <InputFiled
+                           name="email"
+                           placeholder="Էլ․ հասցե"
+                           type="email"
+                           className="signInInput"
+                           bordered={false}
+                           prefix={<MessageSvg />}
+                       />
+                       <InputFiled
+                           name="password"
+                           placeholder="Գաղտնաբառ"
+                           className="signInInput"
+                           asComponent={Input.Password}
+                           bordered={false}
+                           prefix={<PasswordSvg />}
+                       />
+                   </FormikProvider>
+               </Form>
             </div>
         </AuthLayout>
     )

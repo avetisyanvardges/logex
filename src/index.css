@@ -14,8 +14,13 @@ code {
     monospace;
 }
 
+.ant-form-item label:after {
+  content: none !important;
+}
+
 @font-face {
   font-family: "NOTO-SANS_ARMENIAN";
   src: local("NOTO-SANS_ARMENIAN"),
   url("assets/fonts/NotoSansArmenian-Regular.ttf");
+  font-style: normal;
 }

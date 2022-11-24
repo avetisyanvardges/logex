@@ -8,6 +8,7 @@ const defaultProps: IFormField = {
     name: '',
     placeholder: '',
     formItemClassName: '',
+    bordered: true,
     asComponent: Input,
 }
 
