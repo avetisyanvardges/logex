@@ -1,0 +1,34 @@
+.signIn {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  .menuContainer {
+    width: 950px;
+    padding: 0 20px 0 0 ;
+    .menu {
+      width: 100%;
+      height: 100%;
+      background-image: url("../../assets/images/loginPageImage.png");
+      background-position: center;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+    }
+  }
+  .formContainer {
+    display: flex;
+
+    .title {
+      font-family: NOTO-SANS_ARMENIAN, sans-serif;
+      font-size: 30px;
+      line-height: 35.16px;
+      letter-spacing: 0.05em;
+      color: #253025;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .form {
+      width: 460px;
+    }
+  }
+}

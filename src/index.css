@@ -13,3 +13,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: "NOTO-SANS_ARMENIAN";
+  src: local("NOTO-SANS_ARMENIAN"),
+  url("assets/fonts/NotoSansArmenian-Regular.ttf");
+}

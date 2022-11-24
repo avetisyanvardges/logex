@@ -12,7 +12,12 @@ const defaultProps: IFormField = {
 }
 
 const InputFiled: FC<IFormField> = ({
-      label, name, placeholder, formItemClassName, asComponent: Component, ...props
+      label,
+      name,
+      placeholder,
+      formItemClassName,
+      asComponent: Component,
+      ...props
     }) => {
     const [field, meta] = useField(name);
     const hasError: any = meta.touched && meta.error;
@@ -25,7 +30,7 @@ const InputFiled: FC<IFormField> = ({
             htmlFor={name}
             validateStatus={hasError}
             help={Error}
-        >.
+        >
             <Component id={name} placeholder={placeholder} {...field} {...props} />
         </Form.Item>
     );
