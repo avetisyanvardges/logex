@@ -1,12 +1,11 @@
 import * as yup from 'yup';
-import stringLength from './validations/stringLength';
-
-yup.addMethod(yup.string, 'stringLength', stringLength);
 
 yup.setLocale({
     mixed: {
         required: `Պարտադիր լրացման դաշտ`,
     },
 });
+
+yup.string().test('len', 'Must be exactly 5 characters', val => val?.length === 5)
 
 export default yup;

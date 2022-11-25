@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import {FormikProvider} from "formik";
-import {Input, Form} from "antd";
+import {Input, Form, Button} from "antd";
 import InputFiled from 'views/shared/forms/InputField';
 import AuthLayout from "views/layouts/Auth";
 import MessageSvg from 'assets/svg/MessageSvg';
@@ -22,6 +23,7 @@ const SignIn = () => {
                            placeholder="Էլ․ հասցե"
                            type="email"
                            className="signInInput"
+                           formItemClassName='emailFormItem'
                            bordered={false}
                            prefix={<MessageSvg />}
                        />
@@ -33,6 +35,12 @@ const SignIn = () => {
                            bordered={false}
                            prefix={<PasswordSvg />}
                        />
+                       <div className='forgotPasswordInformation'>
+                           <Link to='#' className='forgotPassword'>Մոռացե՞լ եք գաղտնաբառը</Link>
+                       </div>
+                       <Button className='signInButton'>
+                           Մուտք
+                       </Button>
                    </FormikProvider>
                </Form>
             </div>
