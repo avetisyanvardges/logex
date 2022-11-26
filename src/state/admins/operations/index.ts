@@ -1,4 +1,5 @@
+import userSignIn from './signIn';
+
 export default [
-    // login
-    // register
+    userSignIn,
 ];

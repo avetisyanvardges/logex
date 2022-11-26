@@ -12,6 +12,6 @@ declare global {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const operationsDependencies = { httpClient };
+const operationsDependencies: any = { httpClient };
 const logicMiddleware = createLogicMiddleware(rootOperations, operationsDependencies);
 export const store = createStore(rootReducer, composeEnhancers( applyMiddleware(logicMiddleware) ));

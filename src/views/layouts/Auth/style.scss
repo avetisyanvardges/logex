@@ -21,33 +21,6 @@
       background-position: center;
       background-size: 100% 100%;
       background-repeat: no-repeat;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      .menu {
-        width: 312px;
-        height: 300px;
-        .button {
-          width: 312px;
-          height: 60px;
-          font-size: 25px;
-          border-radius: 20px;
-          margin: 20px 0;
-          border: none;
-          background: none;
-          color: #5BC852;
-          font-family: NOTO-SANS_ARMENIAN, sans-serif;
-          letter-spacing: 0.05em;
-          font-weight: bold;
-          line-height: 24px;
-          box-shadow: none;
-        }
-        .active {
-          background-color: white;
-          color: #5BC852;
-          box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
-        }
-      }
     }
   }
   .dynamicContent {

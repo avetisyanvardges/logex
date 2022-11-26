@@ -33,7 +33,8 @@ httpClient.interceptors.response.use(
         if (error.response && error.response.status === 401) {
             Account.delete();
         }
-        if (error.response && error.response.data && error.response.status !== 401) {
+        if (error.response && error.response.data) {
+        // if (error.response && error.response.data && error.response.status !== 401) {
             store.dispatch(dataApiFailure({
                 endpoint: `${error?.config?.method} ${error?.config?.url}`,
                 error: error.response.data,

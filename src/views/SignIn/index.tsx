@@ -10,7 +10,7 @@ import useContainer from "./hook";
 import "./style.scss";
 
 const SignIn = () => {
-    const { formik } = useContainer();
+    const { formik, isLoading } = useContainer();
 
     return (
         <AuthLayout>
@@ -38,7 +38,7 @@ const SignIn = () => {
                        <div className='forgotPasswordInformation'>
                            <Link to='#' className='forgotPassword'>Մոռացե՞լ եք գաղտնաբառը</Link>
                        </div>
-                       <Button className='signInButton'>
+                       <Button loading={isLoading} htmlType='submit' className='signInButton'>
                            Մուտք
                        </Button>
                    </FormikProvider>
