@@ -14,6 +14,26 @@
   .header {
     background-color: white;
     padding: 0 20px;
+    display: flex;justify-content: space-between;
+    align-items: center;
+
+    .account {
+      width: 160px;
+      display: flex;
+      justify-content: space-around;
+      .dropdownFullName {
+        font-family: NOTO-SANS_ARMENIAN, sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19px;
+        letter-spacing: 0.02em;
+        color: #B2C2B0;
+        cursor: pointer;
+      }
+      .dropdownFullName:hover {
+        color: #5BC852;
+      }
+    }
     .trigger {
       box-shadow: none;
       border: none;
@@ -21,7 +41,8 @@
   }
   .content {
     background-color: white;
-    padding: 10px;
+    margin: 20px;
+    border-radius: 20px;
   }
 
   .ant-menu-item-selected {
@@ -55,5 +76,8 @@
   }
   .ant-btn:focus, .ant-btn:hover {
     color: #5BC852;
+  }
+  .ant-layout {
+    background: #EFF5E4;
   }
 }

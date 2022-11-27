@@ -1,13 +1,13 @@
 import { combineReducers } from "redux";
 
 import modals from "state/modals/reducer";
-import dataReducer from "state/data/reducer";
-import adminsReducer from "state/admins/reducer";
+import data from "state/data/reducer";
+import admins from "state/admins/reducer";
 
 export const rootReducer = combineReducers({
     modals,
-    dataReducer,
-    adminsReducer,
+    data,
+    admins,
 });
 
 export type RootState = ReturnType<typeof rootReducer>

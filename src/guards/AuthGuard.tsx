@@ -7,7 +7,7 @@ const AuthGuard = () => {
     const accessToken = Account.getAccessToken();
 
     if (accessToken) {
-        return <Navigate to='/' />
+        return <Navigate to='/' replace />
     }
 
     return <Outlet />

@@ -1,7 +1,11 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import type { MenuProps } from 'antd';
 import { DesktopOutlined, UserOutlined, FileTextOutlined } from '@ant-design/icons';
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
+import useTypedSelector from 'hooks/useTypedSelector';
+import LogAuth from 'assets/svg/LogAuth';
+import Account from 'lib/account';
+import history from "utils/browserHistory";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -9,7 +13,7 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode,
     return { key, icon, children, label,} as MenuItem;
 }
 
-const items: MenuItem[] = [
+const menuItems: MenuItem[] = [
     getItem('Regions', '/', <FileTextOutlined />),
     getItem('Community', '/community', <FileTextOutlined />),
     getItem('Users', '/users', <UserOutlined />),
@@ -18,23 +22,44 @@ const items: MenuItem[] = [
     getItem('Orders', '/orders', <DesktopOutlined />),
     // getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
 ];
+
+const dropdownItemStyles = {
+    minWidth: '100px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+}
+
 function useContainer() {
-    const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const [collapsed, setCollapsed] = useState(false);
+    const { currentAdmin } = useTypedSelector(({admins}) => admins);
 
-    // const handleMenuSelect = useCallback((value: MenuItem) => {
-    //     navigate(value.key);
-    // }, []);
-
-    const handleMenuSelect = (key: string) => {
+    const handleMenuSelect = useCallback((key: string) => {
         navigate(key);
-    };
+    }, [navigate]);
+
+    const handleLogAuth = () => {
+        Account.delete();
+        history.replace('auth/sign-in');
+    }
+
+    const dropdownItems: MenuProps['items'] = useMemo(() => ([
+        {
+            label: <div style={dropdownItemStyles} onClick={handleLogAuth}><LogAuth /> Դուրս գալ</div>,
+            key: 'Դուրս գալ',
+        },
+    ]), []);
 
     return {
         collapsed,
+        currentAdmin,
         setCollapsed,
-        items,
         handleMenuSelect,
+        pathname,
+        menuItems,
+        dropdownItems,
     }
 }
 

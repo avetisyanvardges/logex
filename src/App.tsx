@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Route, Routes } from "react-router-dom";
 import AuthGuard from 'guards/AuthGuard';
 import AdminGuard from 'guards/AdminGuard';
@@ -9,7 +9,8 @@ import Community from 'views/Community';
 import Orders from 'views/Orders';
 import Users from 'views/Users';
 import Warehouses from 'views/Warehouses';
-import ModalRoot from 'views/ModalRoot/container';
+
+const ModalRoot = lazy(() => import('views/ModalRoot/container'));
 
 const App = () => (
     <>

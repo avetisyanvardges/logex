@@ -10,7 +10,7 @@ const AdminGuard = () => {
         return <Outlet />
     }
 
-    return <Navigate to='/auth/sign-in' />
+    return <Navigate to='/auth/sign-in' replace />
 };
 
 export default AdminGuard;

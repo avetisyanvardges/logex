@@ -1,7 +1,8 @@
 import React, { FC } from "react";
-import { Button, Layout, Menu } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { Button, Layout, Menu, Dropdown, Space } from 'antd';
+import { MenuFoldOutlined, MenuUnfoldOutlined, DownOutlined } from '@ant-design/icons';
 
+import UserAvatar from 'views/shared/UserAvatar';
 import LogexLogo from 'assets/svg/LogexLogo';
 import { LayoutProps } from '../types';
 import useContainer from './hook';
@@ -10,19 +11,17 @@ import "./style.scss";
 const { Header, Sider, Content } = Layout;
 
 const AdminLayout: FC<LayoutProps> = ({children}) => {
-    const { collapsed, setCollapsed, items, handleMenuSelect } = useContainer();
+    const { collapsed, setCollapsed, menuItems, handleMenuSelect, pathname, currentAdmin, dropdownItems } = useContainer();
 
     return (
-        <div className='adminLayout'>
+        <div className='adminLayout' style={{background: 'red', width: '100%'}}>
             <Sider trigger={null} collapsible collapsed={collapsed} className='sider'>
-                <div className="logo">
-                    <LogexLogo />
-                </div>
+                <div className="logo"><LogexLogo /></div>
                 <Menu
-                    onSelect={(value) => handleMenuSelect(value.key)}
+                    onSelect={({key}) => handleMenuSelect(key)}
                     mode="inline"
-                    defaultSelectedKeys={['1']}
-                    items={items}
+                    defaultSelectedKeys={[pathname]}
+                    items={menuItems}
                 />
             </Sider>
             <Layout>
@@ -30,6 +29,15 @@ const AdminLayout: FC<LayoutProps> = ({children}) => {
                     <Button className='trigger' onClick={() => setCollapsed(!collapsed)}>
                         {collapsed ? <MenuUnfoldOutlined style={{ fontSize: '20px'}}/> : <MenuFoldOutlined style={{ fontSize: '20px'}} />}
                     </Button>
+                    <div className='account'>
+                        <UserAvatar size={38} imageUrl={currentAdmin?.image}/>
+                        <Dropdown menu={{items: dropdownItems}} trigger={['click']}>
+                           <Space className='dropdownFullName'>
+                               {`${currentAdmin.first_name} ${currentAdmin.last_name}`}
+                               <DownOutlined />
+                           </Space>
+                        </Dropdown>
+                    </div>
                 </Header>
                 <Content className='content'>{children}</Content>
             </Layout>
