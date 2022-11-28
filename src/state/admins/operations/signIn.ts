@@ -1,17 +1,17 @@
+import {AxiosInstance} from 'axios';
 import { createLogic } from 'redux-logic';
 
-import {AdminActionTypes, ISignInRequestAction} from "state/admins/types";
+import {AdminActionTypes} from "state/admins/types";
 
 import history from "utils/browserHistory";
 
 import Account from "lib/account";
-import {signInEndpoint} from '../endpoints';
-import {AxiosInstance} from 'axios';
-import {signInSuccess} from '../actions';
+import {signInEndpoint} from 'state/admins/endpoints';
+import {signInRequestAction, signInSuccess} from 'state/admins/actions';
 
 interface IDependencies {
     httpClient: AxiosInstance,
-    action: ISignInRequestAction,
+    action: signInRequestAction,
 }
 
 const userSignIn = createLogic({
@@ -22,8 +22,8 @@ const userSignIn = createLogic({
         const { url } = signInEndpoint;
 
         const body = {
-            email: action.data.email,
-            password: action.data.password,
+            email: action.payload.email,
+            password: action.payload.password,
         };
 
         try {

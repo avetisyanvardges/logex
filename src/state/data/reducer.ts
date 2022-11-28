@@ -1,4 +1,5 @@
-import { DataRequestActions, DataRequestTypes } from 'state/data/types';
+import { DataRequestTypes } from 'state/data/types';
+import {DataRequestActions} from 'state/data/actions';
 
 interface IInitialState {
     [key: string]: any,
@@ -9,17 +10,17 @@ const dataReducer = (state: IInitialState = {}, action: DataRequestActions) => {
         case DataRequestTypes.DATA_API_REQUEST:
             return {
                 ...state,
-                [action.endpoint]: { loading: true },
+                [action.payload.endpoint]: { loading: true },
             };
         case DataRequestTypes.DATA_API_SUCCESS:
             return {
                 ...state,
-                [action.endpoint]: { loading: false, response: action.response },
+                [action.payload.endpoint]: { loading: false, response: action.payload.response },
             };
         case DataRequestTypes.DATA_API_FAILURE:
             return {
                 ...state,
-                [action.endpoint]: { loading: false, error: action.error.message || null },
+                [action.payload.endpoint]: { loading: false, error: action.payload.error.message || null },
             };
 
         case DataRequestTypes.CLEAR_DATA_REDUCER: return {};

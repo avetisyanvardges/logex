@@ -3,6 +3,10 @@
   .sider {
     height: 100vh;
     background-color: white;
+    overflow: auto;
+    position: sticky;
+    top: 0;
+    left: 0;
   }
   .logo {
     height: 60px;
@@ -16,6 +20,8 @@
     padding: 0 20px;
     display: flex;justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
 
     .account {
       width: 160px;

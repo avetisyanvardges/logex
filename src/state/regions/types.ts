@@ -1,6 +1,4 @@
-import {ActionWithPayload} from "state/createActions";
-
-export enum ConceptTypes {
+export enum RegionsTypes {
     FETCH_REGIONS_REQUEST = 'FETCH_REGIONS_REQUEST',
     FETCH_REGIONS_SUCCESS = 'FETCH_REGIONS_SUCCESS',
     CREATE_REGION = 'CREATE_REGION',
@@ -19,27 +17,23 @@ export interface IMeta {
     total: number,
 }
 
-// regions
-
-export interface IRegions {
+export interface IRegion {
     id: number,
+    key: number,
     region_am: string,
     region_en: string,
     region_ru: string,
 }
 
+export interface IFetchRegionsSuccessPayload {
+    meta: IMeta,
+    regions: IRegion[],
+}
+
 export interface IRegionsState {
     meta: IMeta | object,
-    regions: IRegions | object,
+    regions: IRegion[],
 }
-
-export interface IFetchRegionsSuccessAction extends IRegionsState {
-    type: ConceptTypes.FETCH_REGIONS_SUCCESS,
-}
-
-export type RegionActionTypes = fetchRegionsRequestAction | IFetchRegionsSuccessAction;
-
-
 
 
 

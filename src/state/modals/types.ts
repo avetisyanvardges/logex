@@ -13,15 +13,9 @@ export interface IShowModalPayload {
     modalProps?: object,
 }
 
-export interface IShowModalAction extends IShowModalPayload {
-    type: ModalActionTypes.SHOW_MODAL;
-}
-
 export interface IHideModalAction {
     type: ModalActionTypes.HIDE_MODAL;
 }
-
-export type ModalActions = IShowModalAction | IHideModalAction;
 
 export interface IModalRoot extends IShowModalPayload {
     onClose: () => IHideModalAction,

@@ -1,5 +1,6 @@
 import Account from 'lib/account';
-import {AdminActions, AdminActionTypes, IInitialState} from 'state/admins/types';
+import { AdminActionTypes, IInitialState } from 'state/admins/types';
+import { AdminActions } from 'state/admins/actions';
 
 const initialState: IInitialState = {
     currentAdmin: Account.getAccount(),
@@ -10,7 +11,7 @@ const adminsReducer = (state = initialState, action: AdminActions) => {
         case AdminActionTypes.SIGN_IN_SUCCESS:
             return {
                 ...state,
-                currentAdmin: action.currentAdmin,
+                currentAdmin: action.payload,
             };
         default:
             return state;

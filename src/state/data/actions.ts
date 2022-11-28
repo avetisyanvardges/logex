@@ -1,31 +1,28 @@
-import {
-    DataRequestTypes,
-    IDataApiRequestAction,
-    IDataApiSuccessAction,
-    IEndpoint,
-    IDataApiSuccessPayload,
-    IDataApiFailurePayload,
-    IDataApiFailureAction,
-    IClearDataReducerAction,
-} from "state/data/types";
+import { DataRequestTypes, IEndpoint, IDataApiSuccessPayload, IDataApiFailurePayload } from "state/data/types";
+import { ActionWithPayload, Action } from 'state/createActions';
 
-export const dataApiRequest = ({ endpoint }: IEndpoint): IDataApiRequestAction => ({
+export type dataApiRequestAction = ActionWithPayload<DataRequestTypes.DATA_API_REQUEST, IEndpoint>;
+export type dataApiSuccessAction = ActionWithPayload<DataRequestTypes.DATA_API_SUCCESS, IDataApiSuccessPayload>;
+export type dataApiFailureAction = ActionWithPayload<DataRequestTypes.DATA_API_FAILURE, IDataApiFailurePayload>;
+export type clearDataReducerAction = Action<DataRequestTypes.CLEAR_DATA_REDUCER>;
+
+export const dataApiRequest = ({ endpoint }: IEndpoint): dataApiRequestAction => ({
     type: DataRequestTypes.DATA_API_REQUEST,
-    endpoint,
+    payload: {endpoint},
 });
 
-export const dataApiSuccess = ({ endpoint, response }: IDataApiSuccessPayload): IDataApiSuccessAction => ({
+export const dataApiSuccess = ({ endpoint, response }: IDataApiSuccessPayload): dataApiSuccessAction => ({
     type: DataRequestTypes.DATA_API_SUCCESS,
-    endpoint,
-    response,
+    payload: { endpoint, response },
 });
 
-export const dataApiFailure = ({ endpoint, error }: IDataApiFailurePayload): IDataApiFailureAction => ({
+export const dataApiFailure = ({ endpoint, error }: IDataApiFailurePayload): dataApiFailureAction => ({
     type: DataRequestTypes.DATA_API_FAILURE,
-    error,
-    endpoint,
+    payload: { endpoint, error },
 });
 
-export const clearDataReducer = (): IClearDataReducerAction => ({
+export const clearDataReducer = (): clearDataReducerAction => ({
     type: DataRequestTypes.CLEAR_DATA_REDUCER,
 });
+
+export type DataRequestActions = dataApiRequestAction | dataApiSuccessAction | dataApiFailureAction | clearDataReducerAction;

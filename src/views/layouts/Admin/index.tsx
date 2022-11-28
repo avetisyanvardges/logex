@@ -11,11 +11,11 @@ import "./style.scss";
 const { Header, Sider, Content } = Layout;
 
 const AdminLayout: FC<LayoutProps> = ({children}) => {
-    const { collapsed, setCollapsed, menuItems, handleMenuSelect, pathname, currentAdmin, dropdownItems } = useContainer();
+    const { collapsed, handleCollapsed, menuItems, handleMenuSelect, pathname, currentAdmin, dropdownItems } = useContainer();
 
     return (
-        <div className='adminLayout' style={{background: 'red', width: '100%'}}>
-            <Sider trigger={null} collapsible collapsed={collapsed} className='sider'>
+        <div className='adminLayout' style={{width: '100%'}}>
+            <Sider trigger={null} collapsible collapsed={collapsed} className='sider' >
                 <div className="logo"><LogexLogo /></div>
                 <Menu
                     onSelect={({key}) => handleMenuSelect(key)}
@@ -26,7 +26,7 @@ const AdminLayout: FC<LayoutProps> = ({children}) => {
             </Sider>
             <Layout>
                 <Header className='header'>
-                    <Button className='trigger' onClick={() => setCollapsed(!collapsed)}>
+                    <Button className='trigger' onClick={handleCollapsed}>
                         {collapsed ? <MenuUnfoldOutlined style={{ fontSize: '20px'}}/> : <MenuFoldOutlined style={{ fontSize: '20px'}} />}
                     </Button>
                     <div className='account'>

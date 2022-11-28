@@ -1,17 +1,17 @@
-import {
-    AdminActionTypes,
-    ICurrentAdmin,
-    ISignInRequestAction,
-    ISignInRequestPayload,
-    ISignInSuccessAction
-} from 'state/admins/types';
+import { AdminActionTypes, ICurrentAdmin, ISignInRequestPayload } from 'state/admins/types';
+import { ActionWithPayload } from 'state/createActions';
 
-export const signInRequest = (data: ISignInRequestPayload): ISignInRequestAction => ({
+export type signInRequestAction = ActionWithPayload<AdminActionTypes.SIGN_IN_REQUEST, ISignInRequestPayload>;
+export type signInSuccessAction = ActionWithPayload<AdminActionTypes.SIGN_IN_SUCCESS, ICurrentAdmin>;
+
+export const signInRequest = (data: ISignInRequestPayload): signInRequestAction => ({
     type: AdminActionTypes.SIGN_IN_REQUEST,
-    data,
+    payload: data,
 });
 
-export const signInSuccess = (currentAdmin: ICurrentAdmin): ISignInSuccessAction => ({
+export const signInSuccess = (currentAdmin: ICurrentAdmin): signInSuccessAction => ({
     type: AdminActionTypes.SIGN_IN_SUCCESS,
-    currentAdmin,
+    payload: currentAdmin,
 });
+
+export type AdminActions = signInRequestAction | signInSuccessAction;

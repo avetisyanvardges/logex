@@ -1,4 +1,5 @@
-import { IModalState, ModalActions, ModalActionTypes } from "state/modals/types";
+import { IModalState, ModalActionTypes } from "state/modals/types";
+import {ModalActions} from 'state/modals/actions';
 
 const initialState: IModalState = {
     modalType: null,
@@ -9,8 +10,8 @@ const modalReducer = (state = initialState, action: ModalActions) => {
     switch (action.type) {
         case ModalActionTypes.SHOW_MODAL:
             return {
-                modalType: action.modalType,
-                modalProps: action.modalProps,
+                modalType: action.payload.modalType,
+                modalProps: action.payload.modalProps,
             };
         case ModalActionTypes.HIDE_MODAL:
             return initialState;

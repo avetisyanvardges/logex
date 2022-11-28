@@ -40,6 +40,10 @@ function useContainer() {
         navigate(key);
     }, [navigate]);
 
+    const handleCollapsed = useCallback(() => {
+        setCollapsed(prev => !prev);
+    }, [collapsed])
+
     const handleLogAuth = () => {
         Account.delete();
         history.replace('auth/sign-in');
@@ -55,7 +59,7 @@ function useContainer() {
     return {
         collapsed,
         currentAdmin,
-        setCollapsed,
+        handleCollapsed,
         handleMenuSelect,
         pathname,
         menuItems,
