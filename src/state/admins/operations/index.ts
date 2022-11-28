@@ -1,5 +1,7 @@
 import userSignIn from './signIn';
 
-export default [
+const adminOperations = [
     userSignIn,
 ];
+
+export default adminOperations;

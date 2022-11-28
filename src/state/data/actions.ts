@@ -5,7 +5,8 @@ import {
     IEndpoint,
     IDataApiSuccessPayload,
     IDataApiFailurePayload,
-    IDataApiFailureAction
+    IDataApiFailureAction,
+    IClearDataReducerAction,
 } from "state/data/types";
 
 export const dataApiRequest = ({ endpoint }: IEndpoint): IDataApiRequestAction => ({
@@ -23,4 +24,8 @@ export const dataApiFailure = ({ endpoint, error }: IDataApiFailurePayload): IDa
     type: DataRequestTypes.DATA_API_FAILURE,
     error,
     endpoint,
+});
+
+export const clearDataReducer = (): IClearDataReducerAction => ({
+    type: DataRequestTypes.CLEAR_DATA_REDUCER,
 });

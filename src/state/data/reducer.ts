@@ -21,8 +21,9 @@ const dataReducer = (state: IInitialState = {}, action: DataRequestActions) => {
                 ...state,
                 [action.endpoint]: { loading: false, error: action.error.message || null },
             };
-        default:
-            return state;
+
+        case DataRequestTypes.CLEAR_DATA_REDUCER: return {};
+        default: return state;
     }
 };
 

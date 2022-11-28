@@ -2,6 +2,7 @@ export enum DataRequestTypes {
     DATA_API_REQUEST = 'DATA_API_REQUEST',
     DATA_API_SUCCESS = 'DATA_API_SUCCESS',
     DATA_API_FAILURE = 'DATA_API_FAILURE',
+    CLEAR_DATA_REDUCER = 'CLEAR_DATA_REDUCER',
 }
 
 export interface IEndpoint {
@@ -28,4 +29,8 @@ export interface IDataApiFailureAction extends IDataApiFailurePayload {
     type: DataRequestTypes.DATA_API_FAILURE,
 }
 
-export type DataRequestActions = IDataApiRequestAction | IDataApiSuccessAction | IDataApiFailureAction;
+export interface IClearDataReducerAction {
+    type: DataRequestTypes.CLEAR_DATA_REDUCER,
+}
+
+export type DataRequestActions = IDataApiRequestAction | IDataApiSuccessAction | IDataApiFailureAction | IClearDataReducerAction;

@@ -14,7 +14,7 @@ httpClient.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestCo
 
     const accessToken = Account.getAccessToken();
     if (accessToken && config.headers) {
-        config.headers['x-authorization'] = accessToken
+        config.headers.Authorization = `Bearer ${accessToken}`
     }
     return config
 });
