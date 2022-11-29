@@ -1,149 +1,61 @@
-import React, { useState } from 'react';
-import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
+import React from 'react';
+import { FormikProvider } from "formik";
+import {Button, Form, Popconfirm, Table, Typography} from 'antd';
 import AdminLayout from 'views/layouts/Admin';
+import EditableCell from "views/shared/EditableCell";
+import { IRegion } from "state/regions/types";
 import useContainer from "./hook";
 import "./style.scss";
 
-interface Item {
-    key: string;
-    name: string;
-    age: number;
-    address: string;
-}
-
-const originData: Item[] = [];
-for (let i = 0; i < 100; i++) {
-    originData.push({
-        key: i.toString(),
-        name: `Edrward ${i}`,
-        age: 32,
-        address: `London Park no. ${i}`,
-    });
-}
-interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
-    editing: boolean;
-    dataIndex: string;
-    title: any;
-    inputType: 'number' | 'text';
-    record: Item;
-    index: number;
-    children: React.ReactNode;
-}
-
-const EditableCell: React.FC<EditableCellProps> = ({
-                                                       editing,
-                                                       dataIndex,
-                                                       title,
-                                                       inputType,
-                                                       record,
-                                                       index,
-                                                       children,
-                                                       ...restProps
-                                                   }) => {
-    const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
-
-    return (
-        <td {...restProps}>
-            {editing ? (
-                <Form.Item
-                    name={dataIndex}
-                    style={{ margin: 0 }}
-                    rules={[
-                        {
-                            required: true,
-                            message: `Please Input ${title}!`,
-                        },
-                    ]}
-                >
-                    {inputNode}
-                </Form.Item>
-            ) : (
-                children
-            )}
-        </td>
-    );
-};
-
 const Regions = () => {
-    const { handleChangeParams, page, regions, meta } = useContainer();
-
-    console.log(regions);
-
-    const [form] = Form.useForm();
-    const [data, setData] = useState(originData);
-    const [editingKey, setEditingKey] = useState('');
-
-    const isEditing = (record: Item) => record.key === editingKey;
-
-    const edit = (record: Partial<Item> & { key: React.Key }) => {
-        form.setFieldsValue({ name: '', age: '', address: '', ...record });
-        setEditingKey(record.key);
-    };
-
-    const cancel = () => {
-        setEditingKey('');
-    };
-
-    const save = async (key: React.Key) => {
-        try {
-            const row = (await form.validateFields()) as Item;
-
-            const newData = [...data];
-            const index = newData.findIndex((item) => key === item.key);
-            if (index > -1) {
-                const item = newData[index];
-                newData.splice(index, 1, {
-                    ...item,
-                    ...row,
-                });
-                setData(newData);
-                setEditingKey('');
-            } else {
-                newData.push(row);
-                setData(newData);
-                setEditingKey('');
-            }
-        } catch (errInfo) {
-            console.log('Validate Failed:', errInfo);
-        }
-    };
+    const {
+        handleChangeParams,
+        page,
+        params,
+        regions,
+        meta,
+        isFetchingRegions,
+        formik,
+        editingKey,
+        isEditing,
+        handleEdit,
+        handleCancel,
+    } = useContainer();
 
     const columns = [
         {
-            title: 'name',
-            dataIndex: 'name',
-            width: '25%',
+            title: 'region_am',
+            dataIndex: 'region_am',
+            width: '24%',
             editable: true,
         },
         {
-            title: 'age',
-            dataIndex: 'age',
-            width: '15%',
+            title: 'region_en',
+            dataIndex: 'region_en',
+            width: '24%',
             editable: true,
         },
         {
-            title: 'address',
-            dataIndex: 'address',
-            width: '40%',
+            title: 'region_ru',
+            dataIndex: 'region_ru',
+            width: '24%',
             editable: true,
         },
         {
             title: 'operation',
             dataIndex: 'operation',
-            render: (_: any, record: Item) => {
+            render: (_: any, record: IRegion) => {
                 const editable = isEditing(record);
                 return editable ? (
                     <span>
-            <Typography.Link onClick={() => save(record.key)} style={{ marginRight: 8 }}>
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
+                        <Button>Save</Button>
+                        <Popconfirm title="Sure to cancel?" onConfirm={handleCancel}>
+                            <Button>Cancel</Button>
+                        </Popconfirm>
+                    </span>
                 ) : (
-                    <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-                        Edit
+                    <Typography.Link disabled={editingKey !== 0} onClick={() => handleEdit(record)}>
+                        <Button>Edit</Button>
                     </Typography.Link>
                 );
             },
@@ -156,9 +68,9 @@ const Regions = () => {
         }
         return {
             ...col,
-            onCell: (record: Item) => ({
+            onCell: (record: IRegion) => ({
                 record,
-                inputType: col.dataIndex === 'age' ? 'number' : 'text',
+                inputType: 'text',
                 dataIndex: col.dataIndex,
                 title: col.title,
                 editing: isEditing(record),
@@ -169,21 +81,25 @@ const Regions = () => {
     return (
         <AdminLayout>
             <div className='regions'>
-                <Form form={form} component={false}>
-                    <Table
-                        components={{
-                            body: {
-                                cell: EditableCell,
-                            },
-                        }}
-                        bordered
-                        dataSource={data}
-                        columns={mergedColumns}
-                        rowClassName="editable-row"
-                        pagination={{
-                            onChange: cancel,
-                        }}
-                    />
+                <Form component={false}>
+                    <FormikProvider value={formik}>
+                        <Table
+                            components={{ body: { cell: EditableCell }}}
+                            pagination={{
+                                pageSize: +params.per_page,
+                                showSizeChanger: false,
+                                current: +page,
+                                total: meta.total,
+                                onChange: (pageNumber) => handleChangeParams(pageNumber)
+                            }}
+                            bordered
+                            dataSource={regions}
+                            columns={mergedColumns}
+                            loading={isFetchingRegions}
+                            className='table'
+                            rowClassName="editable-row"
+                        />
+                    </FormikProvider>
                 </Form>
             </div>
         </AdminLayout>

@@ -12,9 +12,9 @@ export interface IParams {
 }
 
 export interface IMeta {
-    current_page: number,
-    last_page: number,
-    total: number,
+    current_page?: number,
+    last_page?: number,
+    total?: number,
 }
 
 export interface IRegion {
@@ -31,7 +31,7 @@ export interface IFetchRegionsSuccessPayload {
 }
 
 export interface IRegionsState {
-    meta: IMeta | object,
+    meta: IMeta,
     regions: IRegion[],
 }
 
