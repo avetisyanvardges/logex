@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
 
@@ -7,23 +7,24 @@ import useTypedSelector from 'hooks/useTypedSelector';
 import useParametricSelector from "hooks/useParametricSelector";
 import { fetchRegionsRequest } from "state/regions/actions";
 import {fetchRegionsEndpoint} from "state/regions/endpoints";
-import validationSchema from "lib/yupLocalised/scheme/signIn";
+import validationSchema from "lib/yupLocalised/scheme/regions";
 import {IRegion} from "state/regions/types";
+import {showModal} from '../../state/modals/actions';
+import TableOperations from 'views/shared/TableOperations';
 
 function useContainer() {
     const dispatch = useDispatch();
-    const { regions, meta } = useTypedSelector(({regions}) => regions);
+    // params
     const { page, params, handleChangeParams } = useQueryParams();
+    // endpoints
     const { endpoint: getRegionsEndpoint } = fetchRegionsEndpoint;
+    // selectors
+    const { regions, meta } = useTypedSelector(({regions}) => regions);
     const { isLoading: isFetchingRegions } = useParametricSelector(getRegionsEndpoint);
-    const [editingKey, setEditingKey] = useState(0);
-
-    const isEditing = (record: IRegion) => record.key === editingKey;
 
     const onSubmit = (values: Partial<IRegion>) => {
         console.log(values)
     };
-
 
     const formik = useFormik({
         initialValues: { region_am: '', region_en: '', region_ru: '' },
@@ -38,30 +39,22 @@ function useContainer() {
             region_en: record.region_en,
             region_ru: record.region_ru,
         });
-        setEditingKey(record.key);
     };
 
-    const handleCancel = () => {
-        setEditingKey(0);
-    };
+    const openRegionsFormModal = (region?: IRegion) => {
+        console.log(region)
 
-    const mergedColumns = useCallback((columns: any) => {
-        return columns.map((col: any) => {
-            if (!col.editable) {
-                return col;
-            }
-            return {
-                ...col,
-                onCell: (record: IRegion) => ({
-                    record,
-                    inputType: 'text',
-                    dataIndex: col.dataIndex,
-                    title: col.title,
-                    editing: isEditing(record),
-                }),
-            };
-        });
-    }, [regions]);
+        // dispatch(showModal({
+        //     modalType: 'REGIONS_FORM_MODAL',
+        //     modalProps: {
+        //         title: ''
+        //     }
+        // }))
+    }
+
+    const deleteRegion = (regionId: number) => {
+        console.log(regionId);
+    }
 
     const onUpdateHandler = () => {
         dispatch(fetchRegionsRequest(params));
@@ -69,18 +62,42 @@ function useContainer() {
 
     useEffect(onUpdateHandler, [page]);
 
+
+    /**
+     * Table columns
+     * **/
+    const columns = [
+            {
+                title: 'Region am',
+                dataIndex: 'region_am',
+                width: '24%',
+            },
+            {
+                title: 'Region en',
+                dataIndex: 'region_en',
+                width: '24%',
+            },
+            {
+                title: 'Region ru',
+                dataIndex: 'region_ru',
+                width: '24%',
+            },
+            {
+                title: 'Operations',
+                dataIndex: 'operation',
+                render: (_: any, record: IRegion) =>
+                    <TableOperations record={record} handleEdit={openRegionsFormModal} handleDelete={deleteRegion} />
+            },
+        ];
+
     return {
         page,
         regions,
         meta,
         params,
-        formik,
         isFetchingRegions,
-        editingKey,
-        mergedColumns,
-        handleCancel,
-        isEditing,
-        handleEdit,
+        columns,
+        openRegionsFormModal,
         handleChangeParams,
     }
 }

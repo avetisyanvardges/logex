@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import ExampleModal from 'views/shared/modals/ExampleModal';
+import RegionsFormModal from 'views/shared/modals/RegionsFormModal';
 
 interface IModalComponents {
     [key: string]: FC<any>,
 }
 
 const MODAL_COMPONENTS: IModalComponents = {
-    EXAMPLE_MODAL: ExampleModal,
+    REGIONS_FORM_MODAL: RegionsFormModal,
 };
 
 export default MODAL_COMPONENTS;
