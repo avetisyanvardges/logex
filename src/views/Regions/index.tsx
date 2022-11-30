@@ -1,17 +1,17 @@
 import React from 'react';
 import {Table} from 'antd';
 import AdminLayout from 'views/layouts/Admin';
+import TableHeader from 'views/shared/TableHeader';
 import useContainer from "./hook";
 import "./style.scss";
-import TableHeader from '../shared/TableHeader';
 
 const Regions = () => {
-    const { handleChangeParams, page, params, regions, meta, isFetchingRegions, columns } = useContainer();
+    const { handleChangeParams, page, params, regions, meta, isFetchingRegions, columns, openRegionsFormModal } = useContainer();
 
     return (
         <AdminLayout>
             <div className='regions'>
-                <TableHeader />
+                <TableHeader onCreate={openRegionsFormModal} totalCount={meta.total} />
                  <Table
                      pagination={{
                      pageSize: +params.per_page,

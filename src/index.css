@@ -18,6 +18,13 @@ code {
   content: none !important;
 }
 
+.ant-modal > .ant-modal-content {
+  border-radius: 20px;
+}
+.ant-modal > .ant-modal-content > .ant-modal-header {
+  border-radius: 20px 20px 0 0;
+}
+
 @font-face {
   font-family: "NOTO-SANS_ARMENIAN";
   src: local("NOTO-SANS_ARMENIAN"),

@@ -1,18 +1,47 @@
 import React, { FC } from "react";
-import { Modal } from 'antd';
+import {isEmpty} from "lodash";
+import {Button, Modal, Form} from 'antd';
+import { FormikProvider } from 'formik';
 import { IModalProps } from 'state/modals/types';
+import InputFiled from "views/shared/forms/InputField";
+import {IParams, IRegion} from "state/regions/types";
+import useContainer from "./hook";
+import "./style.scss";
 
 interface Props extends IModalProps {
-    title: 'title',
+    title: '',
+    region: IRegion,
+    params: IParams,
 }
 
-const RegionsFormModal: FC<Props> = ({ onClose, title }) => {
-
+const RegionsFormModal: FC<Props> = ({ onClose, title, region, params }) => {
+    const { formik, loading, onSubmit } = useContainer({region, params});
     return (
-        <Modal title={title} onCancel={onClose} open>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
+        <Modal
+            title={title}
+            onCancel={onClose}
+            className='regions-form-modal'
+            open
+            footer={
+                <div className='footer'>
+                    <Button onClick={onClose} className='cancel'>Cancel</Button>
+                    <Button
+                        loading={loading} disabled={!(formik.isValid && formik.dirty)}
+                        onClick={!isEmpty(formik.touched) ? onSubmit : onClose}
+                        className='save'
+                    >
+                        Save
+                    </Button>
+                </div>
+            }
+        >
+            <Form onFinish={formik.handleSubmit} className='form'>
+                <FormikProvider value={formik}>
+                    <InputFiled name="region_am" placeholder="Region am" type="text" className="input" formItemClassName='formItem' />
+                    <InputFiled name="region_en" placeholder="Region en" type="text" className="input" formItemClassName='formItem' />
+                    <InputFiled name="region_ru" placeholder="Region ru" type="text" className="input" formItemClassName='formItem' />
+                </FormikProvider>
+            </Form>
         </Modal>
     )
 }

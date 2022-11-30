@@ -19,7 +19,7 @@ const useQueryParams = () => {
 
     return {
         page,
-        params: {...queryParams, per_page: '5'},
+        params: {...queryParams, per_page: '10'},
         handleChangeParams,
     }
 };

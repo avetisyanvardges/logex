@@ -41,6 +41,7 @@ const SignIn = () => {
                        <Button loading={isLoading} htmlType='submit' className='signInButton'>
                            Մուտք
                        </Button>
+                       {/*disabled={!(formik.isValid && formik.dirty)}*/}
                    </FormikProvider>
                </Form>
             </div>

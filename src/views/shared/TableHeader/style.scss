@@ -1,5 +1,27 @@
-.tableHeader {
+.table-header {
   width: 100%;
-  border: 1px solid red;
-  height: 100px;
+  display: flex;
+  align-items: center;
+  padding: 37px 0 40px;
+  justify-content: space-around;
+  .item {
+    width: 300px;
+    height: 60px;
+    border-radius: 14px;
+    font-family: NOTO-SANS_ARMENIAN, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21.76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .total-count {
+    color: white;
+    background: #5BC852;
+  }
+  .add {
+    color: #5BC852;
+    border: 1px solid #5BC852;
+  }
 }

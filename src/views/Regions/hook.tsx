@@ -1,59 +1,38 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {useFormik} from "formik";
 
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from 'hooks/useTypedSelector';
 import useParametricSelector from "hooks/useParametricSelector";
-import { fetchRegionsRequest } from "state/regions/actions";
+import {deleteRegion, fetchRegionsRequest} from "state/regions/actions";
 import {fetchRegionsEndpoint} from "state/regions/endpoints";
-import validationSchema from "lib/yupLocalised/scheme/regions";
 import {IRegion} from "state/regions/types";
-import {showModal} from '../../state/modals/actions';
+import {showModal} from 'state/modals/actions';
 import TableOperations from 'views/shared/TableOperations';
 
 function useContainer() {
     const dispatch = useDispatch();
-    // params
     const { page, params, handleChangeParams } = useQueryParams();
-    // endpoints
     const { endpoint: getRegionsEndpoint } = fetchRegionsEndpoint;
-    // selectors
     const { regions, meta } = useTypedSelector(({regions}) => regions);
     const { isLoading: isFetchingRegions } = useParametricSelector(getRegionsEndpoint);
 
-    const onSubmit = (values: Partial<IRegion>) => {
-        console.log(values)
-    };
-
-    const formik = useFormik({
-        initialValues: { region_am: '', region_en: '', region_ru: '' },
-        validationSchema,
-        onSubmit,
-    });
-
-    const handleEdit = (record: Readonly<IRegion> & { key: React.Key }) => {
-        formik.setValues({
-            ...formik.values,
-            region_am: record.region_am,
-            region_en: record.region_en,
-            region_ru: record.region_ru,
-        });
-    };
-
     const openRegionsFormModal = (region?: IRegion) => {
-        console.log(region)
-
-        // dispatch(showModal({
-        //     modalType: 'REGIONS_FORM_MODAL',
-        //     modalProps: {
-        //         title: ''
-        //     }
-        // }))
+        dispatch(showModal({
+            modalType: 'REGIONS_FORM_MODAL',
+            modalProps: {
+                title: region ? 'Update Region' : 'Create region',
+                region,
+                params,
+            }
+        }))
     }
 
-    const deleteRegion = (regionId: number) => {
-        console.log(regionId);
+    const handleDeleteRegion = (regionId: number) => {
+        dispatch(deleteRegion({
+            id: String(regionId),
+            params,
+        }));
     }
 
     const onUpdateHandler = () => {
@@ -61,7 +40,6 @@ function useContainer() {
     }
 
     useEffect(onUpdateHandler, [page]);
-
 
     /**
      * Table columns
@@ -86,7 +64,7 @@ function useContainer() {
                 title: 'Operations',
                 dataIndex: 'operation',
                 render: (_: any, record: IRegion) =>
-                    <TableOperations record={record} handleEdit={openRegionsFormModal} handleDelete={deleteRegion} />
+                    <TableOperations record={record} handleEdit={openRegionsFormModal} handleDelete={handleDeleteRegion} />
             },
         ];
 
