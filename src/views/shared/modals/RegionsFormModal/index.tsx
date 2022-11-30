@@ -4,7 +4,8 @@ import {Button, Modal, Form} from 'antd';
 import { FormikProvider } from 'formik';
 import { IModalProps } from 'state/modals/types';
 import InputFiled from "views/shared/forms/InputField";
-import {IParams, IRegion} from "state/regions/types";
+import {IRegion} from "state/regions/types";
+import {IParams} from 'state/types';
 import useContainer from "./hook";
 import "./style.scss";
 

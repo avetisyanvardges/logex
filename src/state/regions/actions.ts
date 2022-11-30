@@ -1,5 +1,5 @@
-import {RegionsTypes, IParams, IFetchRegionsSuccessPayload, IRegionTypes, IRegion} from "state/regions/types";
-import {ActionWithPayload} from "state/createActions";
+import {RegionsTypes, IFetchRegionsSuccessPayload, IRegionTypes, IRegion} from "state/regions/types";
+import {ActionWithPayload, IParams} from "state/types";
 
 export type fetchRegionsRequestAction = ActionWithPayload<RegionsTypes.FETCH_REGIONS_REQUEST, IParams>;
 export type fetchRegionsSuccessAction = ActionWithPayload<RegionsTypes.FETCH_REGIONS_SUCCESS, IFetchRegionsSuccessPayload>;

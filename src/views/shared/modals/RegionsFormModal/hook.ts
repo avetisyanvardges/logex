@@ -3,10 +3,11 @@ import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
 import { isEmpty } from "lodash";
 import validationSchema from "lib/yupLocalised/scheme/regions";
-import {IParams, IRegion} from "state/regions/types";
+import {IRegion} from "state/regions/types";
 import {createRegion, updateRegion} from "state/regions/actions";
 import useParametricSelector from "hooks/useParametricSelector";
 import {createRegionEndpoint, updateRegionEndpoint} from "state/regions/endpoints";
+import {IParams} from 'state/types';
 
 interface Props { region?: IRegion, params: IParams }
 

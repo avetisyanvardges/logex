@@ -5,7 +5,7 @@ import AdminGuard from 'guards/AdminGuard';
 import SignIn from 'views/SignIn';
 import Regions from 'views/Regions';
 import Customers from 'views/Customers';
-import Community from 'views/Community';
+import Communities from 'views/Communities';
 import Orders from 'views/Orders';
 import Users from 'views/Users';
 import Warehouses from 'views/Warehouses';
@@ -22,7 +22,7 @@ const App = () => (
             <Route path="/" element={<AdminGuard/>} >
                 <Route path='' element={<Regions/>} />
                 <Route path='customers' element={<Customers/>} />
-                <Route path='community' element={<Community/>} />
+                <Route path='community' element={<Communities/>} />
                 <Route path='orders' element={<Orders/>} />
                 <Route path='users' element={<Users/>} />
                 <Route path='warehouses' element={<Warehouses/>} />

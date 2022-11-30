@@ -1,5 +1,5 @@
 import { ModalActionTypes, IShowModalPayload } from "state/modals/types";
-import {ActionWithPayload, Action} from 'state/createActions';
+import {ActionWithPayload, Action} from 'state/types';
 
 export type showModalAction = ActionWithPayload<ModalActionTypes.SHOW_MODAL, IShowModalPayload>;
 export type hideModalAction = Action<ModalActionTypes.HIDE_MODAL>;
