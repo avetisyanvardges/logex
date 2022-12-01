@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
-import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
-import {Popconfirm} from 'antd';
+import React, { FC } from 'react';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Popconfirm } from 'antd';
 import "./style.scss";
 
 interface IProps {

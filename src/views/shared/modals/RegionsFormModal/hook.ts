@@ -4,10 +4,10 @@ import {useFormik} from "formik";
 import { isEmpty } from "lodash";
 import validationSchema from "lib/yupLocalised/scheme/regions";
 import {IRegion} from "state/regions/types";
-import {createRegion, updateRegion} from "state/regions/actions";
-import useParametricSelector from "hooks/useParametricSelector";
-import {createRegionEndpoint, updateRegionEndpoint} from "state/regions/endpoints";
 import {IParams} from 'state/types';
+import {createRegion, updateRegion} from "state/regions/actions";
+import {createRegionEndpoint, updateRegionEndpoint} from "state/regions/endpoints";
+import useParametricSelector from "hooks/useParametricSelector";
 
 interface Props { region?: IRegion, params: IParams }
 
@@ -26,12 +26,14 @@ function useContainer({ region, params }: Props) {
         }
     }
 
+    /**  Formik initialization  */
     const formik = useFormik({
         initialValues: { region_am: '', region_en: '', region_ru: '' },
         validationSchema,
         onSubmit,
     });
 
+    /**  on form update handler  */
     const onUpdateHandler = () => {
         if(isEmpty(region)) return;
 
@@ -40,6 +42,8 @@ function useContainer({ region, params }: Props) {
         })
     };
 
+    /**  Lifecycle  */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(onUpdateHandler, [region]);
 
     return {

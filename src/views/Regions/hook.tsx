@@ -1,22 +1,24 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import {useDispatch} from "react-redux";
 
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from 'hooks/useTypedSelector';
 import useParametricSelector from "hooks/useParametricSelector";
-import {deleteRegion, fetchRegionsRequest} from "state/regions/actions";
-import {fetchRegionsEndpoint} from "state/regions/endpoints";
-import {IRegion} from "state/regions/types";
-import {showModal} from 'state/modals/actions';
+import useMount from "hooks/useMount";
+import { deleteRegion, fetchRegionsRequest } from "state/regions/actions";
+import { fetchRegionsEndpoint } from "state/regions/endpoints";
+import { IRegion } from "state/regions/types";
+import { showModal } from 'state/modals/actions';
 import TableOperations from 'views/shared/TableOperations';
 
 function useContainer() {
     const dispatch = useDispatch();
     const { page, params, handleChangeParams } = useQueryParams();
     const { endpoint: getRegionsEndpoint } = fetchRegionsEndpoint;
-    const { regions, meta } = useTypedSelector(({regions}) => regions);
+    const { regions, regionsMeta } = useTypedSelector(({regions}) => regions);
     const { isLoading: isFetchingRegions } = useParametricSelector(getRegionsEndpoint);
 
+    /** open modal for update and create  */
     const openRegionsFormModal = (region?: IRegion) => {
         dispatch(showModal({
             modalType: 'REGIONS_FORM_MODAL',
@@ -28,6 +30,7 @@ function useContainer() {
         }))
     }
 
+    /**  delete  */
     const handleDeleteRegion = (regionId: number) => {
         dispatch(deleteRegion({
             id: String(regionId),
@@ -35,16 +38,18 @@ function useContainer() {
         }));
     }
 
+    /**  on params update handler  */
     const onUpdateHandler = () => {
         dispatch(fetchRegionsRequest(params));
     }
 
+    /**  Lifecycle  */
     useEffect(onUpdateHandler, [page]);
+    useMount();
 
-    /**
-     * Table columns
-     * **/
-    const columns = [
+    /**  Table columns  */
+    const columns = useMemo(() => (
+        [
             {
                 title: 'Region am',
                 dataIndex: 'region_am',
@@ -66,12 +71,13 @@ function useContainer() {
                 render: (_: any, record: IRegion) =>
                     <TableOperations record={record} handleEdit={openRegionsFormModal} handleDelete={handleDeleteRegion} />
             },
-        ];
+        ]
+    ), [regions]);
 
     return {
         page,
         regions,
-        meta,
+        regionsMeta,
         params,
         isFetchingRegions,
         columns,

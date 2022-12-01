@@ -1,11 +1,10 @@
+import {IMeta, IRole} from "state/types";
+
 export enum AdminActionTypes {
     SIGN_IN_REQUEST = 'SIGN_IN_REQUEST',
     SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
-}
-
-export interface IRole {
-    id: string,
-    name: string,
+    FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST',
+    FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS',
 }
 
 export interface ICurrentAdmin {
@@ -17,14 +16,12 @@ export interface ICurrentAdmin {
     code?: string,
     email?: string,
     image?: string,
-    role?: Array<IRole>,
+    is_company?: boolean,
+    key?: number,
+    role?: IRole[],
+    region?: { id: number, region: string }
 }
 
-export interface IInitialState {
-    currentAdmin: ICurrentAdmin,
-}
+export interface IInitialState { currentAdmin: ICurrentAdmin, users: ICurrentAdmin[], usersMeta: IMeta }
 
-export interface ISignInRequestPayload {
-    email: string,
-    password: string,
-}
+export interface ISignInRequestPayload { email: string, password: string }

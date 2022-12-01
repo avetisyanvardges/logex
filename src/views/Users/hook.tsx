@@ -3,18 +3,20 @@ import { useDispatch } from 'react-redux';
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
 import { ICommunity } from "state/regions/types";
-import { fetchCommunitiesRequest } from "state/regions/actions";
+import { fetchUsersRequest } from "state/admins/actions";
 import TableOperations from "views/shared/TableOperations";
-import {fetchCommunitiesEndpoint} from "state/regions/endpoints";
+import {fetchUsersEndpoint} from "state/admins/endpoints";
 import useParametricSelector from "hooks/useParametricSelector";
 import useMount from "hooks/useMount";
+import {ICurrentAdmin} from "state/admins/types";
+import sliceText from "utils/sliceText";
 
 function useContainer() {
     const dispatch = useDispatch();
     const { page, params, handleChangeParams } = useQueryParams();
-    const { communities, communitiesMeta } = useTypedSelector(({regions}) => regions);
-    const { endpoint: getCommunitiesEndpoint } = fetchCommunitiesEndpoint;
-    const { isLoading: getCommunitiesLoading } = useParametricSelector(getCommunitiesEndpoint);
+    const { users, usersMeta } = useTypedSelector(({admins}) => admins);
+    const { endpoint: getUsersEndpoint } = fetchUsersEndpoint;
+    const { isLoading: getUsersLoading } = useParametricSelector(getUsersEndpoint);
 
     /**  create  */
     const handleCreate = () => {
@@ -33,7 +35,7 @@ function useContainer() {
 
     /**  on params update handler  */
     const onUpdateHandler = () => {
-        dispatch(fetchCommunitiesRequest(params));
+        dispatch(fetchUsersRequest(params));
     }
 
     /**  Lifecycle  */
@@ -43,12 +45,12 @@ function useContainer() {
     /**
      * Table columns
      * **/
-    const columns = useMemo(() => (
-        [
+    const columns = useMemo(() => ([
             {
-                title: 'Community am',
-                dataIndex: 'community_am',
+                title: 'Full name',
                 width: '20%',
+                render: (_: any, record: ICurrentAdmin) =>
+                    <span>{sliceText(`${record.first_name} ${record.last_name}`, 15)}</span>
             },
             {
                 title: 'Community en',
@@ -68,21 +70,20 @@ function useContainer() {
             {
                 title: 'Operations',
                 dataIndex: 'operation',
-                render: (_: any, record: ICommunity) =>
+                render: (_: any, record: ICurrentAdmin) =>
                     <TableOperations record={record} handleEdit={handleEdit} handleDelete={handleDelete} />
             },
-        ]
-    ), [communities])
+    ]), [users]);
 
 
     return {
         handleCreate,
         page,
-        communities,
         columns,
         params,
-        communitiesMeta,
-        getCommunitiesLoading,
+        users,
+        getUsersLoading,
+        usersMeta,
         handleChangeParams,
     }
 }

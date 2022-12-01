@@ -6,18 +6,18 @@ import useContainer from "./hook";
 import "./style.scss";
 
 const Regions = () => {
-    const { handleChangeParams, page, params, regions, meta, isFetchingRegions, columns, openRegionsFormModal } = useContainer();
+    const { handleChangeParams, page, params, regions, regionsMeta, isFetchingRegions, columns, openRegionsFormModal } = useContainer();
 
     return (
         <AdminLayout>
             <div className='regions'>
-                <TableHeader onCreate={openRegionsFormModal} totalCount={meta.total} />
+                <TableHeader onCreate={openRegionsFormModal} totalCount={regionsMeta.total} />
                  <Table
                      pagination={{
                      pageSize: +params.per_page,
                      showSizeChanger: false,
                      current: +page,
-                     total: meta.total,
+                     total: regionsMeta.total,
                       onChange: (pageNumber) => handleChangeParams(pageNumber)
                      }}
                      bordered
