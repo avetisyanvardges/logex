@@ -20,6 +20,7 @@ export interface ICurrentAdmin {
     key?: number,
     role?: IRole[],
     region?: { id: number, region: string }
+    community?: { id: number, community: string }
 }
 
 export interface IInitialState { currentAdmin: ICurrentAdmin, users: ICurrentAdmin[], usersMeta: IMeta }

@@ -13,6 +13,8 @@ const Regions = () => {
             <div className='regions'>
                 <TableHeader onCreate={openRegionsFormModal} totalCount={regionsMeta.total} />
                  <Table
+                     rowKey='id' bordered dataSource={regions} columns={columns}
+                     loading={isFetchingRegions} className='table'
                      pagination={{
                      pageSize: +params.per_page,
                      showSizeChanger: false,
@@ -20,12 +22,6 @@ const Regions = () => {
                      total: regionsMeta.total,
                       onChange: (pageNumber) => handleChangeParams(pageNumber)
                      }}
-                     bordered
-                     dataSource={regions}
-                     columns={columns}
-                     loading={isFetchingRegions}
-                     className='table'
-                     rowClassName="editable-row"
                 />
             </div>
         </AdminLayout>

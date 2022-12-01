@@ -4,7 +4,6 @@ import { createLogic } from 'redux-logic';
 import {RegionsTypes} from "state/regions/types";
 import {fetchRegionsEndpoint} from 'state/regions/endpoints';
 import {fetchRegionsRequestAction, fetchRegionsSuccess} from 'state/regions/actions';
-import convertForTable from "utils/convertForTable";
 
 interface IDependencies {
     httpClient: AxiosInstance,
@@ -20,8 +19,12 @@ const fetchRegions = createLogic({
 
         try {
             const {data: { data }} = await httpClient.get(url, { params: action.payload });
-            const { response, metaData } = convertForTable(data);
-            dispatch(fetchRegionsSuccess({ meta: metaData, regions: response }));
+            const metaData = {
+                current_page: data.meta.current_page,
+                last_page: data.meta.last_page,
+                total: data.meta.total
+            }
+            dispatch(fetchRegionsSuccess({ meta: metaData, regions: data.data }));
 
         }catch {
             // take in httpClient

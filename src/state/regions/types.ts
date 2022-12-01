@@ -15,11 +15,11 @@ export enum RegionsTypes {
 
 export interface IRegionTypes { region_am: string, region_en: string, region_ru: string }
 
-export interface IRegion extends IRegionTypes { id: number, key: number }
+export interface IRegion extends IRegionTypes { id: number }
 
 export interface IFetchRegionsSuccessPayload { meta: IMeta, regions: IRegion[] }
 
-export interface ICommunity { community: string, id: number, key: string, region: { id: number, region: string }}
+export interface ICommunity { community: string, id: number, region: { id: number, region: string }}
 
 export interface IRegionsState { regionsMeta: IMeta, regions: IRegion[], communities: ICommunity[], communitiesMeta: IMeta }
 
