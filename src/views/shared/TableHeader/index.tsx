@@ -10,7 +10,7 @@ interface IProps {
 
 const TableHeader: FC<IProps> = ({totalCount, onCreate}) => (
     <div className='table-header'>
-        <div className='item total-count'>Ընդհանուր քանակը` {totalCount}</div>
+        <div className='item total-count'>Ընդհանուր քանակը` {totalCount || 0}</div>
         <Button className='item add' onClick={() => onCreate()}>+ Ավելացնել</Button>
         <Input prefix={<SearchOutlined />} placeholder='Փնտրել' className='item' />
     </div>

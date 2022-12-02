@@ -1,13 +1,9 @@
 @import 'antd/dist/antd.css';
-.users {
+.customers {
   width: 100%;
   .table {
     overflow-x: auto;
     max-width: 99%;
     margin: 0 auto;
-    .role {
-      display: flex;
-      flex-direction: column;
-    }
   }
 }

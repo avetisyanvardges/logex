@@ -11,8 +11,10 @@ const Users = () => {
     return (
         <AdminLayout>
             <div className='users'>
-                {/*<TableHeader onCreate={handleCreate} totalCount={usersMeta.total} />*/}
+                <TableHeader onCreate={handleCreate} totalCount={usersMeta.total} />
                 <Table
+                    bordered rowKey='id' dataSource={users} scroll={{ x: 'max-content' }}
+                    columns={columns} loading={getUsersLoading} className='table'
                     pagination={{
                         pageSize: +params.per_page,
                         showSizeChanger: false,
@@ -20,15 +22,6 @@ const Users = () => {
                         total: usersMeta.total,
                         onChange: (pageNumber) => handleChangeParams(pageNumber)
                     }}
-                    bordered
-                    rowKey='id'
-                    style={{maxWidth: 1000}}
-                    dataSource={users}
-                    scroll={{ x: 'max-content' }}
-                    // sticky={true}
-                    columns={columns}
-                    loading={getUsersLoading}
-                    className='table'
                 />
             </div>
         </AdminLayout>

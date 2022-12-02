@@ -86,6 +86,12 @@ function useContainer() {
         },
         {
             width: 100,
+            title: 'Role',
+            render: (_: any, record: ICurrentAdmin) =>
+                <div className='role'>{record.role && record.role.map(({name, id}) =><span key={id + name}>{name}</span>)}</div>
+        },
+        {
+            width: 100,
             fixed: 'right' as 'right',
             title: 'Operations',
             dataIndex: 'operation',

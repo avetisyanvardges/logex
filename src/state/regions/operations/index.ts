@@ -4,7 +4,7 @@ import updateRegion from './updateRegion';
 import deleteRegion from './deleteRegion';
 import fetchCommunities from './fetchCommunities';
 
-const conceptsOperations = [
+const regionsOperations = [
     fetchRegions,
     createRegion,
     updateRegion,
@@ -12,4 +12,4 @@ const conceptsOperations = [
     fetchCommunities,
 ];
 
-export default conceptsOperations;
+export default regionsOperations;
