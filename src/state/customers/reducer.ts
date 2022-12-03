@@ -2,8 +2,8 @@ import {CustomersActionTypes, IInitialState} from 'state/customers/types';
 import {CustomersActions} from "state/customers/actions";
 
 const initialState: IInitialState = {
-    customersMeta: {},
     customers: [],
+    customersMeta: {},
 }
 
 const customers = (state = initialState, action: CustomersActions) => {

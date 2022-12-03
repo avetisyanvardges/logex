@@ -21,6 +21,6 @@ export interface ICustomers {
 }
 
 export interface IInitialState {
-    customersMeta: IMeta,
     customers: ICustomers[],
+    customersMeta: IMeta,
 }

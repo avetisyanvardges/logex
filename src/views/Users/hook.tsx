@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import {Popover} from 'antd';
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
-import { ICommunity } from "state/regions/types";
 import { fetchUsersRequest } from "state/admins/actions";
 import TableOperations from "views/shared/TableOperations";
 import {fetchUsersEndpoint} from "state/admins/endpoints";
@@ -46,7 +45,7 @@ function useContainer() {
     /**
      * Table columns
      * **/
-    const columns = [
+    const columns = useMemo(() => ([
         {
             title: 'Full name',
             width: 100,
@@ -98,8 +97,7 @@ function useContainer() {
             render: (_: any, record: ICurrentAdmin) =>
                 <TableOperations record={record} handleEdit={handleEdit} handleDelete={handleDelete} />
         },
-    ];
-
+    ]), [users]);
 
     return {
         handleCreate,

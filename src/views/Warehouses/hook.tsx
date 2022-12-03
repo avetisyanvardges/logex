@@ -1,22 +1,20 @@
 import React, {useEffect, useMemo} from "react";
-import { Popover } from "antd";
 import { useDispatch } from 'react-redux';
 import useMount from "hooks/useMount";
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
 import useParametricSelector from "hooks/useParametricSelector";
 import TableOperations from "views/shared/TableOperations";
-import {fetchCustomersRequest} from "state/customers/actions";
-import {fetchCustomersEndpoint} from "state/customers/endpoints";
-import {ICustomers} from "state/customers/types";
-import sliceText from "utils/sliceText";
+import {fetchWarehousesRequest} from 'state/warehouses/actions';
+import { fetchWarehousesEndpoint } from "state/warehouses/endpoints";
+import {IWarehouse} from 'state/warehouses/types';
 
 function useContainer() {
     const dispatch = useDispatch();
     const { page, params, handleChangeParams } = useQueryParams();
-    const { customers, customersMeta } = useTypedSelector(({customers}) => customers);
-    const { endpoint: getCustomersEndpoint } = fetchCustomersEndpoint;
-    const { isLoading: getCustomersLoading } = useParametricSelector(getCustomersEndpoint);
+    const { warehouses, warehousesMeta } = useTypedSelector(({warehouses}) => warehouses);
+    const { endpoint: getWarehousesEndpoint } = fetchWarehousesEndpoint;
+    const { isLoading: getWarehousesLoading } = useParametricSelector(getWarehousesEndpoint);
 
     /**  create  */
     const handleCreate = () => {
@@ -35,7 +33,7 @@ function useContainer() {
 
     /**  on params update handler  */
     const onUpdateHandler = () => {
-        dispatch(fetchCustomersRequest(params));
+        dispatch(fetchWarehousesRequest(params));
     }
 
     /**  Lifecycle  */
@@ -48,26 +46,20 @@ function useContainer() {
     const columns = useMemo(() => (
         [
             {
-                title: 'Full name',
+                title: 'Warehouse en',
                 width: 100,
+                dataIndex: 'warehouse_en',
                 fixed: 'left' as 'left',
-                dataIndex: 'first_name',
-                // render: (_: any, record: ICustomers) => <span>{`${record.first_name} ${record.last_name}`}</span>
             },
             {
-                title: 'Phone',
+                title: 'Warehouse am',
                 width: 100,
-                dataIndex: 'phone',
-            },
-            {
-                width: 100,
-                title: 'Community',
-                dataIndex: ['community', 'community'],
+                dataIndex: 'warehouse_am',
             },
             {
                 width: 100,
-                title: 'Region',
-                dataIndex: ['region', 'region'],
+                title: 'Warehouse ru',
+                dataIndex: 'warehouse_am',
             },
             {
                 width: 100,
@@ -76,24 +68,39 @@ function useContainer() {
             },
             {
                 width: 100,
+                title: 'Open at',
+                dataIndex: 'open_at',
+            },
+            {
+                width: 100,
+                title: 'Close at',
+                dataIndex: 'close_at',
+            },
+            {
+                width: 100,
+                title: 'code',
+                dataIndex: 'code',
+            },
+            {
+                width: 100,
                 title: 'Operations',
                 fixed: 'right' as 'right',
                 dataIndex: 'operation',
-                render: (_: any, record: ICustomers) =>
+                render: (_: any, record: IWarehouse) =>
                     <TableOperations record={record} handleEdit={handleEdit} handleDelete={handleDelete} />
             },
         ]
-    ), [customers]);
+    ), [warehouses]);
 
 
     return {
         handleCreate,
         page,
-        customers,
+        warehouses,
         columns,
         params,
-        customersMeta,
-        getCustomersLoading,
+        warehousesMeta,
+        getWarehousesLoading,
         handleChangeParams,
     }
 }
