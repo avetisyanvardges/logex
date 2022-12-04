@@ -24,6 +24,9 @@ code {
 .ant-modal > .ant-modal-content > .ant-modal-header {
   border-radius: 20px 20px 0 0;
 }
+.spin {
+  margin-top: 50px;
+}
 
 @font-face {
   font-family: "NOTO-SANS_ARMENIAN";

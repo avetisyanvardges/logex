@@ -20,6 +20,7 @@ const menuItems: MenuItem[] = [
     getItem('Customers', '/customers', <UserOutlined />),
     getItem('Warehouses', '/warehouses', <DesktopOutlined />),
     getItem('Orders', '/orders', <DesktopOutlined />),
+    getItem('Roles', '/roles', <DesktopOutlined />),
     // getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
 ];
 
@@ -46,7 +47,7 @@ function useContainer() {
 
     const handleLogAuth = () => {
         Account.delete();
-        history.replace('auth/sign-in');
+        history.replace('/auth/sign-in');
     }
 
     const dropdownItems: MenuProps['items'] = useMemo(() => ([
