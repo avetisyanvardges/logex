@@ -6,12 +6,12 @@ import useContainer from "./hook";
 import "./style.scss";
 
 const Roles = () => {
-    const { handleChangeParams, page, params, rolesMeta, roles, isFetchingRoles, columns, createRole } = useContainer();
+    const { handleChangeParams, page, params, rolesMeta, roles, isFetchingRoles, columns, handleCreateRole } = useContainer();
 
     return (
         <AdminLayout>
             <div className='roles'>
-                <TableHeader onCreate={createRole} totalCount={rolesMeta.total} />
+                <TableHeader onCreate={handleCreateRole} totalCount={rolesMeta.total} />
                  <Table
                      rowKey='id' bordered dataSource={roles} columns={columns}
                      loading={isFetchingRoles} className='table'

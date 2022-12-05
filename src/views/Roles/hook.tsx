@@ -20,17 +20,17 @@ function useContainer() {
     const { isLoading: isFetchingRoles } = useParametricSelector(getRolesEndpoint);
 
     /** create  */
-    const createRole = () => {
+    const handleCreateRole = () => {
         navigate(`/roles/create`);
     }
 
     /** update  */
-    const updateRole = ({id}: {id: number}) => {
+    const handleUpdateRole = ({id}: {id: number}) => {
         navigate(`/roles/update/${id}`);
     }
 
     /**  delete  */
-    const deleteRole = () => {
+    const handleDeleteRole = () => {
         console.log('deleteRole')
     }
 
@@ -56,7 +56,7 @@ function useContainer() {
                 width: '50%',
                 dataIndex: 'operation',
                 render: (_: any, record: IRole) =>
-                    <TableOperations record={record} handleEdit={updateRole} handleDelete={deleteRole} />
+                    <TableOperations record={record} handleEdit={handleUpdateRole} handleDelete={handleDeleteRole} />
             },
         ]
     ), [roles]);
@@ -68,7 +68,7 @@ function useContainer() {
         params,
         isFetchingRoles,
         columns,
-        createRole,
+        handleCreateRole,
         handleChangeParams,
     }
 }

@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
-import {Spin} from 'antd';
 import { Route, Routes } from "react-router-dom";
+import Account from 'lib/account';
 import AuthGuard from 'guards/AuthGuard';
 import AdminGuard from 'guards/AdminGuard';
 import SignIn from 'views/SignIn';
@@ -11,19 +11,13 @@ import Orders from 'views/Orders';
 import Users from 'views/Users';
 import Warehouses from 'views/Warehouses';
 import Roles from 'views/Roles';
-import Account from 'lib/account';
-import AdminLayout from 'views/layouts/Admin';
-import AuthLayout from 'views/layouts/Auth';
+import LoaderWithLayout from "views/shared/LoaderWithLayout";
 
 const ModalRoot = lazy(() => import('views/ModalRoot/container'));
 const CreateAndUpdateRole = lazy(() => import('views/Roles/CreateAndUpdateRole'));
 
 const App = () => (
-    <Suspense
-        fallback={Account.getAccessToken() ?
-            <AdminLayout><Spin style={{marginTop: 50}} /></AdminLayout> :
-            <AuthLayout><Spin style={{marginTop: 50}} /></AuthLayout>}
-    >
+    <Suspense fallback={Account.getAccessToken() ? <LoaderWithLayout isAdmin /> : <LoaderWithLayout isAuth />}>
         <Routes>
             <Route path="/auth" element={<AuthGuard/>} >
                 <Route path="sign-in" element={<SignIn/>} />

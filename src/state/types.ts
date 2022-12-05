@@ -6,3 +6,7 @@ export interface IParams { page: string, per_page: string }
 export interface IMeta { current_page?: number, last_page?: number, total?: number }
 
 export interface IRole { id: string, name: string }
+
+export interface IPermission { id: number, name: string }
+
+export interface IRoleById { id?: number, name?: string, permissions?: IPermission[] }
