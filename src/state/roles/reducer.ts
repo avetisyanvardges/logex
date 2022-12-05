@@ -5,7 +5,11 @@ const initialState: IRolesState = {
     roles: [],
     rolesMeta: {},
     permissions: [],
-    roleById: {},
+    roleById: {
+        id: 0,
+        name: '',
+        permissions: [],
+    },
 }
 
 const roles = (state = initialState, action: RolesActionTypes) => {

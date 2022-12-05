@@ -5,7 +5,6 @@ import {fetchPermissionsRequest, fetchRolesByIdRequest} from "state/roles/action
 import {fetchPermissionsEndpoint, fetchRolesByIdEndpoint} from "state/roles/endpoints";
 import useParametricSelector from "hooks/useParametricSelector";
 import {useFormik} from "formik";
-import validationSchema from "lib/yupLocalised/scheme/regions";
 import useTypedSelector from "hooks/useTypedSelector";
 import {IPermission} from "state/types";
 import {useEffect, useMemo} from "react";
@@ -20,13 +19,6 @@ function useContainer() {
     const { isLoading: getRoleByIdLoading } = useParametricSelector(getRoleByIdEndpoint);
     const { permissions, roleById } = useTypedSelector(({roles}) => roles);
 
-    const initialValues = useMemo(() => {
-        return permissions.reduce((acc: {[key: string]: {checked: boolean, id: number}}, item: IPermission) => {
-            acc[item.name] = {checked: false, id: item.id};
-            return acc;
-        }, {});
-    }, [permissions]);
-
     const onSubmit = () => {
         console.log('onSubmit')
     }
@@ -34,35 +26,58 @@ function useContainer() {
     /**  Formik initialization  */
     const formik = useFormik({
         enableReinitialize: true,
-        initialValues,
-        validationSchema,
+        initialValues: {
+            name: '',
+            permissions: {},
+        },
         onSubmit,
     });
 
+    console.log(formik.values)
+
     /**  On update handler  */
     const onUpdateHandler = () => {
-        if (isEmpty(roleById.permissions)) return;
+        const initialValuesPermissions = permissions.reduce((acc: {[key: number]: boolean}, item: IPermission) => {
+            acc[item.id] = false;
+            return acc;
+        }, {});
 
-        // const values = roleById.permissions.reduce((acc: {[key: string]: {checked: boolean, id: number}}, item: IPermission) => {
-        //     acc[item.name] = {checked: false, id: item.id};
-        //     return acc;
-        // }, {});
-    }
+        if (isEmpty(roleById.permissions)) {
+            formik.setValues({
+                name: formik.values.name,
+                permissions: initialValuesPermissions,
+            })
+            return;
+        }
+
+        const newValues = roleById.permissions.reduce((acc: {[key: number]: boolean}, item: IPermission) => {
+            acc[item.id] = true;
+            return acc;
+        }, {});
+        console.log(formik.values, 555)
+        formik.setValues({
+            name: formik.values.name,
+            permissions: { ...initialValuesPermissions, ...newValues }
+        })
+    };
 
     /**  On mount handler  */
     const onMountHandler = () => {
         dispatch(fetchPermissionsRequest());
-        if(id) dispatch(fetchRolesByIdRequest(id));
+        if(id) dispatch(fetchRolesByIdRequest('8'));
     }
 
     /**  Lifecycle  */
     useMount(onMountHandler);
-    useEffect(onUpdateHandler, [roleById]);
+    useEffect(onUpdateHandler, [roleById, permissions]);
 
     return {
         id,
         getPermissionsLoading,
         getRoleByIdLoading,
+        formik,
+        roleById,
+        permissions,
     }
 }
 

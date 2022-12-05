@@ -9,4 +9,4 @@ export interface IRole { id: string, name: string }
 
 export interface IPermission { id: number, name: string }
 
-export interface IRoleById { id?: number, name?: string, permissions?: IPermission[] }
+export interface IRoleById { id: number, name: string, permissions: IPermission[] }
