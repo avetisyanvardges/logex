@@ -1,7 +1,19 @@
 import React, { FC } from "react";
 import { Form, Input } from 'antd';
 import { useField } from "formik";
-import { IFormField } from '../types';
+
+interface IFormField {
+    label?: string,
+        name: string,
+        placeholder?: string,
+        formItemClassName?: string,
+        asComponent?: any,
+        props?: any,
+        className?: any,
+        type?: string,
+        bordered?: boolean,
+        prefix?: any,
+}
 
 const defaultProps: IFormField = {
     label: '',
@@ -21,7 +33,8 @@ const InputFiled: FC<IFormField> = ({
       ...props
     }) => {
     const [field, meta] = useField(name);
-    const hasError: any = meta.touched && meta.error;
+    const hasError: any = meta.error;
+    // const hasError: any = meta.touched && meta.error;
     const Error = hasError ? <div className="error">{meta.error}</div> : undefined;
 
     return (

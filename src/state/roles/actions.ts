@@ -10,6 +10,7 @@ export type fetchPermissionsRequestAction = Action<RolesTypes.FETCH_PERMISSIONS_
 export type fetchPermissionsSuccessAction = ActionWithPayload<RolesTypes.FETCH_PERMISSIONS_SUCCESS, IPermission[]>;
 export type fetchRolesByIdRequestAction = ActionWithPayload<RolesTypes.FETCH_ROLE_BY_ID_REQUEST, string>;
 export type fetchRolesByIdSuccessAction = ActionWithPayload<RolesTypes.FETCH_ROLE_BY_ID_SUCCESS, IRoleById>;
+export type clearRoleByIdAction = Action<RolesTypes.CLEAR_ROLE_BY_ID>;
 
 export const fetchRolesRequest = (params: IParams) => ({
     type: RolesTypes.FETCH_ROLES_REQUEST,
@@ -55,4 +56,12 @@ export const fetchRolesByIdSuccess = (data: IRoleById) => ({
     payload: data,
 });
 
-export type RolesActionTypes = fetchRolesSuccessAction | fetchPermissionsSuccessAction | fetchRolesByIdSuccessAction;
+export const clearRoleById = () => ({
+    type: RolesTypes.CLEAR_ROLE_BY_ID,
+});
+
+export type RolesActionTypes =
+    fetchRolesSuccessAction |
+    fetchPermissionsSuccessAction |
+    clearRoleByIdAction |
+    fetchRolesByIdSuccessAction;

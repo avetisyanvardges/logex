@@ -1,14 +1,18 @@
+import {useEffect, useMemo} from "react";
 import {useParams} from 'react-router-dom';
 import {useDispatch} from "react-redux";
-import useMount from "hooks/useMount";
-import {fetchPermissionsRequest, fetchRolesByIdRequest} from "state/roles/actions";
-import {fetchPermissionsEndpoint, fetchRolesByIdEndpoint} from "state/roles/endpoints";
-import useParametricSelector from "hooks/useParametricSelector";
 import {useFormik} from "formik";
-import useTypedSelector from "hooks/useTypedSelector";
-import {IPermission} from "state/types";
-import {useEffect, useMemo} from "react";
 import {isEmpty} from "lodash";
+
+import {IPermission} from "state/types";
+import {clearRoleById, fetchPermissionsRequest, fetchRolesByIdRequest} from "state/roles/actions";
+import {fetchPermissionsEndpoint, fetchRolesByIdEndpoint} from "state/roles/endpoints";
+import useMount from "hooks/useMount";
+import useParametricSelector from "hooks/useParametricSelector";
+import useTypedSelector from "hooks/useTypedSelector";
+import permissionName from "utils/permissionName";
+import useUnMount from "hooks/useUnMount";
+import validationSchema from "lib/yupLocalised/scheme/role";
 
 function useContainer() {
     const dispatch = useDispatch();
@@ -19,6 +23,25 @@ function useContainer() {
     const { isLoading: getRoleByIdLoading } = useParametricSelector(getRoleByIdEndpoint);
     const { permissions, roleById } = useTypedSelector(({roles}) => roles);
 
+    /** checkbox group options  */
+    const options = useMemo(() => {
+        return permissions.reduce((acc: { label: string, value: number }[], item: IPermission) => {
+            acc.push({label: permissionName(item.name), value: item.id});
+            return acc;
+        }, []);
+    }, [permissions]);
+
+    /** checkbox group selected options  */
+    const defaultSelectedOptions = useMemo(() => {
+        if(isEmpty(roleById.permissions)) return [];
+
+        return roleById.permissions.reduce((acc: number[], item: IPermission) => {
+            acc.push(item.id);
+            return acc;
+        }, []);
+    }, [roleById]);
+
+    /**  Formik handleSubmit  */
     const onSubmit = () => {
         console.log('onSubmit')
     }
@@ -28,48 +51,39 @@ function useContainer() {
         enableReinitialize: true,
         initialValues: {
             name: '',
-            permissions: {},
+            permissions: defaultSelectedOptions,
         },
+        validationSchema,
         onSubmit,
     });
-
-    console.log(formik.values)
-
-    /**  On update handler  */
-    const onUpdateHandler = () => {
-        const initialValuesPermissions = permissions.reduce((acc: {[key: number]: boolean}, item: IPermission) => {
-            acc[item.id] = false;
-            return acc;
-        }, {});
-
-        if (isEmpty(roleById.permissions)) {
-            formik.setValues({
-                name: formik.values.name,
-                permissions: initialValuesPermissions,
-            })
-            return;
-        }
-
-        const newValues = roleById.permissions.reduce((acc: {[key: number]: boolean}, item: IPermission) => {
-            acc[item.id] = true;
-            return acc;
-        }, {});
-        console.log(formik.values, 555)
-        formik.setValues({
-            name: formik.values.name,
-            permissions: { ...initialValuesPermissions, ...newValues }
-        })
-    };
 
     /**  On mount handler  */
     const onMountHandler = () => {
         dispatch(fetchPermissionsRequest());
-        if(id) dispatch(fetchRolesByIdRequest('8'));
+        if(id) dispatch(fetchRolesByIdRequest(id));
+    }
+
+    /**  On un mount handler  */
+    const onUnMountHandler = () => {
+        if(!id) return;
+
+        dispatch(clearRoleById())
+    }
+
+    /**  On update handler  */
+    const onUpdateHandler = () => {
+        if(!id) return;
+
+        formik.setValues({
+            ...formik.values,
+            name: roleById.name,
+        })
     }
 
     /**  Lifecycle  */
+    useUnMount(onUnMountHandler);
+    useEffect(onUpdateHandler, [roleById]);
     useMount(onMountHandler);
-    useEffect(onUpdateHandler, [roleById, permissions]);
 
     return {
         id,
@@ -78,6 +92,7 @@ function useContainer() {
         formik,
         roleById,
         permissions,
+        options,
     }
 }
 

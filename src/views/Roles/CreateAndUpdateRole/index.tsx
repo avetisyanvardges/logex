@@ -1,14 +1,16 @@
 import React from 'react';
-import {Checkbox, Form} from 'antd';
+import {Button, Form} from 'antd';
+import {FormikProvider} from 'formik';
 import AdminLayout from 'views/layouts/Admin';
 import LoaderWithLayout from "views/shared/LoaderWithLayout";
 import InputFiled from 'views/shared/forms/InputField';
-import CheckBoxGroupField from 'views/shared/forms/CheckBoxGroupField';
+import CheckBoxGroupField from "views/shared/forms/CheckBoxGroupField";
 import useContainer from './hook';
-import {FormikProvider} from 'formik';
+import NextButton from "views/shared/NextButton";
+import './style.scss';
 
 const CreateAndUpdateRole = () => {
-    const { id, getPermissionsLoading, getRoleByIdLoading, formik, roleById, permissions } = useContainer();
+    const { getPermissionsLoading, getRoleByIdLoading, formik, options, roleById } = useContainer();
 
     if(getPermissionsLoading || getRoleByIdLoading) {
            return <LoaderWithLayout isAdmin />
@@ -17,16 +19,24 @@ const CreateAndUpdateRole = () => {
     return (
         <AdminLayout>
             <div className='role-forms'>
+                <div className='header'>
+                    <NextButton />
+                    <p className='title'>{roleById.name ? `Update ${roleById.name} role` : 'Create new role'}</p>
+                </div>
                 <Form onFinish={formik.handleSubmit} className='form'>
                     <FormikProvider value={formik}>
-                        <InputFiled name="name" placeholder="Role name" className="name-input" />
-                        <Checkbox.Group>
-                            {permissions.map(item => (
-                                <Checkbox key={item.id} name={item.id}>
-                                    {item.name}
-                                </Checkbox>
-                            ))}
-                        </Checkbox.Group>
+                        <p className='label'>Role name</p>
+                        <InputFiled
+                            name="name"
+                            placeholder="Role name"
+                            className="name-input"
+                            formItemClassName='input-form-item'
+                        />
+                        <p className='label'>Permissions</p>
+                        <CheckBoxGroupField items={options} name='permissions' className='check-box-field' />
+                        <div className='button-div'>
+                            <Button htmlType='submit' className='submit-button'>Save</Button>
+                        </div>
                     </FormikProvider>
                 </Form>
             </div>

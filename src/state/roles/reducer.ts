@@ -20,6 +20,8 @@ const roles = (state = initialState, action: RolesActionTypes) => {
             return { ...state, permissions: action.payload };
         case RolesTypes.FETCH_ROLE_BY_ID_SUCCESS:
             return { ...state, roleById: action.payload };
+        case RolesTypes.CLEAR_ROLE_BY_ID:
+            return { ...state, roleById: initialState.roleById };
         default:
             return state;
     }
