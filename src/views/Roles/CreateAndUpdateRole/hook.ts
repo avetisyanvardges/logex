@@ -5,22 +5,26 @@ import {useFormik} from "formik";
 import {isEmpty} from "lodash";
 
 import {IPermission} from "state/types";
-import {clearRoleById, fetchPermissionsRequest, fetchRolesByIdRequest} from "state/roles/actions";
-import {fetchPermissionsEndpoint, fetchRolesByIdEndpoint} from "state/roles/endpoints";
+import { createRole, fetchPermissionsRequest, fetchRolesByIdRequest, updateRole } from "state/roles/actions";
+import { fetchPermissionsEndpoint, fetchRolesByIdEndpoint, createRoleEndpoint, updateRoleEndpoint } from "state/roles/endpoints";
 import useMount from "hooks/useMount";
+import {ICreateAndUpdateRolePayload} from 'state/roles/types';
 import useParametricSelector from "hooks/useParametricSelector";
 import useTypedSelector from "hooks/useTypedSelector";
 import permissionName from "utils/permissionName";
-import useUnMount from "hooks/useUnMount";
 import validationSchema from "lib/yupLocalised/scheme/role";
 
 function useContainer() {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { endpoint: getPermissionEndpoint } = fetchPermissionsEndpoint;
-    const { isLoading: getPermissionsLoading } = useParametricSelector(getPermissionEndpoint);
+    const { endpoint: createEndpoint } = createRoleEndpoint;
+    const { endpoint: updateEndpoint } = updateRoleEndpoint(id || '');
     const { endpoint: getRoleByIdEndpoint } = fetchRolesByIdEndpoint(id || '');
+    const { isLoading: getPermissionsLoading } = useParametricSelector(getPermissionEndpoint);
     const { isLoading: getRoleByIdLoading } = useParametricSelector(getRoleByIdEndpoint);
+    const { isLoading: createLoader, error: createError } = useParametricSelector(createEndpoint);
+    const { isLoading: updateLoader, error: updateError } = useParametricSelector(createEndpoint);
     const { permissions, roleById } = useTypedSelector(({roles}) => roles);
 
     /** checkbox group options  */
@@ -31,19 +35,13 @@ function useContainer() {
         }, []);
     }, [permissions]);
 
-    /** checkbox group selected options  */
-    const defaultSelectedOptions = useMemo(() => {
-        if(isEmpty(roleById.permissions)) return [];
-
-        return roleById.permissions.reduce((acc: number[], item: IPermission) => {
-            acc.push(item.id);
-            return acc;
-        }, []);
-    }, [roleById]);
-
     /**  Formik handleSubmit  */
-    const onSubmit = () => {
-        console.log('onSubmit')
+    const onSubmit = (values: ICreateAndUpdateRolePayload) => {
+        if(id) {
+            dispatch(updateRole({...values, id}));
+        } else {
+            dispatch(createRole(values));
+        }
     }
 
     /**  Formik initialization  */
@@ -51,37 +49,39 @@ function useContainer() {
         enableReinitialize: true,
         initialValues: {
             name: '',
-            permissions: defaultSelectedOptions,
+            permissions: [],
         },
         validationSchema,
+        initialErrors: {
+            name: createError || updateError,
+        },
         onSubmit,
     });
 
     /**  On mount handler  */
     const onMountHandler = () => {
+        formik.resetForm();
         dispatch(fetchPermissionsRequest());
         if(id) dispatch(fetchRolesByIdRequest(id));
     }
 
-    /**  On un mount handler  */
-    const onUnMountHandler = () => {
-        if(!id) return;
-
-        dispatch(clearRoleById())
-    }
-
     /**  On update handler  */
     const onUpdateHandler = () => {
-        if(!id) return;
+        if(!id && isEmpty(roleById.permissions)) return;
+
+        const checkedItems = roleById.permissions.reduce((acc: number[] | any, item: IPermission) => {
+            acc.push(item.id);
+            return acc;
+        }, []);
 
         formik.setValues({
             ...formik.values,
             name: roleById.name,
+            permissions: checkedItems,
         })
     }
 
     /**  Lifecycle  */
-    useUnMount(onUnMountHandler);
     useEffect(onUpdateHandler, [roleById]);
     useMount(onMountHandler);
 
@@ -93,6 +93,7 @@ function useContainer() {
         roleById,
         permissions,
         options,
+        buttonLoader: createLoader || updateLoader,
     }
 }
 

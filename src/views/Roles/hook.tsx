@@ -7,7 +7,7 @@ import useTypedSelector from 'hooks/useTypedSelector';
 import useParametricSelector from "hooks/useParametricSelector";
 import useMount from "hooks/useMount";
 import { fetchRolesEndpoint } from "state/roles/endpoints";
-import {fetchRolesRequest} from 'state/roles/actions';
+import {deleteRole, fetchRolesRequest} from 'state/roles/actions';
 import {IRole} from 'state/types';
 import TableOperations from 'views/shared/TableOperations';
 
@@ -30,8 +30,8 @@ function useContainer() {
     }
 
     /**  delete  */
-    const handleDeleteRole = () => {
-        console.log('deleteRole')
+    const handleDeleteRole = (id: string) => {
+        dispatch(deleteRole({params, id}))
     }
 
     /**  on params update handler  */

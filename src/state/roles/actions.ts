@@ -4,13 +4,12 @@ import { ICreateAndUpdateRolePayload, RolesTypes } from './types';
 export type fetchRolesRequestAction = ActionWithPayload<RolesTypes.FETCH_ROLES_REQUEST, IParams>;
 export type fetchRolesSuccessAction = ActionWithPayload<RolesTypes.FETCH_ROLES_SUCCESS, {roles: IRole[], meta: IMeta}>;
 export type createRoleAction = ActionWithPayload<RolesTypes.CREATE_ROLE, ICreateAndUpdateRolePayload>;
-export type updateRoleAction = ActionWithPayload<RolesTypes.UPDATE_ROLE, ICreateAndUpdateRolePayload>;
+export type updateRoleAction = ActionWithPayload<RolesTypes.UPDATE_ROLE, ICreateAndUpdateRolePayload & {id: string}>;
 export type deleteRoleAction = ActionWithPayload<RolesTypes.DELETE_ROLE, {id: string} & {params: IParams}>;
 export type fetchPermissionsRequestAction = Action<RolesTypes.FETCH_PERMISSIONS_REQUEST>;
 export type fetchPermissionsSuccessAction = ActionWithPayload<RolesTypes.FETCH_PERMISSIONS_SUCCESS, IPermission[]>;
 export type fetchRolesByIdRequestAction = ActionWithPayload<RolesTypes.FETCH_ROLE_BY_ID_REQUEST, string>;
 export type fetchRolesByIdSuccessAction = ActionWithPayload<RolesTypes.FETCH_ROLE_BY_ID_SUCCESS, IRoleById>;
-export type clearRoleByIdAction = Action<RolesTypes.CLEAR_ROLE_BY_ID>;
 
 export const fetchRolesRequest = (params: IParams) => ({
     type: RolesTypes.FETCH_ROLES_REQUEST,
@@ -27,7 +26,7 @@ export const createRole = (data: ICreateAndUpdateRolePayload) => ({
     payload: data,
 });
 
-export const updateRole = (data: ICreateAndUpdateRolePayload) => ({
+export const updateRole = (data: ICreateAndUpdateRolePayload & {id: string}) => ({
     type: RolesTypes.UPDATE_ROLE,
     payload: data,
 });
@@ -56,12 +55,4 @@ export const fetchRolesByIdSuccess = (data: IRoleById) => ({
     payload: data,
 });
 
-export const clearRoleById = () => ({
-    type: RolesTypes.CLEAR_ROLE_BY_ID,
-});
-
-export type RolesActionTypes =
-    fetchRolesSuccessAction |
-    fetchPermissionsSuccessAction |
-    clearRoleByIdAction |
-    fetchRolesByIdSuccessAction;
+export type RolesActionTypes = fetchRolesSuccessAction | fetchPermissionsSuccessAction | fetchRolesByIdSuccessAction;

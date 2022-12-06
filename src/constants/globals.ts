@@ -2,4 +2,4 @@ export const API_HOST = process.env.REACT_APP_PUBLIC_API_HOST || 'http://localho
 
 export const MAX_INPUT_LENGTH = 30;
 
-export const MAX_REGION_INPUT_LENGTH = 10;
+export const MAX_REGION_INPUT_LENGTH = 20;

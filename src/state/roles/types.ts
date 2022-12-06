@@ -1,4 +1,4 @@
-import {IMeta, IParams, IPermission, IRole, IRoleById} from "state/types";
+import {IMeta, IPermission, IRole, IRoleById} from "state/types";
 
 export enum RolesTypes {
     FETCH_ROLES_REQUEST = 'FETCH_ROLES_REQUEST',
@@ -10,13 +10,11 @@ export enum RolesTypes {
     FETCH_PERMISSIONS_SUCCESS = 'FETCH_PERMISSIONS_SUCCESS',
     FETCH_ROLE_BY_ID_REQUEST = 'FETCH_ROLE_BY_ID_REQUEST',
     FETCH_ROLE_BY_ID_SUCCESS = 'FETCH_ROLE_BY_ID_SUCCESS',
-    CLEAR_ROLE_BY_ID = 'CLEAR_ROLE_BY_ID',
 }
 
 export interface ICreateAndUpdateRolePayload {
     name: string,
     permissions: number[],
-    params: IParams,
 }
 
 export interface IRolesState {

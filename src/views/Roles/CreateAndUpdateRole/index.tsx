@@ -10,7 +10,7 @@ import NextButton from "views/shared/NextButton";
 import './style.scss';
 
 const CreateAndUpdateRole = () => {
-    const { getPermissionsLoading, getRoleByIdLoading, formik, options, roleById } = useContainer();
+    const { getPermissionsLoading, getRoleByIdLoading, formik, options, roleById, buttonLoader } = useContainer();
 
     if(getPermissionsLoading || getRoleByIdLoading) {
            return <LoaderWithLayout isAdmin />
@@ -19,7 +19,7 @@ const CreateAndUpdateRole = () => {
     return (
         <AdminLayout>
             <div className='role-forms'>
-                <div className='header'>
+                <div className='form-header'>
                     <NextButton />
                     <p className='title'>{roleById.name ? `Update ${roleById.name} role` : 'Create new role'}</p>
                 </div>
@@ -35,7 +35,7 @@ const CreateAndUpdateRole = () => {
                         <p className='label'>Permissions</p>
                         <CheckBoxGroupField items={options} name='permissions' className='check-box-field' />
                         <div className='button-div'>
-                            <Button htmlType='submit' className='submit-button'>Save</Button>
+                            <Button loading={buttonLoader} htmlType='submit' className='submit-button'>Save</Button>
                         </div>
                     </FormikProvider>
                 </Form>
