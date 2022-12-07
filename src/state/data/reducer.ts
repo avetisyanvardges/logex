@@ -20,7 +20,7 @@ const dataReducer = (state: IInitialState = {}, action: DataRequestActions) => {
         case DataRequestTypes.DATA_API_FAILURE:
             return {
                 ...state,
-                [action.payload.endpoint]: { loading: false, error: action.payload.error.message || null },
+                [action.payload.endpoint]: { loading: false, error: action.payload.error || null },
             };
 
         case DataRequestTypes.CLEAR_DATA_REDUCER: return {};

@@ -1,12 +1,13 @@
 import React from 'react';
-import {Button, Form} from 'antd';
+import {Button, Divider, Form} from 'antd';
 import {FormikProvider} from 'formik';
+
 import AdminLayout from 'views/layouts/Admin';
-import LoaderWithLayout from "views/shared/LoaderWithLayout";
+import NextButton from "views/shared/NextButton";
 import InputFiled from 'views/shared/forms/InputField';
+import LoaderWithLayout from "views/shared/LoaderWithLayout";
 import CheckBoxGroupField from "views/shared/forms/CheckBoxGroupField";
 import useContainer from './hook';
-import NextButton from "views/shared/NextButton";
 import './style.scss';
 
 const CreateAndUpdateRole = () => {
@@ -32,6 +33,7 @@ const CreateAndUpdateRole = () => {
                             className="name-input"
                             formItemClassName='input-form-item'
                         />
+                        <Divider />
                         <p className='label'>Permissions</p>
                         <CheckBoxGroupField items={options} name='permissions' className='check-box-field' />
                         <div className='button-div'>

@@ -31,7 +31,7 @@ function useContainer() {
 
     const onUpdateRequestResponse = () => {
         if (!error) return;
-        formik.setErrors({email: '', password: error})
+        formik.setErrors({email: '', password: error.message})
     };
 
     useEffect(onUpdateRequestResponse, [error, formik]);
