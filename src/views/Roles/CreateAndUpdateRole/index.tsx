@@ -5,7 +5,7 @@ import {FormikProvider} from 'formik';
 import AdminLayout from 'views/layouts/Admin';
 import NextButton from "views/shared/NextButton";
 import InputFiled from 'views/shared/forms/InputField';
-import LoaderWithLayout from "views/shared/LoaderWithLayout";
+import Loader from "views/shared/Loader";
 import CheckBoxGroupField from "views/shared/forms/CheckBoxGroupField";
 import useContainer from './hook';
 import './style.scss';
@@ -14,7 +14,7 @@ const CreateAndUpdateRole = () => {
     const { getPermissionsLoading, getRoleByIdLoading, formik, options, roleById, buttonLoader } = useContainer();
 
     if(getPermissionsLoading || getRoleByIdLoading) {
-           return <LoaderWithLayout isAdmin />
+           return <Loader isAdmin />
     }
 
     return (
