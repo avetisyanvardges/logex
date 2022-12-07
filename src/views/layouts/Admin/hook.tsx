@@ -1,12 +1,11 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import type { MenuProps } from 'antd';
-import { DesktopOutlined, UserOutlined, FileTextOutlined } from '@ant-design/icons';
 import {useLocation, useNavigate} from 'react-router-dom';
+import { DesktopOutlined, UserOutlined, FileTextOutlined } from '@ant-design/icons';
 import useTypedSelector from 'hooks/useTypedSelector';
 import LogAuth from 'assets/svg/LogAuth';
 import Account from 'lib/account';
 import history from "utils/browserHistory";
-
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
@@ -37,19 +36,23 @@ function useContainer() {
     const [collapsed, setCollapsed] = useState(false);
     const { currentAdmin } = useTypedSelector(({admins}) => admins);
 
+    /**  handle menu selected  */
     const handleMenuSelect = useCallback((key: string) => {
         navigate(key);
     }, [navigate]);
 
+    /**  handle menu collapsed  */
     const handleCollapsed = useCallback(() => {
         setCollapsed(prev => !prev);
-    }, [collapsed])
+    }, [collapsed]);
 
+    /**  handle logAuth  */
     const handleLogAuth = () => {
         Account.delete();
         history.replace('/auth/sign-in');
     }
 
+    /**  dropdown items  */
     const dropdownItems: MenuProps['items'] = useMemo(() => ([
         {
             label: <div style={dropdownItemStyles} onClick={handleLogAuth}><LogAuth /> Դուրս գալ</div>,

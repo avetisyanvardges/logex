@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import history from 'utils/browserHistory';
 
 import { API_HOST } from "constants/globals";
 import Account from "lib/account";
@@ -32,6 +33,7 @@ httpClient.interceptors.response.use(
     (error: AxiosError): Promise<AxiosError> => {
         if (error.response && error.response.status === 401) {
             Account.delete();
+            history.replace('auth/sign-in');
         }
         if (error.response && error.response.data) {
         // if (error.response && error.response.data && error.response.status !== 401) {

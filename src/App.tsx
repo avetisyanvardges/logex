@@ -14,6 +14,7 @@ import Roles from 'views/Roles';
 import LoaderWithLayout from "views/shared/LoaderWithLayout";
 
 const ModalRoot = lazy(() => import('views/ModalRoot/container'));
+const PageNotFound = lazy(() => import('views/PageNotFound'));
 const CreateAndUpdateRole = lazy(() => import('views/Roles/CreateAndUpdateRole'));
 
 const App = () => (
@@ -36,7 +37,8 @@ const App = () => (
                     <Route path='update/:id' element={<CreateAndUpdateRole />} />
                 </Route>
             </Route>
-        </Routes>
+            <Route path='*' element={<PageNotFound />} />
+         </Routes>
         <ModalRoot />
      </Suspense>
 );

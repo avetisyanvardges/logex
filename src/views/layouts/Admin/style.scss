@@ -25,7 +25,6 @@
     z-index: 900;
 
     .account {
-      width: 160px;
       display: flex;
       justify-content: space-around;
       .dropdownFullName {
@@ -36,6 +35,7 @@
         letter-spacing: 0.02em;
         color: #B2C2B0;
         cursor: pointer;
+        padding-left: 10px;
       }
       .dropdownFullName:hover {
         color: #5BC852;
