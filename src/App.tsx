@@ -19,10 +19,7 @@ const CreateAndUpdateRole = lazy(() => import('views/Roles/CreateAndUpdateRole')
 const App = () => (
     <>
         <Routes>
-            <Route
-                path="/auth"
-                element={<Suspense fallback={<Loader isAuth />}><AuthGuard/></Suspense>}
-            >
+            <Route path="/auth" element={<Suspense fallback={<Loader isAuth />}><AuthGuard/></Suspense>}>
                 <Route path="sign-in" element={<SignIn/>} />
             </Route>
 

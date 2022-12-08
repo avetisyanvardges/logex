@@ -5,6 +5,7 @@ export type signInRequestAction = ActionWithPayload<AdminActionTypes.SIGN_IN_REQ
 export type signInSuccessAction = ActionWithPayload<AdminActionTypes.SIGN_IN_SUCCESS, ICurrentAdmin>;
 export type fetchUsersRequestAction = ActionWithPayload<AdminActionTypes.FETCH_USERS_REQUEST, IParams>;
 export type fetchUsersSuccessAction = ActionWithPayload<AdminActionTypes.FETCH_USERS_SUCCESS, {meta: IMeta, users: ICurrentAdmin[]}>;
+export type permissionsByRoleIdRequestAction = ActionWithPayload<AdminActionTypes.PERMISSIONS_BY_ROLE_ID_REQUEST, string>;
 
 export const signInRequest = (data: ISignInRequestPayload) => ({
     type: AdminActionTypes.SIGN_IN_REQUEST,
@@ -24,6 +25,11 @@ export const fetchUsersRequest = (params: IParams) => ({
 export const fetchUsersSuccess = (data: {meta: IMeta, users: ICurrentAdmin[]}) => ({
     type: AdminActionTypes.FETCH_USERS_SUCCESS,
     payload: data,
+});
+
+export const permissionsByRoleIdRequest = (id: string) => ({
+    type: AdminActionTypes.PERMISSIONS_BY_ROLE_ID_REQUEST,
+    payload: id,
 });
 
 export type AdminActions = signInSuccessAction | fetchUsersSuccessAction;
