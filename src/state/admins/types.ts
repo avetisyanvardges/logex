@@ -1,11 +1,10 @@
-import {IMeta, IRole} from "state/types";
+import {IMeta, IRoleById} from "state/types";
 
 export enum AdminActionTypes {
     SIGN_IN_REQUEST = 'SIGN_IN_REQUEST',
     SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
     FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST',
     FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS',
-    PERMISSIONS_BY_ROLE_ID_REQUEST = 'PERMISSIONS_BY_ROLE_ID_REQUEST',
 }
 
 export interface ICurrentAdmin {
@@ -19,7 +18,7 @@ export interface ICurrentAdmin {
     image?: string,
     is_company?: boolean,
     key?: number,
-    role?: IRole[],
+    role?: IRoleById[],
     region?: { id: number, region: string }
     community?: { id: number, community: string }
 }

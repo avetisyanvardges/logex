@@ -5,11 +5,12 @@ import Account from "lib/account";
 import history from "utils/browserHistory";
 import {AdminActionTypes} from "state/admins/types";
 import {signInEndpoint} from 'state/admins/endpoints';
-import {signInSuccess, signInRequestAction, permissionsByRoleIdRequestAction} from 'state/admins/actions';
+import {signInSuccess, signInRequestAction} from 'state/admins/actions';
+import {IPermission} from "state/types";
 
 interface IDependencies {
     httpClient: AxiosInstance,
-    action: signInRequestAction & permissionsByRoleIdRequestAction,
+    action: signInRequestAction,
 }
 
 const userSignIn = createLogic({
@@ -22,6 +23,13 @@ const userSignIn = createLogic({
 
         try {
             const {data: {data: {token, user}}} = await httpClient.post(url, {email, password});
+
+            const permissions = user.role[0].permissions.reduce((acc: string[], item: IPermission) => {
+                acc.push(item.name);
+                return acc;
+            }, []);
+
+            const response = {...user, role: {...user.role}}
 
             Account.setAccessToken(token);
             Account.setAccount(user);
