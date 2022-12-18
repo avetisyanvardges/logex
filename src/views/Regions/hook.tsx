@@ -10,8 +10,9 @@ import { fetchRegionsEndpoint } from "state/regions/endpoints";
 import { IRegion } from "state/regions/types";
 import { showModal } from 'state/modals/actions';
 import TableOperations from 'views/shared/TableOperations';
+import {IPagePermissions} from 'state/types';
 
-function useContainer() {
+function useContainer({edit, remove}: IPagePermissions) {
     const dispatch = useDispatch();
     const { page, params, handleChangeParams } = useQueryParams();
     const { endpoint: getRegionsEndpoint } = fetchRegionsEndpoint;
@@ -69,7 +70,11 @@ function useContainer() {
                 title: 'Operations',
                 dataIndex: 'operation',
                 render: (_: any, record: IRegion) =>
-                    <TableOperations record={record} handleEdit={openRegionsFormModal} handleDelete={handleDeleteRegion} />
+                    <TableOperations
+                        record={record}
+                        handleEdit={edit ? openRegionsFormModal : undefined}
+                        handleDelete={remove ? handleDeleteRegion : undefined}
+                    />
             },
         ]
     ), [regions]);

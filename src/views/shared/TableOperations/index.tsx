@@ -5,16 +5,16 @@ import "./style.scss";
 
 interface IProps {
     record: any,
-    handleEdit: (arg: any) => void,
-    handleDelete: (arg: any) => void,
+    handleEdit?: (arg: any) => void,
+    handleDelete?: (arg: any) => void,
 }
 
 const TableOperations: FC<IProps> = ({handleEdit, handleDelete, record}) => (
     <div className='tableOperations'>
-         <span className='edit' onClick={() => handleEdit(record)}>
+         <span className='edit' onClick={() => handleEdit ? handleEdit(record) : undefined}>
               <EditOutlined className='icon' />
          </span>
-        <Popconfirm title="Sure to cancel?" onConfirm={() => handleDelete(record.id)}>
+        <Popconfirm title="Sure to cancel?" onConfirm={() => handleDelete ? handleDelete(record.id) : undefined}>
              <span className='delete'>
                    <DeleteOutlined className='icon' />
              </span>

@@ -1,4 +1,4 @@
-import {IMeta, IRoleById} from "state/types";
+import {IMeta, IRole} from "state/types";
 
 export enum AdminActionTypes {
     SIGN_IN_REQUEST = 'SIGN_IN_REQUEST',
@@ -18,7 +18,8 @@ export interface ICurrentAdmin {
     image?: string,
     is_company?: boolean,
     key?: number,
-    role?: IRoleById[],
+    role?: IRole[],
+    permissions?: string[],
     region?: { id: number, region: string }
     community?: { id: number, community: string }
 }

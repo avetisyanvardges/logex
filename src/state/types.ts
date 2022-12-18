@@ -10,3 +10,11 @@ export interface IRole { id: string, name: string }
 export interface IPermission { id: number, name: string }
 
 export interface IRoleById { id: number, name: string, permissions: IPermission[] }
+
+export interface IPagePermissions {
+    full: string,
+    list: string,
+    create: string,
+    edit: string,
+    remove: string,
+}

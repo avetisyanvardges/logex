@@ -6,7 +6,7 @@ import history from "utils/browserHistory";
 import {AdminActionTypes} from "state/admins/types";
 import {signInEndpoint} from 'state/admins/endpoints';
 import {signInSuccess, signInRequestAction} from 'state/admins/actions';
-import {IPermission} from "state/types";
+import {IRoleById} from "state/types";
 
 interface IDependencies {
     httpClient: AxiosInstance,
@@ -24,17 +24,19 @@ const userSignIn = createLogic({
         try {
             const {data: {data: {token, user}}} = await httpClient.post(url, {email, password});
 
-            const permissions = user.role[0].permissions.reduce((acc: string[], item: IPermission) => {
-                acc.push(item.name);
-                return acc;
-            }, []);
-
-            const response = {...user, role: {...user.role}}
+            const userData = {
+                ...user,
+                role: user.role.map((item: IRoleById ) => ({name: item.name, id: item.id})),
+                permissions: user.role.reduce((acc: string[], item: IRoleById) => {
+                   item.permissions.forEach((value) => {acc.push(value.name)});
+                   return acc;
+                }, []),
+            };
 
             Account.setAccessToken(token);
-            Account.setAccount(user);
+            Account.setAccount(userData);
             history.replace('/');
-            dispatch(signInSuccess(user));
+            dispatch(signInSuccess(userData));
 
         }catch {
             // take in httpClient

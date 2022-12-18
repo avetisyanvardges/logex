@@ -1,12 +1,12 @@
-import React, { FC } from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import React from "react";
+import {Outlet, Navigate} from "react-router-dom";
 
-const ProtectedRoute: FC<any> = ({ isAllowed, redirectPath = '/landing', children }) => {
+const ProtectedRoute = ({isAllowed, redirectPath = '/', children}: any) => {
     if (!isAllowed) {
-        return <Navigate to={redirectPath} replace />;
+        return <Navigate to={redirectPath} replace/>;
     }
 
-    return children ? children : <Outlet />;
+    return children ? children : <Outlet/>;
 };
 
 export default ProtectedRoute;
