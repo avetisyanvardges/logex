@@ -1,5 +1,5 @@
 import React, {lazy, Suspense} from 'react';
-import {Route, Routes, Navigate} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {ROUTES_LIST} from "constants/routesConfig";
 import AuthGuard from 'guards/AuthGuard';
 import AdminGuard from 'guards/AdminGuard';
@@ -30,7 +30,7 @@ const App = () => {
                         return (
                             <Route key={path} path={path} element={
                                 <ProtectedRoute
-                                    redirectPath="/404"
+                                    redirectPath={currentAdmin?.accessedPath ? `/${currentAdmin?.accessedPath}` : "/404"}
                                     isAllowed={currentAdmin.permissions?.includes(permissions.list)}
                                 >
                                     <Component {...pagePermissions} />
