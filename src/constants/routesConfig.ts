@@ -87,14 +87,14 @@ export const MENU_ITEMS: IMenuItem[] = [
         permission: PERMISSIONS.REGION.list,
     },
     {
-        name: 'Customers',
-        path: '/customer',
-        permission: PERMISSIONS.CUSTOMER.list,
-    },
-    {
         name: 'Communities',
         path: '/community',
         permission: PERMISSIONS.COMMUNITY.list,
+    },
+    {
+        name: 'Customers',
+        path: '/customer',
+        permission: PERMISSIONS.CUSTOMER.list,
     },
     {
         name: 'Orders',

@@ -8,23 +8,29 @@
     }
     .content {
       display: flex;
-    }
-    .information-content {
-      padding: 5px 15px;
-      width: 400px;
-      .name {
-        font-size: 18px;
-        font-family: NOTO-SANS_ARMENIAN, sans-serif;
-      }
-    }
-    .button-content {
-      .button {
-        background: #5BC852;
-        color: white;
-        border-radius: 32px;
-       height: 40px;
-        font-size: 15px;
-        font-family: NOTO-SANS_ARMENIAN, sans-serif;
+      margin-left: 20px;
+      .information-content {
+        padding: 5px 15px;
+        .name {
+          font-size: 20px;
+          margin-bottom: 5px;
+          font-family: NOTO-SANS_ARMENIAN, sans-serif;
+        }
+        .info {
+          font-family: NOTO-SANS_ARMENIAN, sans-serif;
+          margin-bottom: 5px;
+        }
+        .button-content {
+          margin-top: 20px;
+          .button {
+            background: #5BC852;
+            color: white;
+            border-radius: 10px;
+            height: 40px;
+            font-size: 15px;
+            font-family: NOTO-SANS_ARMENIAN, sans-serif;
+          }
+        }
       }
     }
   }

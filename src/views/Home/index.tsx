@@ -14,15 +14,19 @@ const Home = () => {
                     <h3 className='title'>Անձնական տվյալներ</h3>
                     <div className='content'>
                         <UserAvatar size={138} />
-                    </div>
-                    <div className='information-content'>
-                        <p className='name'>{currentAdmin.first_name} {currentAdmin.last_name}</p>
-                        {currentAdmin.address && <p className='address'>{`Հասցե${'՝'} ${currentAdmin.address}`}</p>}
-                    </div>
-                    <div className='button-content'>
-                        <Button className='button'>
-                            Թարմացնել տվյալները
-                        </Button>
+                        <div className='right'>
+                            <div className='information-content'>
+                                <p className='name'>{currentAdmin.first_name} {currentAdmin.last_name}</p>
+                                {currentAdmin.address && <p className='info'>{`Հասցե${'՝'} ${currentAdmin.address}`}</p>}
+                                {currentAdmin.phone && <p className='info'>{`Հեռ${'՝'} ${currentAdmin.phone}`}</p>}
+                                {currentAdmin.email && <p className='info'>{`Էլ․ հասցե${'՝'} ${currentAdmin.email}`}</p>}
+                                <div className='button-content'>
+                                    <Button className='button'>
+                                        Թարմացնել տվյալները
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <Divider />

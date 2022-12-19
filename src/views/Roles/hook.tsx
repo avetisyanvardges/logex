@@ -21,12 +21,12 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
 
     /** create  */
     const handleCreateRole = () => {
-        navigate(`/roles/create`);
+        navigate(`/role/create`);
     }
 
     /** update  */
     const handleUpdateRole = ({id}: {id: number}) => {
-        navigate(`/roles/update/${id}`);
+        navigate(`/role/update/${id}`);
     }
 
     /**  delete  */
@@ -40,6 +40,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
     }
 
     /**  Lifecycle  */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(onUpdateHandler, [page]);
     useMount();
 
@@ -65,6 +66,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
                     />
             },
         ]
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     ), [roles]);
 
     return {

@@ -38,6 +38,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
     }
 
     /**  Lifecycle  */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(onUpdateHandler, [page]);
     useMount();
 
@@ -91,6 +92,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
                     <TableOperations isEdit={edit} isDelete={remove} record={record} handleEdit={handleEdit} handleDelete={handleDelete} />
             },
         ]
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     ), [warehouses]);
 
 

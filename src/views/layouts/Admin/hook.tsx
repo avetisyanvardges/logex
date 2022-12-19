@@ -40,11 +40,13 @@ function useContainer() {
     /**  handle menu selected  */
     const handleMenuSelect = useCallback((key: string) => {
         navigate(key);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [navigate]);
 
     /**  handle menu collapsed  */
     const handleCollapsed = useCallback(() => {
         setCollapsed(prev => !prev);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [collapsed]);
 
     /**  handle logAuth  */
@@ -59,6 +61,7 @@ function useContainer() {
             label: <div style={dropdownItemStyles} onClick={handleLogAuth}><LogAuth /> Դուրս գալ</div>,
             key: 'Դուրս գալ',
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     ]), []);
 
     return {
