@@ -27,13 +27,13 @@ export const ROUTES_LIST: IList[] = [
     {
         name: 'Regions',
         component: Regions,
-        path: '',
+        path: '/region',
         permissions: PERMISSIONS.REGION,
     },
     {
         name: 'Customers',
         component: Customers,
-        path: '/customers',
+        path: '/customer',
         permissions: PERMISSIONS.CUSTOMER,
     },
     {
@@ -45,37 +45,37 @@ export const ROUTES_LIST: IList[] = [
     {
         name: 'Orders',
         component: Orders,
-        path: '/orders',
+        path: '/order',
         permissions: PERMISSIONS.ORDER,
     },
     {
         name: 'Users',
         component: Users,
-        path: 'users',
+        path: 'user',
         permissions: PERMISSIONS.USER,
     },
     {
         name: 'Warehouses',
         component: Warehouses,
-        path: '/warehouses',
+        path: '/warehouse',
         permissions: PERMISSIONS.WAREHOUSES,
     },
     {
         name: 'Roles',
         component: Roles,
-        path: '/roles',
+        path: '/role',
         permissions: PERMISSIONS.ROLE,
     },
     {
         name: 'Create Role',
         component: CreateAndUpdateRole,
-        path: '/roles/create',
+        path: '/role/create',
         permissions: PERMISSIONS.ROLE,
     },
     {
         name: 'Update Role',
         component: CreateAndUpdateRole,
-        path: '/roles/update/:id',
+        path: '/role/update/:id',
         permissions: PERMISSIONS.ROLE,
     },
 ];
@@ -83,12 +83,12 @@ export const ROUTES_LIST: IList[] = [
 export const MENU_ITEMS: IMenuItem[] = [
     {
         name: 'Regions',
-        path: '/',
+        path: '/region',
         permission: PERMISSIONS.REGION.list,
     },
     {
         name: 'Customers',
-        path: '/customers',
+        path: '/customer',
         permission: PERMISSIONS.CUSTOMER.list,
     },
     {
@@ -98,22 +98,22 @@ export const MENU_ITEMS: IMenuItem[] = [
     },
     {
         name: 'Orders',
-        path: '/orders',
+        path: '/order',
         permission: PERMISSIONS.ORDER.list,
     },
     {
         name: 'Users',
-        path: '/users',
+        path: '/user',
         permission: PERMISSIONS.USER.list,
     },
     {
         name: 'Warehouses',
-        path: '/warehouses',
+        path: '/warehouse',
         permission: PERMISSIONS.WAREHOUSES.list,
     },
     {
         name: 'Roles',
-        path: '/roles',
+        path: '/role',
         permission: PERMISSIONS.ROLE.list,
     },
 ];

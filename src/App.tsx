@@ -7,12 +7,13 @@ import SignIn from 'views/SignIn';
 import Loader from "views/shared/Loader";
 import ProtectedRoute from "guards/ProtectedRoute";
 import useTypedSelector from './hooks/useTypedSelector';
+import Home from "views/Home";
 
 const ModalRoot = lazy(() => import('views/ModalRoot/container'));
 const PageNotFound = lazy(() => import('views/PageNotFound'));
 
 const App = () => {
-    const {currentAdmin} = useTypedSelector(({admins}) => admins);
+    const { currentAdmin } = useTypedSelector(({admins}) => admins);
     return (
         <>
             <Routes>
@@ -20,6 +21,7 @@ const App = () => {
                     <Route path="sign-in" element={<SignIn/>}/>
                 </Route>
                 <Route path="/" element={<AdminGuard/>}>
+                    <Route path='' element={<Home />} />
                     {ROUTES_LIST.map((
                         {path, component: Component, permissions}) => {
                         const pagePermissions = {
@@ -30,7 +32,7 @@ const App = () => {
                         return (
                             <Route key={path} path={path} element={
                                 <ProtectedRoute
-                                    redirectPath={currentAdmin?.accessedPath ? `/${currentAdmin?.accessedPath}` : "/404"}
+                                    redirectPath='/'
                                     isAllowed={currentAdmin.permissions?.includes(permissions.list)}
                                 >
                                     <Component {...pagePermissions} />

@@ -20,7 +20,6 @@ export interface ICurrentAdmin {
     key?: number,
     role?: IRole[],
     permissions?: string[],
-    accessedPath?: string,
     region?: { id: number, region: string }
     community?: { id: number, community: string }
 }

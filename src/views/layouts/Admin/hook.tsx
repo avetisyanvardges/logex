@@ -26,12 +26,16 @@ function useContainer() {
     const [collapsed, setCollapsed] = useState(false);
     const { currentAdmin } = useTypedSelector(({admins}) => admins);
 
-    const menuItems: MenuItem[] = MENU_ITEMS.reduce((acc: MenuItem[], item) => {
-         if(currentAdmin.permissions?.includes(item.permission)) {
-             acc.push(getItem(item.name, item.path, <FileTextOutlined />));
-         }
-         return acc;
-    }, []);
+    /**  menu items  */
+    const menuItems: MenuItem[] = [
+        getItem('Home', '/', <FileTextOutlined />),
+        ...MENU_ITEMS.reduce((acc: MenuItem[], item) => {
+            if(currentAdmin.permissions?.includes(item.permission)) {
+                acc.push(getItem(item.name, item.path, <FileTextOutlined />));
+            }
+            return acc;
+        }, []),
+    ];
 
     /**  handle menu selected  */
     const handleMenuSelect = useCallback((key: string) => {

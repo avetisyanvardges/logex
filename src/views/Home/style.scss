@@ -1,0 +1,31 @@
+.home {
+  .top-content {
+    width: 100%;
+    padding: 15px;
+    .title {
+      font-size: 24px;
+      font-family: NOTO-SANS_ARMENIAN, sans-serif;
+    }
+    .content {
+      display: flex;
+    }
+    .information-content {
+      padding: 5px 15px;
+      width: 400px;
+      .name {
+        font-size: 18px;
+        font-family: NOTO-SANS_ARMENIAN, sans-serif;
+      }
+    }
+    .button-content {
+      .button {
+        background: #5BC852;
+        color: white;
+        border-radius: 32px;
+       height: 40px;
+        font-size: 15px;
+        font-family: NOTO-SANS_ARMENIAN, sans-serif;
+      }
+    }
+  }
+}
