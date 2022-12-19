@@ -1,3 +1,4 @@
+import React from 'react';
 import Regions from 'views/Regions';
 import Customers from 'views/Customers';
 import Communities from 'views/Communities';
@@ -8,13 +9,18 @@ import Roles from 'views/Roles';
 import CreateAndUpdateRole from "views/Roles/CreateAndUpdateRole";
 import {IPagePermissions} from 'state/types';
 import {PERMISSIONS} from './permissions';
-import React from 'react';
 
 interface IList {
     name: string,
     component: React.FC<any>,
     path: string,
     permissions: IPagePermissions,
+}
+
+interface IMenuItem {
+    name: React.ReactNode,
+    path: string,
+    permission: string,
 }
 
 export const ROUTES_LIST: IList[] = [
@@ -71,5 +77,43 @@ export const ROUTES_LIST: IList[] = [
         component: CreateAndUpdateRole,
         path: '/roles/update/:id',
         permissions: PERMISSIONS.ROLE,
+    },
+];
+
+export const MENU_ITEMS: IMenuItem[] = [
+    {
+        name: 'Regions',
+        path: '/',
+        permission: PERMISSIONS.REGION.list,
+    },
+    {
+        name: 'Customers',
+        path: '/customers',
+        permission: PERMISSIONS.CUSTOMER.list,
+    },
+    {
+        name: 'Communities',
+        path: '/community',
+        permission: PERMISSIONS.COMMUNITY.list,
+    },
+    {
+        name: 'Orders',
+        path: '/orders',
+        permission: PERMISSIONS.ORDER.list,
+    },
+    {
+        name: 'Users',
+        path: '/users',
+        permission: PERMISSIONS.USER.list,
+    },
+    {
+        name: 'Warehouses',
+        path: '/warehouses',
+        permission: PERMISSIONS.WAREHOUSES.list,
+    },
+    {
+        name: 'Roles',
+        path: '/roles',
+        permission: PERMISSIONS.ROLE.list,
     },
 ];

@@ -1,9 +1,13 @@
 .table-header {
   width: 100%;
-  display: flex;
-  align-items: center;
   padding: 37px 0 40px;
-  justify-content: space-around;
+  .content {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
   .item {
     width: 300px;
     height: 60px;

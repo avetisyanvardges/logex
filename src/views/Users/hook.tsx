@@ -10,8 +10,9 @@ import useParametricSelector from "hooks/useParametricSelector";
 import useMount from "hooks/useMount";
 import {ICurrentAdmin} from "state/admins/types";
 import sliceText from "utils/sliceText";
+import {IPagePropsPermissions} from "state/types";
 
-function useContainer() {
+function useContainer({edit, remove}: IPagePropsPermissions) {
     const dispatch = useDispatch();
     const { page, params, handleChangeParams } = useQueryParams();
     const { users, usersMeta } = useTypedSelector(({admins}) => admins);
@@ -95,9 +96,9 @@ function useContainer() {
             title: 'Operations',
             dataIndex: 'operation',
             render: (_: any, record: ICurrentAdmin) =>
-                <TableOperations record={record} handleEdit={handleEdit} handleDelete={handleDelete} />
+                <TableOperations isEdit={edit} isDelete={remove} record={record} handleEdit={handleEdit} handleDelete={handleDelete} />
         },
-    ]), [users]);
+    ]), [users, edit, remove]);
 
     return {
         handleCreate,

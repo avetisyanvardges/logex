@@ -18,3 +18,11 @@ export interface IPagePermissions {
     edit: string,
     remove: string,
 }
+
+export interface IPagePropsPermissions {
+    full: boolean,
+    list: boolean,
+    create: boolean,
+    edit: boolean,
+    remove: boolean,
+}

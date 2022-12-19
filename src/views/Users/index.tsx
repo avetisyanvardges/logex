@@ -1,17 +1,20 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Table} from "antd";
 import AdminLayout from 'views/layouts/Admin';
 import TableHeader from "views/shared/TableHeader";
 import useContainer from "./hook";
 import "./style.scss";
+import {IPagePropsPermissions} from "state/types";
 
-const Users = () => {
-    const { handleCreate, params, page, handleChangeParams, columns, usersMeta, users, getUsersLoading } = useContainer();
+interface IProps extends IPagePropsPermissions {}
+
+const Users: FC<IProps> = (props) => {
+    const { handleCreate, params, page, handleChangeParams, columns, usersMeta, users, getUsersLoading } = useContainer(props);
 
     return (
         <AdminLayout>
             <div className='users'>
-                <TableHeader onCreate={handleCreate} totalCount={usersMeta.total} />
+                <TableHeader isCreate={props.create} onCreate={handleCreate} totalCount={usersMeta.total} />
                 <Table
                     bordered rowKey='id' dataSource={users} scroll={{ x: 'max-content' }}
                     columns={columns} loading={getUsersLoading} className='table'

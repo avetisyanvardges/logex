@@ -1,16 +1,19 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Table} from "antd";
 import AdminLayout from 'views/layouts/Admin';
 import TableHeader from 'views/shared/TableHeader';
 import useContainer from './hook';
+import {IPagePropsPermissions} from "state/types";
 
-const Communities = () => {
-    const { handleCreate, communities, columns, handleChangeParams, params, page, communitiesMeta, getCommunitiesLoading } = useContainer();
+interface IProps extends IPagePropsPermissions {}
+
+const Communities: FC<IProps> = (props) => {
+    const { handleCreate, communities, columns, handleChangeParams, params, page, communitiesMeta, getCommunitiesLoading } = useContainer(props);
 
     return (
         <AdminLayout>
             <div className='communities'>
-                <TableHeader onCreate={handleCreate} totalCount={communitiesMeta.total} />
+                <TableHeader isCreate={props.create} onCreate={handleCreate} totalCount={communitiesMeta.total} />
                 <Table
                     bordered rowKey='id' dataSource={communities} columns={columns}
                     loading={getCommunitiesLoading} className='table'

@@ -8,10 +8,10 @@ import useParametricSelector from "hooks/useParametricSelector";
 import useMount from "hooks/useMount";
 import { fetchRolesEndpoint } from "state/roles/endpoints";
 import {deleteRole, fetchRolesRequest} from 'state/roles/actions';
-import {IRole} from 'state/types';
+import {IPagePropsPermissions, IRole} from 'state/types';
 import TableOperations from 'views/shared/TableOperations';
 
-function useContainer() {
+function useContainer({edit, remove}: IPagePropsPermissions) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { page, params, handleChangeParams } = useQueryParams();
@@ -56,7 +56,13 @@ function useContainer() {
                 width: '50%',
                 dataIndex: 'operation',
                 render: (_: any, record: IRole) =>
-                    <TableOperations record={record} handleEdit={handleUpdateRole} handleDelete={handleDeleteRole} />
+                    <TableOperations
+                        isEdit={edit}
+                        isDelete={remove}
+                        record={record}
+                        handleEdit={handleUpdateRole}
+                        handleDelete={handleDeleteRole}
+                    />
             },
         ]
     ), [roles]);

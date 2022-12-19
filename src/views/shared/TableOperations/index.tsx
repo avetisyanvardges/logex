@@ -1,24 +1,30 @@
-import React, { FC } from 'react';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Popconfirm } from 'antd';
+import React, {FC} from 'react';
+import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
+import {Popconfirm} from 'antd';
 import "./style.scss";
 
 interface IProps {
     record: any,
-    handleEdit?: (arg: any) => void,
-    handleDelete?: (arg: any) => void,
+    handleEdit: (arg: any) => void,
+    handleDelete: (arg: any) => void,
+    isEdit: boolean,
+    isDelete: boolean,
 }
 
-const TableOperations: FC<IProps> = ({handleEdit, handleDelete, record}) => (
+const TableOperations: FC<IProps> = ({handleEdit, handleDelete, record, isEdit, isDelete}) => (
     <div className='tableOperations'>
-         <span className='edit' onClick={() => handleEdit ? handleEdit(record) : undefined}>
-              <EditOutlined className='icon' />
-         </span>
-        <Popconfirm title="Sure to cancel?" onConfirm={() => handleDelete ? handleDelete(record.id) : undefined}>
-             <span className='delete'>
-                   <DeleteOutlined className='icon' />
-             </span>
-        </Popconfirm>
+        {isEdit &&
+            <span className='edit' onClick={() => handleEdit(record)}>
+              <EditOutlined className='icon'/>
+            </span>
+        }
+        {isDelete &&
+            <Popconfirm title="Sure to cancel?" onConfirm={() => handleDelete(record.id)}>
+                 <span className='delete'>
+                       <DeleteOutlined className='icon'/>
+                 </span>
+            </Popconfirm>
+        }
     </div>
 );
 

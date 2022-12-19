@@ -8,8 +8,9 @@ import TableOperations from "views/shared/TableOperations";
 import {fetchWarehousesRequest} from 'state/warehouses/actions';
 import { fetchWarehousesEndpoint } from "state/warehouses/endpoints";
 import {IWarehouse} from 'state/warehouses/types';
+import {IPagePropsPermissions} from "state/types";
 
-function useContainer() {
+function useContainer({edit, remove}: IPagePropsPermissions) {
     const dispatch = useDispatch();
     const { page, params, handleChangeParams } = useQueryParams();
     const { warehouses, warehousesMeta } = useTypedSelector(({warehouses}) => warehouses);
@@ -87,7 +88,7 @@ function useContainer() {
                 fixed: 'right' as 'right',
                 dataIndex: 'operation',
                 render: (_: any, record: IWarehouse) =>
-                    <TableOperations record={record} handleEdit={handleEdit} handleDelete={handleDelete} />
+                    <TableOperations isEdit={edit} isDelete={remove} record={record} handleEdit={handleEdit} handleDelete={handleDelete} />
             },
         ]
     ), [warehouses]);

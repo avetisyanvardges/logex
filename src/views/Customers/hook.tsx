@@ -1,5 +1,4 @@
 import React, {useEffect, useMemo} from "react";
-import { Popover } from "antd";
 import { useDispatch } from 'react-redux';
 import useMount from "hooks/useMount";
 import useQueryParams from "hooks/useQueryParams";
@@ -9,9 +8,9 @@ import TableOperations from "views/shared/TableOperations";
 import {fetchCustomersRequest} from "state/customers/actions";
 import {fetchCustomersEndpoint} from "state/customers/endpoints";
 import {ICustomers} from "state/customers/types";
-import sliceText from "utils/sliceText";
+import {IPagePropsPermissions} from "state/types";
 
-function useContainer() {
+function useContainer({edit, remove}: IPagePropsPermissions) {
     const dispatch = useDispatch();
     const { page, params, handleChangeParams } = useQueryParams();
     const { customers, customersMeta } = useTypedSelector(({customers}) => customers);
@@ -80,7 +79,13 @@ function useContainer() {
                 fixed: 'right' as 'right',
                 dataIndex: 'operation',
                 render: (_: any, record: ICustomers) =>
-                    <TableOperations record={record} handleEdit={handleEdit} handleDelete={handleDelete} />
+                    <TableOperations
+                        isEdit={edit}
+                        isDelete={remove}
+                        record={record}
+                        handleEdit={handleEdit}
+                        handleDelete={handleDelete}
+                    />
             },
         ]
     ), [customers]);

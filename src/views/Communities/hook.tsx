@@ -1,20 +1,21 @@
 import React, {useEffect, useMemo} from "react";
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
-import { ICommunity } from "state/regions/types";
-import { fetchCommunitiesRequest } from "state/regions/actions";
+import {ICommunity} from "state/regions/types";
+import {fetchCommunitiesRequest} from "state/regions/actions";
 import TableOperations from "views/shared/TableOperations";
 import {fetchCommunitiesEndpoint} from "state/regions/endpoints";
 import useParametricSelector from "hooks/useParametricSelector";
 import useMount from "hooks/useMount";
+import {IPagePropsPermissions} from "state/types";
 
-function useContainer() {
+function useContainer({edit, remove}: IPagePropsPermissions) {
     const dispatch = useDispatch();
-    const { page, params, handleChangeParams } = useQueryParams();
-    const { communities, communitiesMeta } = useTypedSelector(({regions}) => regions);
-    const { endpoint: getCommunitiesEndpoint } = fetchCommunitiesEndpoint;
-    const { isLoading: getCommunitiesLoading } = useParametricSelector(getCommunitiesEndpoint);
+    const {page, params, handleChangeParams} = useQueryParams();
+    const {communities, communitiesMeta} = useTypedSelector(({regions}) => regions);
+    const {endpoint: getCommunitiesEndpoint} = fetchCommunitiesEndpoint;
+    const {isLoading: getCommunitiesLoading} = useParametricSelector(getCommunitiesEndpoint);
 
     /**  create  */
     const handleCreate = () => {
@@ -69,7 +70,13 @@ function useContainer() {
                 title: 'Operations',
                 dataIndex: 'operation',
                 render: (_: any, record: ICommunity) =>
-                    <TableOperations record={record} handleEdit={handleEdit} handleDelete={handleDelete} />
+                    <TableOperations
+                        isDelete={remove}
+                        isEdit={edit}
+                        record={record}
+                        handleEdit={handleEdit}
+                        handleDelete={handleDelete}
+                    />
             },
         ]
     ), [communities])

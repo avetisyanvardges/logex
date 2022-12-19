@@ -25,7 +25,7 @@ const App = () => {
                         const pagePermissions = {
                             create: currentAdmin.permissions?.includes(permissions.create),
                             edit: currentAdmin.permissions?.includes(permissions.edit),
-                            delete: currentAdmin.permissions?.includes(permissions.remove),
+                            remove: currentAdmin.permissions?.includes(permissions.remove),
                         };
                         return (
                             <Route key={path} path={path} element={

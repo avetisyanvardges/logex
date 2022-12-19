@@ -10,9 +10,9 @@ import { fetchRegionsEndpoint } from "state/regions/endpoints";
 import { IRegion } from "state/regions/types";
 import { showModal } from 'state/modals/actions';
 import TableOperations from 'views/shared/TableOperations';
-import {IPagePermissions} from 'state/types';
+import {IPagePropsPermissions} from 'state/types';
 
-function useContainer({edit, remove}: IPagePermissions) {
+function useContainer({edit, remove}: IPagePropsPermissions) {
     const dispatch = useDispatch();
     const { page, params, handleChangeParams } = useQueryParams();
     const { endpoint: getRegionsEndpoint } = fetchRegionsEndpoint;
@@ -72,8 +72,10 @@ function useContainer({edit, remove}: IPagePermissions) {
                 render: (_: any, record: IRegion) =>
                     <TableOperations
                         record={record}
-                        handleEdit={edit ? openRegionsFormModal : undefined}
-                        handleDelete={remove ? handleDeleteRegion : undefined}
+                        isEdit={edit}
+                        isDelete={remove}
+                        handleEdit={openRegionsFormModal}
+                        handleDelete={handleDeleteRegion}
                     />
             },
         ]

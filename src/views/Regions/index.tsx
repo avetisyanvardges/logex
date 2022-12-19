@@ -2,11 +2,11 @@ import React, {FC} from 'react';
 import {Table} from 'antd';
 import AdminLayout from 'views/layouts/Admin';
 import TableHeader from 'views/shared/TableHeader';
-import {IPagePermissions} from 'state/types';
+import {IPagePropsPermissions} from 'state/types';
 import useContainer from "./hook";
 import "./style.scss";
 
-interface IProps extends IPagePermissions {}
+interface IProps extends IPagePropsPermissions {}
 
 const Regions: FC<IProps> = (props) => {
     const {
@@ -15,7 +15,7 @@ const Regions: FC<IProps> = (props) => {
     return (
         <AdminLayout>
             <div className='regions'>
-                <TableHeader onCreate={props.create ? openRegionsFormModal : undefined} totalCount={regionsMeta.total} />
+                <TableHeader onCreate={openRegionsFormModal} totalCount={regionsMeta.total} isCreate={props.create} />
                  <Table
                      rowKey='id' bordered dataSource={regions} columns={columns}
                      loading={isFetchingRegions} className='table'
