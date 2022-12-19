@@ -9,8 +9,10 @@ import {fetchCommunitiesEndpoint} from "state/regions/endpoints";
 import useParametricSelector from "hooks/useParametricSelector";
 import useMount from "hooks/useMount";
 import {IPagePropsPermissions} from "state/types";
+import {useNavigate} from 'react-router-dom';
 
 function useContainer({edit, remove}: IPagePropsPermissions) {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const {page, params, handleChangeParams} = useQueryParams();
     const {communities, communitiesMeta} = useTypedSelector(({regions}) => regions);
@@ -19,12 +21,12 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
 
     /**  create  */
     const handleCreate = () => {
-        console.log('handleCreate');
+        navigate('/community/create');
     };
 
     /**  edt  */
-    const handleEdit = () => {
-        console.log('handleEdite')
+    const handleEdit = (community: ICommunity) => {
+        navigate(`/community/update/${community.id}`);
     };
 
     /**  delete  */
