@@ -8,18 +8,18 @@ const initialState: IInitialState = {
     usersMeta: {},
 }
 
-const adminsReducer = (state = initialState, action: AdminActions) => {
-    switch (action.type) {
+const adminsReducer = (state = initialState, {type, payload}: AdminActions) => {
+    switch (type) {
         case AdminActionTypes.SIGN_IN_SUCCESS:
             return {
                 ...state,
-                currentAdmin: action.payload,
+                currentAdmin: payload,
             };
         case AdminActionTypes.FETCH_USERS_SUCCESS:
             return {
                 ...state,
-                users: action.payload.users,
-                usersMeta: action.payload.meta,
+                users: payload.users,
+                usersMeta: payload.meta,
             };
         default:
             return state;

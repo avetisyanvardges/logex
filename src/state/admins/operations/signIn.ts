@@ -31,6 +31,15 @@ const userSignIn = createLogic({
                    item.permissions.forEach((value) => {acc.push(value.name)});
                    return acc;
                 }, []),
+                accessedPath: user.role.reduce((acc: string, item: IRoleById) => {
+                    item.permissions.forEach((value) => {
+                        if(value.name.includes('list')){
+                            const pathName = value.name.split('-')
+                            acc = pathName[0]
+                        }
+                    });
+                    return acc;
+                }, ''),
             };
 
             Account.setAccessToken(token);
