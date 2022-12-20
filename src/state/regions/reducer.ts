@@ -6,6 +6,7 @@ const regionsInitialState: IRegionsState = {
     regions: [],
     communities: [],
     communitiesMeta: {},
+    communityById: {},
 }
 
 const regions = (state = regionsInitialState, action: RegionActionTypes) => {
@@ -14,6 +15,8 @@ const regions = (state = regionsInitialState, action: RegionActionTypes) => {
             return { ...state, regionsMeta: action.payload.meta, regions: action.payload.regions };
         case RegionsTypes.FETCH_COMMUNITIES_SUCCESS:
             return { ...state, communitiesMeta: action.payload.meta, communities: action.payload.communities };
+        case RegionsTypes.FETCH_COMMUNITY_BY_ID_SUCCESS:
+            return { ...state, communityById: action.payload };
         default:
             return state;
     }

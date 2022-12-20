@@ -10,7 +10,7 @@ function useContainer() {
     const dispatch = useDispatch();
 
     /**  Formik handleSubmit  */
-    const onSubmit = (values: ICreateAndUpdateRolePayload) => {
+    const onSubmit = (values: any) => {
         if(id) {
             dispatch(updateRole({...values, id}));
         } else {
