@@ -51,7 +51,7 @@ export interface IOrderTypes {
 
 export interface IOrders extends IOrderTypes { id: number }
 
-export interface IFetchOrdersSuccessPayload { meta: IMeta, orders: IOrders[] }
+export interface IFetchOrdersSuccessPayload { meta: IMeta, orders: IOrders[] | any }
 
-export interface IOrdersState { ordersMeta: IMeta, orders: IOrders[] }
+export interface IOrdersState { ordersMeta: IMeta, orders: IOrders[] | any }
 

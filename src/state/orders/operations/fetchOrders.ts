@@ -26,7 +26,6 @@ const fetchOrders = createLogic({
                 last_page: data.meta.last_page,
                 total: data.meta.total
             }
-            console.log(data)
             dispatch(fetchOrdersSuccess({ meta: metaData, orders: data.data }));
 
         }catch {

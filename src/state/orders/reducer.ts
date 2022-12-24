@@ -9,7 +9,7 @@ const ordersInitialState: IOrdersState = {
 const orders = (state = ordersInitialState, action: OrderActionTypes) => {
     switch (action.type) {
         case OrderTypes.FETCH_ORDERS_SUCCESS:
-            return { ...state, regionsMeta: action.payload.meta, orders: action.payload.orders };
+            return { ...state, ordersMeta: action.payload.meta, orders: action.payload.orders };
         default:
             return state;
     }
