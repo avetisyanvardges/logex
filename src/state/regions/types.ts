@@ -23,12 +23,16 @@ export interface IFetchRegionsSuccessPayload { meta: IMeta, regions: IRegion[] }
 
 export interface ICommunity { community: string, id: number, region: { id: number, region: string }}
 
+export interface ICommunityById {
+    community_am: string, community_en: string, community_ru: string, id: number, region: { id: number, region: string }
+}
+
 export interface IRegionsState {
     regionsMeta: IMeta,
     regions: IRegion[],
     communities: ICommunity[],
     communitiesMeta: IMeta,
-    communityById: ICommunity,
+    communityById: any,
 }
 
 export interface IFetchCommunitiesSuccessPayload { meta: IMeta, communities: ICommunity[] }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Divider, Form} from 'antd';
 import {FormikProvider} from 'formik';
+import {isEmpty} from 'lodash';
 import AdminLayout from 'views/layouts/Admin';
 import FormHeader from 'views/shared/FormHeader';
 import InputFiled from 'views/shared/forms/InputField';
@@ -8,7 +9,7 @@ import useContainer from './hook';
 import "./style.scss";
 
 const CreateAndUpdateCommunity = () => {
-    const {id, formik} = useContainer();
+    const {id, formik, openSelectRegionModal, selectedRegion} = useContainer();
 
     return (
         <AdminLayout>
@@ -40,9 +41,21 @@ const CreateAndUpdateCommunity = () => {
                             labelClassName="label"
                             formItemClassName='input-form-item'
                         />
-                        <div className='button-div'>
-                            <Button htmlType='submit' className='submit-button'>Save</Button>
+                        <div className='region'>
+                            {!isEmpty(selectedRegion) && (
+                                <div className='content'>
+                                    <p className='name'>{`Region am՝ ${selectedRegion?.region_am}`}</p>
+                                    <p className='name'>{`Region en՝ ${selectedRegion?.region_en}`}</p>
+                                    <p className='name'>{`Region ru՝ ${selectedRegion?.region_ru}`}</p>
+                                </div>
+                            )}
+                            <Button onClick={() => openSelectRegionModal()}>Select Region</Button>
                         </div>
+                        {!isEmpty(selectedRegion) &&
+                            <div className='button-div'>
+                                <Button htmlType='submit' className='submit-button'>Save</Button>
+                            </div>
+                        }
                     </FormikProvider>
                 </Form>
                 <Divider/>

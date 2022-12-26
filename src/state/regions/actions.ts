@@ -4,7 +4,7 @@ import {
     IRegionTypes,
     IRegion,
     IFetchCommunitiesSuccessPayload,
-    ICommunity
+    ICommunity, ICommunityById
 } from "state/regions/types";
 import { ActionWithPayload, IParams } from "state/types";
 
@@ -16,7 +16,7 @@ export type deleteRegionAction = ActionWithPayload<RegionsTypes.DELETE_REGION, {
 export type fetchCommunitiesRequestAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITIES_REQUEST, IParams>;
 export type fetchCommunitiesSuccessAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITIES_SUCCESS, IFetchCommunitiesSuccessPayload>;
 export type fetchCommunityByIdRequestAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITY_BY_ID_REQUEST, string>;
-export type fetchCommunityByIdSuccessAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITY_BY_ID_SUCCESS, ICommunity>;
+export type fetchCommunityByIdSuccessAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITY_BY_ID_SUCCESS, ICommunityById>;
 
 export const fetchRegionsRequest = (params: IParams) => ({
     type: RegionsTypes.FETCH_REGIONS_REQUEST,
@@ -58,7 +58,7 @@ export const fetchCommunityByIdRequest = (id: string) => ({
     payload: id,
 });
 
-export const fetchCommunityByIdSuccess = (data: ICommunity) => ({
+export const fetchCommunityByIdSuccess = (data: ICommunityById) => ({
     type: RegionsTypes.FETCH_COMMUNITY_BY_ID_SUCCESS,
     payload: data,
 });

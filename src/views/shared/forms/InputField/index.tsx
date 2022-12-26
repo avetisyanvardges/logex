@@ -36,8 +36,8 @@ const InputFiled: FC<IFormField> = ({
                                         ...props
                                     }) => {
     const [field, meta] = useField(name);
-    const hasError: any = meta.error;
-    // const hasError: any = meta.touched && meta.error;
+    // const hasError: any = meta.error;
+    const hasError: any = meta.touched && meta.error;
     const Error = hasError ? <div className="error">{meta.error}</div> : undefined;
 
     return (
