@@ -11,6 +11,7 @@ import TableOperations from 'views/shared/TableOperations';
 import {deleteOrder, fetchOrdersRequest} from "../../state/orders/actions";
 import {fetchOrdersEndpoint} from "../../state/orders/endpoints";
 import {IOrderTypes} from "../../state/orders/types";
+import moment from "moment";
 
 function useContainer({edit, remove}: IPagePropsPermissions) {
     const { page, params, handleChangeParams } = useQueryParams();
@@ -54,17 +55,35 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
             {
                 title: 'Tracking code',
                 dataIndex: 'tracking_code',
-                width: '50%',
+                width: '15%',
+            },
+            {
+                title: 'From',
+                dataIndex: 'from',
+                width: '20%',
+                render: ((from: any) => `${from.warehouse}(${from.address})`)
+
+            },
+            {
+                title: 'To',
+                dataIndex: 'to',
+                width: '20%',
+                render: ((to: any) => `${to.warehouse}(${to.address})`)
+            },
+            {
+                title: 'Delivery date',
+                dataIndex: 'delivery_date',
+                width: '20%',
+                render: ((date: string) => moment(date).format('DD.MM.YY')),
             },
             {
                 title: 'Status',
                 dataIndex: 'status',
-                width: '50%',
+                width: '20%',
             },
-
             {
                 title: 'Operations',
-                width: '50%',
+                width: '20%',
                 dataIndex: 'operation',
                 render: (_: any, record: IOrderTypes) =>
                     <TableOperations
