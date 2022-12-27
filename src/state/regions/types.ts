@@ -37,5 +37,7 @@ export interface IRegionsState {
 
 export interface IFetchCommunitiesSuccessPayload { meta: IMeta, communities: ICommunity[] }
 
+export interface IUpdateAndCreateCommunity { community_am: string, community_en: string, community_ru: string, region_id: string }
+
 
 

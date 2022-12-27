@@ -1,23 +1,44 @@
 import {useEffect, useState} from "react";
+import {RadioChangeEvent} from 'antd';
 import {useDispatch} from "react-redux";
 import {fetchRegionsRequest} from "state/regions/actions";
 import useTypedSelector from 'hooks/useTypedSelector';
 import {fetchRegionsEndpoint} from 'state/regions/endpoints';
 import useParametricSelector from 'hooks/useParametricSelector';
-import {RadioChangeEvent} from 'antd';
 
-function useContainer() {
+interface IProps {
+    selectedRegionId?: number,
+    onClose: () => void,
+    onSelectHandler: any,
+}
+
+function useContainer({selectedRegionId, onClose, onSelectHandler}: IProps) {
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
     const { regions, regionsMeta } = useTypedSelector(({regions}) => regions);
     const { endpoint: getRegionsEndpoint } = fetchRegionsEndpoint;
     const { isLoading: isFetchingRegions } = useParametricSelector(getRegionsEndpoint);
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(() => selectedRegionId || 0);
+    const [selectedValue, setSelectedValue] = useState<any>({});
 
+    /**  on save handler  */
+    const onSave = () => {
+        onSelectHandler({
+            region: selectedValue.region_am,
+            id: selectedValue.id
+        });
+        onClose();
+    };
+
+    /**  on change handler  */
     const onChange = (e: RadioChangeEvent) => {
-        console.log('radio checked', e.target.value);
         setValue(e.target.value);
     };
+
+    /**  on select handler  */
+    const onSelect = (value: any) => {
+        setSelectedValue(value);
+    }
 
     /**  on mount handler  */
     const onMountHandler = () => {
@@ -33,6 +54,12 @@ function useContainer() {
         isFetchingRegions,
         value,
         onChange,
+        setPage,
+        regionsMeta,
+        page,
+        selectedValue,
+        onSelect,
+        onSave,
     }
 }
 

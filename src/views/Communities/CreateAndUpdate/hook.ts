@@ -4,19 +4,13 @@ import {useEffect, useState} from 'react';
 import { isEmpty } from 'lodash';
 import {useDispatch} from 'react-redux';
 import validationSchema from 'lib/yupLocalised/scheme/community';
-import {createRole, updateRole} from 'state/roles/actions';
-import {fetchCommunityByIdRequest} from 'state/regions/actions';
+import {createCommunity, fetchCommunityByIdRequest, updateCommunity} from 'state/regions/actions';
 import useMount from 'hooks/useMount';
 import useTypedSelector from 'hooks/useTypedSelector';
-import {IRegion} from 'state/regions/types';
 import {showModal} from 'state/modals/actions';
+import {IUpdateAndCreateCommunity} from "state/regions/types";
 
-interface ISelectedRegion {
-    region_am?: '',
-    region_en?: '',
-    region_ru?: '',
-    id?: number,
-}
+interface ISelectedRegion { region?: string, id?: number }
 
 function useContainer() {
     const { id } = useParams();
@@ -24,29 +18,12 @@ function useContainer() {
     const [selectedRegion, setSelectedRegion] = useState<ISelectedRegion>({});
     const { communityById } = useTypedSelector(({regions}) => regions);
 
-    console.log(selectedRegion, 'selectedRegionId');
-
-    /** open modal for select region  */
-    const onSelectHandler = (regionId: ISelectedRegion) => {
-        setSelectedRegion(regionId);
-    };
-
-    /** open modal for select region  */
-    const openSelectRegionModal = (region?: ISelectedRegion): void => {
-        dispatch(showModal({
-            modalType: 'SELECT_REGION_MODAL',
-            modalProps: {
-                onSelectHandler
-            }
-        }))
-    }
-
     /**  Formik handleSubmit  */
-    const onSubmit = (values: any) => {
+    const onSubmit = (values: IUpdateAndCreateCommunity) => {
         if(id) {
-            dispatch(updateRole({...values, id}));
+            dispatch(updateCommunity({community: values, id}))
         } else {
-            dispatch(createRole(values));
+            dispatch(createCommunity(values));
         }
     };
 
@@ -66,10 +43,32 @@ function useContainer() {
         onSubmit,
     });
 
+    /** open modal for select region  */
+    const onSelectHandler = (region: ISelectedRegion) => {
+        setSelectedRegion(region);
+        if(isEmpty(region)) return;
+        formik.setValues({
+            ...formik.values,
+            region_id: String(region.id),
+        })
+    };
+
+    /** open modal for select region  */
+    const openSelectRegionModal = (region?: ISelectedRegion): void => {
+        dispatch(showModal({
+            modalType: 'SELECT_REGION_MODAL',
+            modalProps: {
+                onSelectHandler,
+                selectedRegionId: selectedRegion?.id,
+            }
+        }))
+    };
+
     /**  onCommunityUpdateHandler  */
     const onCommunityUpdateHandler = () => {
         if(!id || isEmpty(communityById)) return;
         const { community_am, community_ru, community_en, region } = communityById;
+        setSelectedRegion(region);
         formik.setValues({community_am, community_ru, community_en, region_id: region?.id});
     };
 
@@ -78,7 +77,7 @@ function useContainer() {
         formik.resetForm();
         if(!id) return;
         dispatch(fetchCommunityByIdRequest(id));
-    }
+    };
 
     /**  Lifecycle  */
     // eslint-disable-next-line react-hooks/exhaustive-deps

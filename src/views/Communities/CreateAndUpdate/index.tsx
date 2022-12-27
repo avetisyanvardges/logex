@@ -44,18 +44,17 @@ const CreateAndUpdateCommunity = () => {
                         <div className='region'>
                             {!isEmpty(selectedRegion) && (
                                 <div className='content'>
-                                    <p className='name'>{`Region am՝ ${selectedRegion?.region_am}`}</p>
-                                    <p className='name'>{`Region en՝ ${selectedRegion?.region_en}`}</p>
-                                    <p className='name'>{`Region ru՝ ${selectedRegion?.region_ru}`}</p>
+                                    <p className='name'>{`Region՝ ${selectedRegion?.region}`}</p>
                                 </div>
                             )}
-                            <Button onClick={() => openSelectRegionModal()}>Select Region</Button>
                         </div>
-                        {!isEmpty(selectedRegion) &&
-                            <div className='button-div'>
-                                <Button htmlType='submit' className='submit-button'>Save</Button>
-                            </div>
-                        }
+
+                        <div className='button-div'>
+                            <Button onClick={() => openSelectRegionModal()}>Select Region</Button>
+                            {!isEmpty(selectedRegion) &&
+                                <Button htmlType='submit' className='submit-button'>Save</Button>}
+                        </div>
+
                     </FormikProvider>
                 </Form>
                 <Divider/>

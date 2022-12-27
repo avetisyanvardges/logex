@@ -6,12 +6,13 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 function useContainer({ name, items }: {name: string, items: any[]}) {
     const [checkAll, setCheckAll] = useState(false);
     const [indeterminate, setIndeterminate] = useState(true);
-    const [field, _, helpers] = useField(name);
+    const [field, , helpers] = useField(name);
     const { setValue } = helpers;
 
     /** Handle change */
     const onChangeHandler = useCallback((value: CheckboxValueType[]) => {
         setValue(value);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const onCheckAllChange = (e: CheckboxChangeEvent) => {

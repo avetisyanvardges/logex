@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
 import {ICommunity} from "state/regions/types";
-import {fetchCommunitiesRequest} from "state/regions/actions";
+import {deleteCommunity, fetchCommunitiesRequest} from "state/regions/actions";
 import TableOperations from "views/shared/TableOperations";
 import {fetchCommunitiesEndpoint} from "state/regions/endpoints";
 import useParametricSelector from "hooks/useParametricSelector";
@@ -30,8 +30,8 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
     };
 
     /**  delete  */
-    const handleDelete = () => {
-        console.log('handleEdite')
+    const handleDelete = (id: string) => {
+        dispatch(deleteCommunity(id));
     };
 
     /**  on params update handler  */
@@ -83,8 +83,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
             },
         ]
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    ), [communities])
-
+    ), [communities]);
 
     return {
         handleCreate,
