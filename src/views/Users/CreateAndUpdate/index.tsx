@@ -8,39 +8,48 @@ import InputFiled from 'views/shared/forms/InputField';
 import useContainer from './hook';
 import "./style.scss";
 
-const CreateAndUpdateCommunity = () => {
+const CreateAndUpdateUser = () => {
     const {id, formik, openSelectRegionModal, selectedRegion, loading} = useContainer();
 
     return (
         <AdminLayout>
-            <div className='create-and-update-community'>
-                <FormHeader title={id ? 'Update community' : 'Create community'}/>
+            <div className='create-and-update-user'>
+                <FormHeader title={id ? 'Update user' : 'Create user'}/>
                 <Form onFinish={formik.handleSubmit} className='form'>
                     <FormikProvider value={formik}>
                         <InputFiled
-                            name="community_am"
-                            placeholder="Community am"
-                            label="Community am"
+                            name="first_name"
+                            placeholder="First name"
+                            label="First name"
                             className="input"
                             labelClassName="label"
                             formItemClassName='input-form-item'
                         />
                         <InputFiled
-                            name="community_ru"
-                            placeholder="Community ru"
-                            label="Community ru"
+                            name="last_name"
+                            placeholder="Last name"
+                            label="Last name"
                             className="input"
                             labelClassName="label"
                             formItemClassName='input-form-item'
                         />
                         <InputFiled
-                            name="community_en"
-                            placeholder="Community en"
-                            label="Community en"
+                            name="phone"
+                            placeholder="Phone"
+                            label="Phone"
                             className="input"
                             labelClassName="label"
                             formItemClassName='input-form-item'
                         />
+                        <InputFiled
+                            name="address"
+                            placeholder="Address"
+                            label="Address"
+                            className="input"
+                            labelClassName="label"
+                            formItemClassName='input-form-item'
+                        />
+
                         <div className='region'>
                             {!isEmpty(selectedRegion) && (
                                 <div className='content'>
@@ -63,4 +72,4 @@ const CreateAndUpdateCommunity = () => {
     )
 };
 
-export default CreateAndUpdateCommunity;
+export default CreateAndUpdateUser;

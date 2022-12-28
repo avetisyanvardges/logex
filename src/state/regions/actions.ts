@@ -19,7 +19,7 @@ export type fetchCommunityByIdRequestAction = ActionWithPayload<RegionsTypes.FET
 export type fetchCommunityByIdSuccessAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITY_BY_ID_SUCCESS, ICommunityById>;
 export type createCommunityAction = ActionWithPayload<RegionsTypes.CREATE_COMMUNITY, IUpdateAndCreateCommunity>;
 export type updateCommunityAction = ActionWithPayload<RegionsTypes.UPDATE_COMMUNITY, {community: IUpdateAndCreateCommunity, id: string}>;
-export type deleteCommunityAction = ActionWithPayload<RegionsTypes.DELETE_COMMUNITY, string>;
+export type deleteCommunityAction = ActionWithPayload<RegionsTypes.DELETE_COMMUNITY, {id: string} & {params: IParams}>;
 
 export const fetchRegionsRequest = (params: IParams) => ({
     type: RegionsTypes.FETCH_REGIONS_REQUEST,
@@ -76,9 +76,9 @@ export const updateCommunity = (data: {community: IUpdateAndCreateCommunity, id:
     payload: data,
 });
 
-export const deleteCommunity = (id: string) => ({
+export const deleteCommunity = (data: {id: string} & {params: IParams}) => ({
     type: RegionsTypes.DELETE_COMMUNITY,
-    payload: id,
+    payload: data,
 });
 
 export type RegionActionTypes = fetchRegionsSuccessAction | fetchCommunitiesSuccessAction | fetchCommunityByIdSuccessAction;

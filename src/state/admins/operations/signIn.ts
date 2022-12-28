@@ -40,6 +40,7 @@ const userSignIn = createLogic({
 
         }catch {
             // take in httpClient
+            history.replace('/auth/sign-in')
         }
         done();
     },

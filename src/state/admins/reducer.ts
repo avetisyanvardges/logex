@@ -6,6 +6,7 @@ const initialState: IInitialState = {
     currentAdmin: Account.getAccount(),
     users: [],
     usersMeta: {},
+    userByUpdate: {},
 }
 
 const adminsReducer = (state = initialState, {type, payload}: AdminActions) => {
@@ -20,6 +21,11 @@ const adminsReducer = (state = initialState, {type, payload}: AdminActions) => {
                 ...state,
                 users: payload.users,
                 usersMeta: payload.meta,
+            };
+        case AdminActionTypes.FETCH_USER_BY_UPDATE_SUCCESS:
+            return {
+                ...state,
+                userByUpdate: payload,
             };
         default:
             return state;

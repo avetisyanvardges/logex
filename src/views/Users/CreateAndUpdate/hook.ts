@@ -3,33 +3,33 @@ import {useFormik} from 'formik';
 import {useEffect, useState} from 'react';
 import { isEmpty } from 'lodash';
 import {useDispatch} from 'react-redux';
-import validationSchema from 'lib/yupLocalised/scheme/community';
-import {createCommunity, fetchCommunityByIdRequest, updateCommunity} from 'state/regions/actions';
+import validationSchema from 'lib/yupLocalised/scheme/users';
+import {fetchUserByUpdateRequest} from 'state/admins/actions';
 import useMount from 'hooks/useMount';
 import useTypedSelector from 'hooks/useTypedSelector';
 import {showModal} from 'state/modals/actions';
-import {IUpdateAndCreateCommunity} from "state/regions/types";
-import {updateCommunityEndpoint, createCommunityEndpoint} from 'state/regions/endpoints';
+import {updateUsersEndpoint, createUserEndpoint} from 'state/admins/endpoints';
 import useParametricSelector from 'hooks/useParametricSelector';
+import {ICreateAndUpdateUserPayload} from 'state/admins/types';
 
 interface ISelectedRegion { region?: string, id?: number }
 
 function useContainer() {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const {endpoint: updateEndpoint} = updateCommunityEndpoint(id || '');
-    const {endpoint: createEndpoint} = createCommunityEndpoint;
+    const {endpoint: updateEndpoint} = updateUsersEndpoint(id || '');
+    const {endpoint: createEndpoint} = createUserEndpoint;
     const {isLoading: updateLoading} = useParametricSelector(updateEndpoint);
     const {isLoading: createLoading} = useParametricSelector(createEndpoint);
     const [selectedRegion, setSelectedRegion] = useState<ISelectedRegion>({});
-    const { communityById } = useTypedSelector(({regions}) => regions);
+    const { userByUpdate } = useTypedSelector(({admins}) => admins);
 
     /**  Formik handleSubmit  */
-    const onSubmit = (values: IUpdateAndCreateCommunity) => {
+    const onSubmit = (values: ICreateAndUpdateUserPayload) => {
         if(id) {
-            dispatch(updateCommunity({community: values, id}))
+            // dispatch(updateCommunity({community: values, id}))
         } else {
-            dispatch(createCommunity(values));
+            // dispatch(createCommunity(values));
         }
     };
 
@@ -37,10 +37,13 @@ function useContainer() {
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            community_am: '',
-            community_ru: '',
-            community_en: '',
+            role_id: '',
+            first_name: '',
+            last_name: '',
+            phone: '',
             region_id: '',
+            community_id: '',
+            address: '',
         },
         validationSchema,
         // initialErrors: {
@@ -72,24 +75,24 @@ function useContainer() {
 
     /**  onCommunityUpdateHandler  */
     const onCommunityUpdateHandler = () => {
-        if(!id || isEmpty(communityById)) return;
-        const { community_am, community_ru, community_en, region } = communityById;
-        setSelectedRegion(region);
-        formik.setValues({community_am, community_ru, community_en, region_id: region?.id});
+        // if(!id || isEmpty(communityById)) return;
+        // const { community_am, community_ru, community_en, region } = communityById;
+        // setSelectedRegion(region);
+        // formik.setValues({first_name, last_name, community_en, region_id: region?.id});
     };
 
     /**  on params update handler  */
     const onMountHandler = () => {
         formik.resetForm();
         if(!id) return;
-        dispatch(fetchCommunityByIdRequest(id));
+        dispatch(fetchUserByUpdateRequest(id));
     };
 
     /**  Lifecycle  */
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useMount(onMountHandler);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(onCommunityUpdateHandler, [communityById]);
+    // useEffect(onCommunityUpdateHandler, [communityById]);
 
     return {
         id,

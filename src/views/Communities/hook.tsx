@@ -31,7 +31,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
 
     /**  delete  */
     const handleDelete = (id: string) => {
-        dispatch(deleteCommunity(id));
+        dispatch(deleteCommunity({id, params}));
     };
 
     /**  on params update handler  */

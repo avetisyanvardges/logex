@@ -10,6 +10,7 @@ import CreateAndUpdateRole from "views/Roles/CreateAndUpdateRole";
 import {IPagePermissions} from 'state/types';
 import {PERMISSIONS} from './permissions';
 import CreateAndUpdateCommunity from '../views/Communities/CreateAndUpdate';
+import CreateAndUpdateUser from '../views/Users/CreateAndUpdate';
 
 interface IList {
     name: string,
@@ -70,7 +71,19 @@ export const ROUTES_LIST: IList[] = [
     {
         name: 'Users',
         component: Users,
-        path: 'user',
+        path: '/user',
+        permissions: PERMISSIONS.USER,
+    },
+    {
+        name: 'Create user',
+        component: CreateAndUpdateUser,
+        path: '/user/create',
+        permissions: PERMISSIONS.USER,
+    },
+    {
+        name: 'Update user',
+        component: CreateAndUpdateUser,
+        path: '/user/update/:id',
         permissions: PERMISSIONS.USER,
     },
     {

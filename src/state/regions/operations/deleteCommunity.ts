@@ -3,8 +3,7 @@ import { createLogic } from 'redux-logic';
 
 import {RegionsTypes} from "state/regions/types";
 import {deleteCommunityEndpoint} from 'state/regions/endpoints';
-import {deleteCommunityAction} from 'state/regions/actions';
-import history from 'utils/browserHistory';
+import {deleteCommunityAction, fetchCommunitiesRequest} from 'state/regions/actions';
 
 interface IDependencies {
     httpClient: AxiosInstance,
@@ -19,7 +18,7 @@ const deleteCommunity = createLogic({
 
         try {
             await httpClient.delete(url);
-            history.back();
+            dispatch(fetchCommunitiesRequest(payload.params));
 
         }catch {
             // take in httpClient
