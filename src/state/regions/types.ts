@@ -8,6 +8,8 @@ export enum RegionsTypes {
     DELETE_REGION = 'DELETE_REGION',
     FETCH_COMMUNITIES_REQUEST = 'FETCH_COMMUNITIES_REQUEST',
     FETCH_COMMUNITIES_SUCCESS = 'FETCH_COMMUNITIES_SUCCESS',
+    FETCH_COMMUNITY_BY_ID_REQUEST = 'FETCH_COMMUNITY_BY_ID_REQUEST',
+    FETCH_COMMUNITY_BY_ID_SUCCESS = 'FETCH_COMMUNITY_BY_ID_SUCCESS',
     CREATE_COMMUNITY = 'CREATE_COMMUNITY',
     UPDATE_COMMUNITY = 'UPDATE_COMMUNITY',
     DELETE_COMMUNITY = 'DELETE_COMMUNITY',
@@ -21,9 +23,21 @@ export interface IFetchRegionsSuccessPayload { meta: IMeta, regions: IRegion[] }
 
 export interface ICommunity { community: string, id: number, region: { id: number, region: string }}
 
-export interface IRegionsState { regionsMeta: IMeta, regions: IRegion[], communities: ICommunity[], communitiesMeta: IMeta }
+export interface ICommunityById {
+    community_am: string, community_en: string, community_ru: string, id: number, region: { id: number, region: string }
+}
+
+export interface IRegionsState {
+    regionsMeta: IMeta,
+    regions: IRegion[],
+    communities: ICommunity[],
+    communitiesMeta: IMeta,
+    communityById: any,
+}
 
 export interface IFetchCommunitiesSuccessPayload { meta: IMeta, communities: ICommunity[] }
+
+export interface IUpdateAndCreateCommunity { community_am: string, community_en: string, community_ru: string, region_id: string }
 
 
 

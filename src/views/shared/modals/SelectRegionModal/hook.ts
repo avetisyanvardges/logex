@@ -1,0 +1,66 @@
+import {useEffect, useState} from "react";
+import {RadioChangeEvent} from 'antd';
+import {useDispatch} from "react-redux";
+import {fetchRegionsRequest} from "state/regions/actions";
+import useTypedSelector from 'hooks/useTypedSelector';
+import {fetchRegionsEndpoint} from 'state/regions/endpoints';
+import useParametricSelector from 'hooks/useParametricSelector';
+
+interface IProps {
+    selectedRegionId?: number,
+    onClose: () => void,
+    onSelectHandler: any,
+}
+
+function useContainer({selectedRegionId, onClose, onSelectHandler}: IProps) {
+    const dispatch = useDispatch();
+    const [page, setPage] = useState(1);
+    const { regions, regionsMeta } = useTypedSelector(({regions}) => regions);
+    const { endpoint: getRegionsEndpoint } = fetchRegionsEndpoint;
+    const { isLoading: isFetchingRegions } = useParametricSelector(getRegionsEndpoint);
+    const [value, setValue] = useState(() => selectedRegionId || 0);
+    const [selectedValue, setSelectedValue] = useState<any>({});
+
+    /**  on save handler  */
+    const onSave = () => {
+        onSelectHandler({
+            region: selectedValue.region_am,
+            id: selectedValue.id
+        });
+        onClose();
+    };
+
+    /**  on change handler  */
+    const onChange = (e: RadioChangeEvent) => {
+        setValue(e.target.value);
+    };
+
+    /**  on select handler  */
+    const onSelect = (value: any) => {
+        setSelectedValue(value);
+    }
+
+    /**  on mount handler  */
+    const onMountHandler = () => {
+        dispatch(fetchRegionsRequest({page: String(page), per_page: '8'}));
+    }
+
+    /**  Lifecycle  */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(onMountHandler, [page]);
+
+    return {
+        regions,
+        isFetchingRegions,
+        value,
+        onChange,
+        setPage,
+        regionsMeta,
+        page,
+        selectedValue,
+        onSelect,
+        onSave,
+    }
+}
+
+export default useContainer;

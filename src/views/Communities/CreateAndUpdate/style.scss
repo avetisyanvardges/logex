@@ -1,0 +1,29 @@
+.create-and-update-community {
+  padding: 0 20px;
+  .form {
+    padding-top: 20px;
+    width: 400px;
+    .label {
+      width: 110px;
+      text-align: left;
+    }
+    .region {
+      .content {
+        margin-left: 0;
+        .name {
+
+        }
+      }
+    }
+    .button-div {
+      display: flex;
+      justify-content: space-between;
+      .submit-button {
+        width: 120px;
+        background-color: #5BC852;
+        color: white;
+        font-family: NOTO-SANS_ARMENIAN, sans-serif;
+      }
+    }
+  }
+}

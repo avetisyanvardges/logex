@@ -36,6 +36,7 @@ function useContainer() {
             acc.push({label: permissionName(item.name), value: item.id});
             return acc;
         }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [permissions]);
 
     /**  Formik handleSubmit  */
@@ -85,7 +86,9 @@ function useContainer() {
     };
 
     /**  Lifecycle  */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(onUpdateHandler, [roleById]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useMount(onMountHandler);
 
     return {

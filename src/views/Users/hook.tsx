@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import {Popover} from 'antd';
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
-import { fetchUsersRequest } from "state/admins/actions";
+import {deleteUser, fetchUsersRequest} from "state/admins/actions";
 import TableOperations from "views/shared/TableOperations";
 import {fetchUsersEndpoint} from "state/admins/endpoints";
 import useParametricSelector from "hooks/useParametricSelector";
@@ -11,9 +11,11 @@ import useMount from "hooks/useMount";
 import {ICurrentAdmin} from "state/admins/types";
 import sliceText from "utils/sliceText";
 import {IPagePropsPermissions} from "state/types";
+import {useNavigate} from 'react-router-dom';
 
 function useContainer({edit, remove}: IPagePropsPermissions) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { page, params, handleChangeParams } = useQueryParams();
     const { users, usersMeta } = useTypedSelector(({admins}) => admins);
     const { endpoint: getUsersEndpoint } = fetchUsersEndpoint;
@@ -21,17 +23,17 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
 
     /**  create  */
     const handleCreate = () => {
-        console.log('handleCreate');
+        navigate('/user/create');
     };
 
     /**  edt  */
-    const handleEdit = () => {
-        console.log('handleEdite')
+    const handleEdit = (user: any) => {
+        navigate(`/user/update/${user.id}`);
     };
 
     /**  delete  */
-    const handleDelete = () => {
-        console.log('handleEdite')
+    const handleDelete = (id: string) => {
+        dispatch(deleteUser({params, id}));
     };
 
     /**  on params update handler  */

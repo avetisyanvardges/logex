@@ -3,14 +3,16 @@ import {useDispatch} from 'react-redux';
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
 import {ICommunity} from "state/regions/types";
-import {fetchCommunitiesRequest} from "state/regions/actions";
+import {deleteCommunity, fetchCommunitiesRequest} from "state/regions/actions";
 import TableOperations from "views/shared/TableOperations";
 import {fetchCommunitiesEndpoint} from "state/regions/endpoints";
 import useParametricSelector from "hooks/useParametricSelector";
 import useMount from "hooks/useMount";
 import {IPagePropsPermissions} from "state/types";
+import {useNavigate} from 'react-router-dom';
 
 function useContainer({edit, remove}: IPagePropsPermissions) {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const {page, params, handleChangeParams} = useQueryParams();
     const {communities, communitiesMeta} = useTypedSelector(({regions}) => regions);
@@ -19,17 +21,17 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
 
     /**  create  */
     const handleCreate = () => {
-        console.log('handleCreate');
+        navigate('/community/create');
     };
 
     /**  edt  */
-    const handleEdit = () => {
-        console.log('handleEdite')
+    const handleEdit = (community: ICommunity) => {
+        navigate(`/community/update/${community.id}`);
     };
 
     /**  delete  */
-    const handleDelete = () => {
-        console.log('handleEdite')
+    const handleDelete = (id: string) => {
+        dispatch(deleteCommunity({id, params}));
     };
 
     /**  on params update handler  */
@@ -81,8 +83,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
             },
         ]
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    ), [communities])
-
+    ), [communities]);
 
     return {
         handleCreate,

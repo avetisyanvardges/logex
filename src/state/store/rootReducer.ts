@@ -7,6 +7,7 @@ import regions from "state/regions/reducer";
 import customers from "state/customers/reducer";
 import warehouses from "state/warehouses/reducer";
 import roles from "state/roles/reducer";
+import orders from "../orders/reducer";
 
 export const rootReducer = combineReducers({
     modals,
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
     customers,
     warehouses,
     roles,
+    orders
 });
 
 export type RootState = ReturnType<typeof rootReducer>

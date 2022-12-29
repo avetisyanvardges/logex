@@ -8,6 +8,7 @@ const useMount = (callback?: () => void) => {
     useEffect(() => {
         dispatch(clearDataReducer());
         callback && callback();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 };
 

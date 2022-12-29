@@ -3,10 +3,10 @@ import {Button, Divider, Form} from 'antd';
 import {FormikProvider} from 'formik';
 
 import AdminLayout from 'views/layouts/Admin';
-import NextButton from "views/shared/NextButton";
 import InputFiled from 'views/shared/forms/InputField';
 import Loader from "views/shared/Loader";
 import CheckBoxGroupField from "views/shared/forms/CheckBoxGroupField";
+import FormHeader from 'views/shared/FormHeader';
 import useContainer from './hook';
 import './style.scss';
 
@@ -20,10 +20,7 @@ const CreateAndUpdateRole = () => {
     return (
         <AdminLayout>
             <div className='role-forms'>
-                <div className='form-header'>
-                    <NextButton />
-                    <p className='title'>{roleById.name ? `Update ${roleById.name} role` : 'Create new role'}</p>
-                </div>
+                <FormHeader title={roleById.name ? `Update ${roleById.name} role` : 'Create new role'}/>
                 <Form onFinish={formik.handleSubmit} className='form'>
                     <FormikProvider value={formik}>
                         <p className='label'>Role name</p>

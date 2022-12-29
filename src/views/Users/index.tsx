@@ -2,9 +2,9 @@ import React, {FC} from 'react';
 import {Table} from "antd";
 import AdminLayout from 'views/layouts/Admin';
 import TableHeader from "views/shared/TableHeader";
+import {IPagePropsPermissions} from "state/types";
 import useContainer from "./hook";
 import "./style.scss";
-import {IPagePropsPermissions} from "state/types";
 
 interface IProps extends IPagePropsPermissions {}
 
