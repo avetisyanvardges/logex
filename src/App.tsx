@@ -17,7 +17,7 @@ const App = () => {
     return (
         <>
             <Routes>
-                <Route path="/auth" element={<Suspense fallback={<Loader isAuth/>}><AuthGuard/></Suspense>}>
+                <Route path="/auth" element={<AuthGuard/>} >
                     <Route path="sign-in" element={<SignIn/>}/>
                 </Route>
                 <Route path="/" element={<AdminGuard/>}>

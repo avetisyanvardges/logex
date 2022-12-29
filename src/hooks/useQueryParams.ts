@@ -15,6 +15,7 @@ const useQueryParams = () => {
 
     useEffect(() => {
         setSearchParams(`?${createSearchParams(queryParams).toString()}`);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page]);
 
     return {

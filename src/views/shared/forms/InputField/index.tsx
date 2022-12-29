@@ -1,18 +1,19 @@
-import React, { FC } from "react";
-import { Form, Input } from 'antd';
-import { useField } from "formik";
+import React, {FC} from "react";
+import {Form, Input} from 'antd';
+import {useField} from "formik";
 
 interface IFormField {
     label?: string,
-        name: string,
-        placeholder?: string,
-        formItemClassName?: string,
-        asComponent?: any,
-        props?: any,
-        className?: any,
-        type?: string,
-        bordered?: boolean,
-        prefix?: any,
+    name: string,
+    placeholder?: string,
+    formItemClassName?: string,
+    asComponent?: any,
+    props?: any,
+    className?: any,
+    type?: string,
+    bordered?: boolean,
+    prefix?: any,
+    labelClassName?: string,
 }
 
 const defaultProps: IFormField = {
@@ -22,25 +23,27 @@ const defaultProps: IFormField = {
     formItemClassName: '',
     bordered: true,
     asComponent: Input,
+    labelClassName: '',
 }
 
 const InputFiled: FC<IFormField> = ({
-      label,
-      name,
-      placeholder,
-      formItemClassName,
-      asComponent: Component,
-      ...props
-    }) => {
+                                        label,
+                                        name,
+                                        placeholder,
+                                        formItemClassName,
+                                        labelClassName,
+                                        asComponent: Component,
+                                        ...props
+                                    }) => {
     const [field, meta] = useField(name);
-    const hasError: any = meta.error;
-    // const hasError: any = meta.touched && meta.error;
+    // const hasError: any = meta.error;
+    const hasError: any = meta.touched && meta.error;
     const Error = hasError ? <div className="error">{meta.error}</div> : undefined;
 
     return (
         <Form.Item
             className={formItemClassName}
-            label={<span>{label}</span>}
+            label={<span className={labelClassName}>{label}</span>}
             htmlFor={name}
             validateStatus={hasError}
             help={Error}

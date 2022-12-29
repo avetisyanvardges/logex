@@ -1,4 +1,11 @@
-import { RegionsTypes, IFetchRegionsSuccessPayload, IRegionTypes, IRegion, IFetchCommunitiesSuccessPayload } from "state/regions/types";
+import {
+    RegionsTypes,
+    IFetchRegionsSuccessPayload,
+    IRegionTypes,
+    IRegion,
+    IFetchCommunitiesSuccessPayload,
+    ICommunityById, IUpdateAndCreateCommunity
+} from "state/regions/types";
 import { ActionWithPayload, IParams } from "state/types";
 
 export type fetchRegionsRequestAction = ActionWithPayload<RegionsTypes.FETCH_REGIONS_REQUEST, IParams>;
@@ -8,6 +15,11 @@ export type updateRegionAction = ActionWithPayload<RegionsTypes.UPDATE_REGION, {
 export type deleteRegionAction = ActionWithPayload<RegionsTypes.DELETE_REGION, {id: string} & {params: IParams}>;
 export type fetchCommunitiesRequestAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITIES_REQUEST, IParams>;
 export type fetchCommunitiesSuccessAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITIES_SUCCESS, IFetchCommunitiesSuccessPayload>;
+export type fetchCommunityByIdRequestAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITY_BY_ID_REQUEST, string>;
+export type fetchCommunityByIdSuccessAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITY_BY_ID_SUCCESS, ICommunityById>;
+export type createCommunityAction = ActionWithPayload<RegionsTypes.CREATE_COMMUNITY, IUpdateAndCreateCommunity>;
+export type updateCommunityAction = ActionWithPayload<RegionsTypes.UPDATE_COMMUNITY, {community: IUpdateAndCreateCommunity, id: string}>;
+export type deleteCommunityAction = ActionWithPayload<RegionsTypes.DELETE_COMMUNITY, {id: string} & {params: IParams}>;
 
 export const fetchRegionsRequest = (params: IParams) => ({
     type: RegionsTypes.FETCH_REGIONS_REQUEST,
@@ -44,4 +56,29 @@ export const fetchCommunitiesSuccess = (data: IFetchCommunitiesSuccessPayload) =
     payload: data,
 });
 
-export type RegionActionTypes = fetchRegionsSuccessAction | fetchCommunitiesSuccessAction;
+export const fetchCommunityByIdRequest = (id: string) => ({
+    type: RegionsTypes.FETCH_COMMUNITY_BY_ID_REQUEST,
+    payload: id,
+});
+
+export const fetchCommunityByIdSuccess = (data: ICommunityById) => ({
+    type: RegionsTypes.FETCH_COMMUNITY_BY_ID_SUCCESS,
+    payload: data,
+});
+
+export const createCommunity = (data: IUpdateAndCreateCommunity) => ({
+    type: RegionsTypes.CREATE_COMMUNITY,
+    payload: data,
+});
+
+export const updateCommunity = (data: {community: IUpdateAndCreateCommunity, id: string}) => ({
+    type: RegionsTypes.UPDATE_COMMUNITY,
+    payload: data,
+});
+
+export const deleteCommunity = (data: {id: string} & {params: IParams}) => ({
+    type: RegionsTypes.DELETE_COMMUNITY,
+    payload: data,
+});
+
+export type RegionActionTypes = fetchRegionsSuccessAction | fetchCommunitiesSuccessAction | fetchCommunityByIdSuccessAction;

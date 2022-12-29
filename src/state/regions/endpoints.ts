@@ -6,3 +6,7 @@ export const updateRegionEndpoint = (id: string) => endpoint('put', `/admin/regi
 export const deleteRegionEndpoint = (id: string) => endpoint('delete', `/admin/regions/${id}`);
 
 export const fetchCommunitiesEndpoint = endpoint('get', '/admin/communities/all');
+export const fetchCommunityByIdEndpoint = (id: string) => endpoint('get', `/admin/communities/${id}`);
+export const createCommunityEndpoint =  endpoint('post', `/admin/communities`);
+export const updateCommunityEndpoint = (id: string) => endpoint('put', `/admin/communities/${id}`);
+export const deleteCommunityEndpoint = (id: string) => endpoint('delete', `/admin/communities/${id}`);
