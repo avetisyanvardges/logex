@@ -17,13 +17,13 @@ const CheckBoxGroupField: FC<IProps> = ({items, name,sections,  ...props}) => {
             <Divider/>
             {sections ? <Row gutter={36}>
                 <Checkbox.Group {...field} {...props} onChange={onChangeHandler}>
-                    {Object.keys(items).map((key: any) => {
+                    {Object.keys(items).map((key: any,index) => {
                             return (
-                                <Col span={6} style={{marginBottom: 30}}>
+                                <Col key={`${index}_${key}`} span={6} style={{marginBottom: 30}}>
                                     <div style={{border: '1px solid #ddd', padding: 20, borderRadius: '9px'}}>
                                         <h2>{key}</h2>
 
-                                        {items[key].all.map(({value, label, ...rest}: any) => {
+                                        {items[key].map(({value, label, ...rest}: any) => {
                                             // console.log(label.includes('full') || label.includes('list'))
                                             return (
                                                 <Checkbox {...rest} key={value} value={value}>

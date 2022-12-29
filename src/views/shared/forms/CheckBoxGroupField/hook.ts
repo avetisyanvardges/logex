@@ -18,8 +18,8 @@ function useContainer({ name, items }: {name: string, items: any[]}) {
     }, []);
 
     const onCheckAllChange = (e: CheckboxChangeEvent) => {
-        let allValues = Object.values(items).reduce((acc: number[] | any, arr: { all: { label: string, value: number }[], values: number[] }) => {
-            arr.all.map((item) => {
+        let allValues = Object.values(items).reduce((acc: number[] | any, arr: { label: string, value: number }[]) => {
+            arr.map((item) => {
                 acc.push(item.value);
             });
             return acc;
