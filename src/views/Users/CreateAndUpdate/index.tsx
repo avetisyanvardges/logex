@@ -9,7 +9,7 @@ import useContainer from './hook';
 import "./style.scss";
 
 const CreateAndUpdateUser = () => {
-    const {id, formik, openSelectRegionModal, selectedRegion, loading} = useContainer();
+    const {id, formik, openSelectRegionModal, selectedRegion, loading, selectedCommunity, selectedRole} = useContainer();
 
     return (
         <AdminLayout>
@@ -50,16 +50,34 @@ const CreateAndUpdateUser = () => {
                             formItemClassName='input-form-item'
                         />
 
-                        <div className='region'>
+                        <div className='selected-fields'>
                             {!isEmpty(selectedRegion) && (
                                 <div className='content'>
-                                    <p className='name'>{`Region՝ ${selectedRegion?.region}`}</p>
+                                    <div className='name'><span>Region`</span><span className='type'>{selectedRegion?.region}</span></div>
                                 </div>
                             )}
+                            <Button onClick={() => openSelectRegionModal()}>Select Region</Button>
+                        </div>
+
+                        <div className='selected-fields'>
+                            {!isEmpty(selectedCommunity) && (
+                                <div className='content'>
+                                    <div className='name'><span>Community`</span><span className='type'>{selectedCommunity?.community}</span></div>
+                                </div>
+                            )}
+                            <Button onClick={() => openSelectRegionModal()}>Select Community</Button>
+                        </div>
+
+                        <div className='selected-fields'>
+                            {!isEmpty(selectedCommunity) && (
+                                <div className='content'>
+                                    <div className='name'><span>Role`</span><span className='type'>{selectedCommunity?.community}</span></div>
+                                </div>
+                            )}
+                            <Button onClick={() => openSelectRegionModal()}>Select Role</Button>
                         </div>
 
                         <div className='button-div'>
-                            <Button onClick={() => openSelectRegionModal()}>Select Region</Button>
                             {!isEmpty(selectedRegion) &&
                                 <Button loading={loading} htmlType='submit' className='submit-button'>Save</Button>}
                         </div>

@@ -12,36 +12,6 @@ export enum AdminActionTypes {
     DELETE_USER = 'DELETE_USER',
 }
 
-export interface IUserByUpdate {
-    id: string,
-    first_name: string,
-    last_name: string,
-    phone: string,
-    create_ip: string,
-    region: {
-        id: string,
-        region: string
-    },
-    community: {
-        id: string,
-        community: string,
-        region: {
-            id: string,
-            region: string
-        }
-    },
-    address: string,
-    is_company: boolean,
-    code: string,
-    email: string,
-    role: [
-        {
-            id: string,
-            name: string
-        }
-    ]
-}
-
 export interface ICurrentAdmin {
     id?: string,
     first_name?: string,
@@ -63,7 +33,7 @@ export interface IInitialState {
     currentAdmin: ICurrentAdmin,
     users: ICurrentAdmin[],
     usersMeta: IMeta,
-    userByUpdate: any,
+    userByUpdate: ICurrentAdmin,
 }
 
 export interface ISignInRequestPayload {

@@ -1,5 +1,5 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 
 import {AdminActionTypes} from "state/admins/types";
 import {fetchUserByUpdateEndpoint} from 'state/admins/endpoints';
@@ -14,15 +14,15 @@ const fetchUserByUpdate = createLogic({
     type: AdminActionTypes.FETCH_USER_BY_UPDATE_REQUEST,
     latest: true,
 
-    async process({ action, httpClient }: IDependencies, dispatch, done) {
-        const { url } = fetchUserByUpdateEndpoint(action.payload);
+    async process({action, httpClient}: IDependencies, dispatch, done) {
+        const {url} = fetchUserByUpdateEndpoint(action.payload);
 
         try {
-            const {data: { data }} = await httpClient.get(url);
+            const {data: {data}} = await httpClient.get(url);
 
             dispatch(fetchUserByUpdateSuccess(data))
 
-        }catch {
+        } catch {
             // take in httpClient
         }
         done();

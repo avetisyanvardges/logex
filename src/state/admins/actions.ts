@@ -3,7 +3,6 @@ import {
     ICurrentAdmin,
     ISignInRequestPayload,
     ICreateAndUpdateUserPayload,
-    IUserByUpdate
 } from 'state/admins/types';
 import {ActionWithPayload, IMeta, IParams} from 'state/types';
 
@@ -12,7 +11,7 @@ export type signInSuccessAction = ActionWithPayload<AdminActionTypes.SIGN_IN_SUC
 export type fetchUsersRequestAction = ActionWithPayload<AdminActionTypes.FETCH_USERS_REQUEST, IParams>;
 export type fetchUsersSuccessAction = ActionWithPayload<AdminActionTypes.FETCH_USERS_SUCCESS, { meta: IMeta, users: ICurrentAdmin[] }>;
 export type fetchUserByUpdateRequestAction = ActionWithPayload<AdminActionTypes.FETCH_USER_BY_UPDATE_REQUEST, string>;
-export type fetchUserByUpdateSuccessAction = ActionWithPayload<AdminActionTypes.FETCH_USER_BY_UPDATE_SUCCESS, IUserByUpdate>;
+export type fetchUserByUpdateSuccessAction = ActionWithPayload<AdminActionTypes.FETCH_USER_BY_UPDATE_SUCCESS, ICurrentAdmin>;
 export type createUserAction = ActionWithPayload<AdminActionTypes.CREATE_USER, ICreateAndUpdateUserPayload>;
 export type updateUserAction = ActionWithPayload<AdminActionTypes.UPDATE_USER, {id: string, user: ICreateAndUpdateUserPayload}>;
 export type deleteUserAction = ActionWithPayload<AdminActionTypes.DELETE_USER, { params: IParams, id: string }>;
@@ -42,7 +41,7 @@ export const fetchUserByUpdateRequest = (id: string) => ({
     payload: id,
 });
 
-export const fetchUserByUpdateSuccess = (user: IUserByUpdate) => ({
+export const fetchUserByUpdateSuccess = (user: ICurrentAdmin) => ({
     type: AdminActionTypes.FETCH_USER_BY_UPDATE_SUCCESS,
     payload: user,
 });
