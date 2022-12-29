@@ -26,7 +26,19 @@ const CreateAndUpdateOrder = () => {
                 </div>
                 <Form onFinish={formik.handleSubmit} className='form'>
                     <FormikProvider value={formik}>
-                        <p className='label'>Order name</p>
+                        <p className='label'>Sender</p>
+                        <InputFiled
+                            name="name"
+                            placeholder="Order name"
+                            className="name-input"
+                            formItemClassName='input-form-item'
+                        />
+                        <InputFiled
+                            name="name"
+                            placeholder="Order name"
+                            className="name-input"
+                            formItemClassName='input-form-item'
+                        />
                         <InputFiled
                             name="name"
                             placeholder="Order name"

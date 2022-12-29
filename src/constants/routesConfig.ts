@@ -9,6 +9,7 @@ import Roles from 'views/Roles';
 import CreateAndUpdateRole from "views/Roles/CreateAndUpdateRole";
 import {IPagePermissions} from 'state/types';
 import {PERMISSIONS} from './permissions';
+import CreateAndUpdateOrder from "../views/Orders/CreateAndUpdateOrder";
 
 interface IList {
     name: string,
@@ -46,6 +47,18 @@ export const ROUTES_LIST: IList[] = [
         name: 'Orders',
         component: Orders,
         path: '/order',
+        permissions: PERMISSIONS.ORDER,
+    },
+    {
+        name: 'Create Order',
+        component: CreateAndUpdateOrder,
+        path: '/order/create',
+        permissions: PERMISSIONS.ORDER,
+    },
+    {
+        name: 'Update Order',
+        component: CreateAndUpdateOrder,
+        path: '/order/update/:id',
         permissions: PERMISSIONS.ORDER,
     },
     {
