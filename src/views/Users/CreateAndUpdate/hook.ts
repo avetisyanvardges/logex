@@ -22,6 +22,11 @@ interface ISelectedCommunity {
     id?: number
 }
 
+interface ISelectedRole {
+    name?: string,
+    id?: string
+}
+
 function useContainer() {
     const {id} = useParams();
     const dispatch = useDispatch();
@@ -31,6 +36,7 @@ function useContainer() {
     const {isLoading: createLoading} = useParametricSelector(createEndpoint);
     const [selectedRegion, setSelectedRegion] = useState<ISelectedRegion>({});
     const [selectedCommunity, setSelectedCommunity] = useState<ISelectedCommunity>({});
+    const [selectedRole, setSelectedRole] = useState<ISelectedRole>({});
     const {userByUpdate} = useTypedSelector(({admins}) => admins);
 
     /**  Formik handleSubmit  */
@@ -85,9 +91,11 @@ function useContainer() {
 
     /**  onUpdateHandler  */
     const onUpdateHandler = () => {
-        // if (!id || isEmpty(userByUpdate)) return;
-        // setSelectedRegion(userByUpdate?.region);
-        // setSelectedCommunity(userByUpdate?.community);
+        if (!id || isEmpty(userByUpdate)) return;
+        userByUpdate?.region && setSelectedRegion(userByUpdate.region);
+        userByUpdate?.community && setSelectedCommunity(userByUpdate.community);
+        // @ts-ignore
+        isEmpty(userByUpdate?.role?.[0]) && setSelectedRole(userByUpdate.role[0]);
     };
 
     /**  on params update handler  */
@@ -108,6 +116,8 @@ function useContainer() {
         formik,
         openSelectRegionModal,
         selectedRegion,
+        selectedCommunity,
+        selectedRole,
         loading: updateLoading || createLoading,
     }
 }
