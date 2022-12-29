@@ -11,6 +11,7 @@ import {IPagePermissions} from 'state/types';
 import {PERMISSIONS} from './permissions';
 import CreateAndUpdateCommunity from '../views/Communities/CreateAndUpdate';
 import CreateAndUpdateUser from '../views/Users/CreateAndUpdate';
+import CreateAndUpdateOrder from "../views/Orders/CreateAndUpdateOrder";
 
 interface IList {
     name: string,
@@ -66,6 +67,18 @@ export const ROUTES_LIST: IList[] = [
         name: 'Orders',
         component: Orders,
         path: '/order',
+        permissions: PERMISSIONS.ORDER,
+    },
+    {
+        name: 'Create Order',
+        component: CreateAndUpdateOrder,
+        path: '/order/create',
+        permissions: PERMISSIONS.ORDER,
+    },
+    {
+        name: 'Update Order',
+        component: CreateAndUpdateOrder,
+        path: '/order/update/:id',
         permissions: PERMISSIONS.ORDER,
     },
     {

@@ -1,0 +1,66 @@
+.role-forms {
+  .form-header {
+    margin: 5px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .title {
+      text-align: center;
+      font-size: 25px;
+      margin: 0 10px;
+    }
+  }
+  .form {
+    max-width: 1000px;
+    padding-bottom: 50px;
+    .label {
+      font-size: 20px;
+      margin: 20px 10px 5px;
+    }
+    .input-form-item {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+      .error {
+        color: red;
+      }
+    }
+    .name-input {
+      width: 300px;
+      height: 40px;
+    }
+    .check-box-field {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      padding: 10px 10px;
+    }
+    .button-div {
+      width: 90%;
+      display: flex;
+      justify-content: flex-end;
+      .submit-button {
+        background-color: #5BC852;
+        color: white;
+        width: 100px;
+        height: 40px;
+      }
+    }
+  }
+  .ant-checkbox-checked > .ant-checkbox-inner {
+    background-color: #5BC852;
+    border-color: #5BC852;
+    .ant-form > label {
+      margin-left: 8px;
+    }
+  }
+  .ant-checkbox-wrapper, .ant-checkbox-wrapper+.ant-checkbox-wrapper {
+    margin-left: 0;
+    margin-top: 5px;
+    width: 200px;
+  }
+  .ant-checkbox-inner::after {
+    background-color: #5BC852;
+  }
+}
