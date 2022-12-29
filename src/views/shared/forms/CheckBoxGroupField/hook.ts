@@ -2,8 +2,10 @@ import {useCallback, useState} from "react";
 import {useField} from "formik";
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import useTypedSelector from "../../../../hooks/useTypedSelector";
 
 function useContainer({ name, items }: {name: string, items: any[]}) {
+    const {permissions} = useTypedSelector(({roles}) => roles);
     const [checkAll, setCheckAll] = useState(false);
     const [indeterminate, setIndeterminate] = useState(true);
     const [field, , helpers] = useField(name);
@@ -16,8 +18,10 @@ function useContainer({ name, items }: {name: string, items: any[]}) {
     }, []);
 
     const onCheckAllChange = (e: CheckboxChangeEvent) => {
-        let allValues = items.reduce((acc: number[] | any, item: {label: string, value: number}) => {
-            acc.push(item.value);
+        let allValues = Object.values(items).reduce((acc: number[] | any, arr: { all: { label: string, value: number }[], values: number[] }) => {
+            arr.all.map((item) => {
+                acc.push(item.value);
+            });
             return acc;
         }, []);
 

@@ -32,10 +32,13 @@ function useContainer() {
 
     /** checkbox group options  */
     const options = useMemo(() => {
-        return permissions.reduce((acc: { label: string, value: number }[], item: IPermission) => {
-            acc.push({label: permissionName(item.name), value: item.id});
+        return permissions.reduce((acc: any, item: IPermission) => {
+            const [key] = permissionName(item.name).split(' ')
+            acc[key] = !isEmpty(acc[key]) ? {...acc[key]} :  {all: [], values: []}
+            acc[key].values.push(item.id);
+            acc[key].all.push({label: permissionName(item.name), value: item.id});
             return acc;
-        }, []);
+        }, {});
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [permissions]);
 
