@@ -85,9 +85,9 @@ function useContainer() {
 
     /**  onUpdateHandler  */
     const onUpdateHandler = () => {
-        if (!id || isEmpty(userByUpdate)) return;
-        setSelectedRegion(userByUpdate?.region);
-        setSelectedCommunity(userByUpdate?.community);
+        // if (!id || isEmpty(userByUpdate)) return;
+        // setSelectedRegion(userByUpdate?.region);
+        // setSelectedCommunity(userByUpdate?.community);
     };
 
     /**  on params update handler  */
