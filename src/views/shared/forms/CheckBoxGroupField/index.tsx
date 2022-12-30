@@ -19,7 +19,6 @@ const CheckBoxGroupField: FC<IProps> = ({items, name, formikPermissions, section
             {sections ? <Row gutter={36}>
                 <Checkbox.Group {...field} {...props} onChange={onChangeHandler}>
                     {Object.keys(items).map((key: any,index) => {
-
                             return (
                                 <Col key={`${index}_${key}`} span={6} style={{marginBottom: 30}}>
                                     <div style={{border: '1px solid #ddd', padding: 20, borderRadius: '9px'}}>
@@ -39,6 +38,7 @@ const CheckBoxGroupField: FC<IProps> = ({items, name, formikPermissions, section
                                     </div>
                                 </Col>
                             );
+
 
                     })}
                 </Checkbox.Group>
