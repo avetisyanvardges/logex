@@ -3,19 +3,11 @@ import {Checkbox, Col, Divider, Row} from 'antd';
 import useContainer from './hook';
 
 interface IProps {
-    items: any[], name: string,sections?: boolean, className?: string, permissions?: string[],
+    items: any[], name: string,sections?: boolean, className?: string, formikPermissions: string[]
 }
 
-const CheckBoxGroupField: FC<IProps> = ({items, name, permissions, sections,  ...props}) => {
-    const { field, onChangeHandler, checkAll, indeterminate, onCheckAllChange } = useContainer({ name, items });
-
-    const getDisabledValue = (arg: any) => {
-        let result = true;
-        arg.map((item: any) => {
-            if(permissions?.includes(item.value)) result = false;
-        })
-        return result;
-    }
+const CheckBoxGroupField: FC<IProps> = ({items, name, formikPermissions, sections,  ...props}) => {
+    const { field, onChangeHandler, checkAll, indeterminate, onCheckAllChange, getDisabledValue } = useContainer({ name, items, formikPermissions });
 
     return (
         <>

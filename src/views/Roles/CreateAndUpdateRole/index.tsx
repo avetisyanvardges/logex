@@ -32,7 +32,7 @@ const CreateAndUpdateRole = () => {
                         />
                         <Divider />
                         <p className='label'>Permissions</p>
-                        <CheckBoxGroupField permissions={formik.values.permissions} items={options} name='permissions' className='check-box-field' sections={true} />
+                        <CheckBoxGroupField formikPermissions={formik.values.permissions} items={options} name='permissions' className='check-box-field' sections={true} />
                         <div className='button-div'>
                             <Button loading={buttonLoader} htmlType='submit' className='submit-button'>Save</Button>
                         </div>

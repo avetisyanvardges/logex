@@ -4,7 +4,7 @@ import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import useTypedSelector from "../../../../hooks/useTypedSelector";
 
-function useContainer({ name, items }: {name: string, items: any[]}) {
+function useContainer({ name, items, formikPermissions }: {name: string, items: any[],formikPermissions: string[]}) {
     const {permissions} = useTypedSelector(({roles}) => roles);
     const [checkAll, setCheckAll] = useState(false);
     const [indeterminate, setIndeterminate] = useState(true);
@@ -30,11 +30,20 @@ function useContainer({ name, items }: {name: string, items: any[]}) {
         setCheckAll(e.target.checked);
     };
 
+    const getDisabledValue = (arg: any) => {
+        let result = true;
+        arg.map((item: any) => {
+            if(formikPermissions?.includes(item.value)) result = false;
+        })
+        return result;
+    }
+
     return {
         field,
         onChangeHandler,
         checkAll,
         indeterminate,
+        getDisabledValue,
         onCheckAllChange,
     };
 }
