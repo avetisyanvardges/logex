@@ -46,9 +46,9 @@ const SelectRegion: FC<Props> = ({onClose, onSelectHandler, selectedRegionId}) =
                     (<Radio.Group onChange={onChange} value={value} className='cards'>
                         {!isEmpty(regions) && regions.map(item => (
                                 <Radio value={item.id} className='card' key={item.id} onClick={() => onSelect(item)}>
-                                    <p className='name'>Region am` {item.region_am}</p>
-                                    <p className='name'>Region ru` {item.region_ru}</p>
-                                    <p className='name'>Region en` {item.region_en}</p>
+                                    <p className='name'>{item.region_am}</p>
+                                    {/*<p className='name'>Region ru` {item.region_ru}</p>*/}
+                                    {/*<p className='name'>Region en` {item.region_en}</p>*/}
                                 </Radio>
                             ))
                         }
