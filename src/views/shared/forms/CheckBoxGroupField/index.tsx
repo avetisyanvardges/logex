@@ -29,7 +29,7 @@ const CheckBoxGroupField: FC<IProps> = ({items, name, formikPermissions, section
                                             return (
                                                 <Checkbox
                                                     {...item} key={item.value} value={item.value}
-                                                    disabled={index < 3 ? false : getDisabledValue(items[key].slice(0, 3))}
+                                                    disabled={index < 2 ? false : getDisabledValue(items[key].slice(0, 2))}
                                                 >
                                                     {item.label}
                                                 </Checkbox>

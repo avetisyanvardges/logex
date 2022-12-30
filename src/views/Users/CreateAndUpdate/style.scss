@@ -3,6 +3,13 @@
   .form {
     padding-top: 20px;
     width: 500px;
+
+    .check-box-content {
+      margin: 20px 0;
+      .check-box {
+        margin-left: 10px;
+      }
+    }
     .label {
       width: 110px;
       text-align: left;
@@ -12,12 +19,15 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      .content {
-        margin: 10px 0;
+      .filed {
+        min-width: 100px;
+        .content {
+          margin: 10px 0;
 
-        .name {
-          .type {
-            margin-left: 20px;
+          .name {
+            .type {
+              margin-left: 20px;
+            }
           }
         }
       }

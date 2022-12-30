@@ -14,6 +14,7 @@ interface IFormField {
     bordered?: boolean,
     prefix?: any,
     labelClassName?: string,
+    autoComplete?: string,
 }
 
 const defaultProps: IFormField = {
@@ -24,6 +25,7 @@ const defaultProps: IFormField = {
     bordered: true,
     asComponent: Input,
     labelClassName: '',
+    autoComplete: '',
 }
 
 const InputFiled: FC<IFormField> = ({
@@ -38,7 +40,7 @@ const InputFiled: FC<IFormField> = ({
     const [field, meta] = useField(name);
     // const hasError: any = meta.error;
     const hasError: any = meta.touched && meta.error;
-    const Error = hasError ? <div className="error">{meta.error}</div> : undefined;
+    const Error = hasError ? <div className="error" style={{color: 'red'}}>{meta.error}</div> : undefined;
 
     return (
         <Form.Item

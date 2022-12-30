@@ -3,56 +3,50 @@ import {useFormik} from 'formik';
 import {useEffect, useState} from 'react';
 import {isEmpty} from 'lodash';
 import {useDispatch} from 'react-redux';
-import validationSchema from 'lib/yupLocalised/scheme/users';
-import {fetchUserByUpdateRequest} from 'state/admins/actions';
+import createValidationSchema from 'lib/yupLocalised/scheme/createUser';
+import updateValidationSchema from 'lib/yupLocalised/scheme/updateUser';
+import {createUser, fetchUserByUpdateRequest, updateUser} from 'state/admins/actions';
 import useMount from 'hooks/useMount';
 import useTypedSelector from 'hooks/useTypedSelector';
 import {showModal} from 'state/modals/actions';
 import {updateUsersEndpoint, createUserEndpoint} from 'state/admins/endpoints';
 import useParametricSelector from 'hooks/useParametricSelector';
-import {ICreateAndUpdateUserPayload} from 'state/admins/types';
 
-interface ISelectedRegion {
-    region?: string,
-    id?: number
-}
+interface ISelectedRegion { region?: string, id?: number}
 
-interface ISelectedCommunity {
-    community?: string,
-    id?: number
-}
+interface ISelectedCommunity {community?: string,id?: number}
 
-interface ISelectedRole {
-    name?: string,
-    id?: string
-}
+interface ISelectedRole {name?: string,id?: string}
 
 function useContainer() {
     const {id} = useParams();
     const dispatch = useDispatch();
     const {endpoint: updateEndpoint} = updateUsersEndpoint(id || '');
     const {endpoint: createEndpoint} = createUserEndpoint;
-    const {isLoading: updateLoading} = useParametricSelector(updateEndpoint);
-    const {isLoading: createLoading} = useParametricSelector(createEndpoint);
+    const {isLoading: updateLoading, error: updateError} = useParametricSelector(updateEndpoint);
+    const {isLoading: createLoading, error: createError} = useParametricSelector(createEndpoint);
     const [selectedRegion, setSelectedRegion] = useState<ISelectedRegion>({});
     const [selectedCommunity, setSelectedCommunity] = useState<ISelectedCommunity>({});
-    const [selectedRole, setSelectedRole] = useState<ISelectedRole[]>([]);
+    const [selectedRole, setSelectedRole] = useState<ISelectedRole>({});
     const {userByUpdate} = useTypedSelector(({admins}) => admins);
 
     /**  Formik handleSubmit  */
-    const onSubmit = (values: ICreateAndUpdateUserPayload) => {
-        console.log(values)
+    const onSubmit = (values: any) => {
         if (id) {
-            // dispatch(updateCommunity({community: values, id}))
+            delete values.email;
+            delete values.password;
+            dispatch(updateUser({id, user: values}));
         } else {
-            // dispatch(createCommunity(values));
+            dispatch(createUser(values));
         }
     };
 
     /**  Formik initialization  */
     const formik = useFormik({
-        enableReinitialize: true,
+        // enableReinitialize: true,
         initialValues: {
+            email: '',
+            password: '',
             role_id: '',
             first_name: '',
             last_name: '',
@@ -60,31 +54,67 @@ function useContainer() {
             region_id: '',
             community_id: '',
             address: '',
+            is_company: 0,
         },
-        validationSchema,
-        // initialErrors: {
-        //     name: createError?.message || updateError?.message,
-        // },
+        validationSchema: id ? updateValidationSchema : createValidationSchema,
         onSubmit,
     });
 
-    /** open modal for select region  */
-    const onSelectHandler = (region: ISelectedRegion) => {
-        setSelectedRegion(region);
-        if (isEmpty(region)) return;
-        formik.setValues({
-            ...formik.values,
-            region_id: String(region.id),
-        })
+    /** on change is company  */
+    const onChangeIsCompany = ({target: value}: any) => {
+        formik.setFieldValue('is_company', value.checked ? 1 : 0);
     };
 
     /** open modal for select region  */
-    const openSelectRegionModal = (region?: ISelectedRegion): void => {
+    const onSelectRegionHandler = (region: ISelectedRegion) => {
+        setSelectedRegion(region);
+        if (isEmpty(region)) return;
+        formik.setFieldValue('region_id', String(region.id))
+    };
+
+    /** open modal for select community  */
+    const onSelectCommunityHandler = (community: ISelectedCommunity) => {
+        setSelectedCommunity(community);
+        if (isEmpty(community)) return;
+        formik.setFieldValue('community_id', String(community?.id))
+    };
+
+    /** open modal for select role  */
+    const onSelectRoleHandler = (role: any) => {
+        setSelectedRole(role);
+        if (isEmpty(role)) return;
+        formik.setFieldValue('role_id', String(role?.id))
+    };
+
+    /** open modal for select region  */
+    const openSelectRegionModal = (): void => {
         dispatch(showModal({
             modalType: 'SELECT_REGION_MODAL',
             modalProps: {
-                onSelectHandler,
+                onSelectHandler: onSelectRegionHandler,
                 selectedRegionId: selectedRegion?.id,
+            }
+        }))
+    };
+
+    /** open modal for select community  */
+    const openSelectCommunityModal = (): void => {
+        dispatch(showModal({
+            modalType: 'SELECT_COMMUNITY_MODAL',
+            modalProps: {
+                onSelectHandler: onSelectCommunityHandler,
+                selectedCommunityId: selectedCommunity?.id,
+            }
+        }))
+    };
+
+    /** open modal for select role  */
+    const openSelectRoleModal = (): void => {
+        dispatch(showModal({
+            modalType: 'SELECT_ROLE_MODAL',
+            modalProps: {
+                onSelectHandler: onSelectRoleHandler,
+                selectedRoleId: selectedRole?.id,
             }
         }))
     };
@@ -92,27 +122,24 @@ function useContainer() {
     /**  onUpdateHandler  */
     const onUpdateHandler = () => {
         if (!id || isEmpty(userByUpdate)) return;
-        if(userByUpdate?.region) {
-            setSelectedRegion(userByUpdate.region);
+        setSelectedCommunity({});
+        setSelectedRole({});
+        setSelectedRegion({});
+        if(userByUpdate?.region) setSelectedRegion(userByUpdate.region);
+        if(userByUpdate?.community) setSelectedCommunity(userByUpdate.community);
+        if(!isEmpty(userByUpdate?.role)) setSelectedRole(userByUpdate.role?.[0] || {});
 
-        }
-        if(userByUpdate?.community) {
-            setSelectedCommunity(userByUpdate.community);
-        }
-        if(!isEmpty(userByUpdate?.role)) {
-            setSelectedRole(userByUpdate.role || []);
-        }
-
-        // formik.setValues({
-        //     ...formik.values,
-        //     role_id: userByUpdate?.role?.[0].id,
-        //     first_name: '',
-        //     last_name: '',
-        //     phone: '',
-        //     region_id: '',
-        //     community_id: userByUpdate?.cmunity.id,
-        //     address: '',
-        // })
+        formik.setValues({
+            ...formik.values,
+            first_name: userByUpdate.first_name || '',
+            last_name: userByUpdate.last_name || '',
+            phone: userByUpdate.phone || '',
+            address: userByUpdate.address || '',
+            is_company: userByUpdate.is_company ? 1 : 0,
+            region_id: String(userByUpdate?.region?.id) || '',
+            community_id: String(userByUpdate?.community?.id) || '',
+            role_id: String(userByUpdate.role?.[0].id) || '',
+        })
     };
 
     /**  on params update handler  */
@@ -122,20 +149,44 @@ function useContainer() {
         dispatch(fetchUserByUpdateRequest(id));
     };
 
+    /**  on errors handler handler  */
+    const onErrorsHandler = () => {
+        if(!isEmpty(createError)) {
+            const errors =  Object.keys(createError?.error).reduce((acc: any, key: any) => {
+                acc[key] = createError.error[key][0];
+                return acc;
+            }, {})
+            formik.setErrors(errors)
+        }
+        if(!isEmpty(updateError)) {
+            const errors =  Object.keys(updateError?.error).reduce((acc: any, key: any) => {
+                acc[key] = updateError.error[key][0];
+                return acc;
+            }, {})
+            formik.setErrors(errors)
+        }
+    };
+
     /**  Lifecycle  */
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useMount(onMountHandler);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(onUpdateHandler, [userByUpdate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(onErrorsHandler, [createError, updateError]);
+
 
     return {
         id,
         formik,
         openSelectRegionModal,
+        openSelectCommunityModal,
+        openSelectRoleModal,
         selectedRegion,
         selectedCommunity,
         selectedRole,
         loading: updateLoading || createLoading,
+        onChangeIsCompany,
     }
 }
 
