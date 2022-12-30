@@ -8,23 +8,22 @@ import InputFiled from 'views/shared/forms/InputField';
 import useContainer from './hook';
 import "./style.scss";
 
-const CreateAndUpdateUser = () => {
+const CreateAndUpdateCustomer = () => {
     const {
         id,
         formik,
         openSelectRegionModal,
         openSelectCommunityModal,
-        openSelectRoleModal,
         selectedRegion,
         loading,
         selectedCommunity,
-        selectedRole,
         onChangeIsCompany,
     } = useContainer();
+
     return (
         <AdminLayout>
-            <div className='create-and-update-user'>
-                <FormHeader title={id ? 'Update user' : 'Create user'}/>
+            <div className='create-and-update-customer'>
+                <FormHeader title={id ? 'Update customer' : 'Create customer'}/>
                 <Form onFinish={formik.handleSubmit} className='form'>
                     <FormikProvider value={formik}>
                         <InputFiled
@@ -59,28 +58,6 @@ const CreateAndUpdateUser = () => {
                             labelClassName="label"
                             formItemClassName='input-form-item'
                         />
-                        {!id &&
-                            <>
-                                <InputFiled
-                                    name="email"
-                                    placeholder="Email"
-                                    label="Email"
-                                    className="input"
-                                    labelClassName="label"
-                                    formItemClassName='input-form-item'
-                                />
-                                <InputFiled
-                                    name="password"
-                                    placeholder="Password"
-                                    label="Password"
-                                    labelClassName="label"
-                                    className="input"
-                                    formItemClassName='input-form-item'
-                                    asComponent={Input.Password}
-                                    autoComplete="new-password"
-                                />
-                            </>
-                        }
                         <div className='check-box-content'>
                             Is company
                             <Checkbox
@@ -118,20 +95,6 @@ const CreateAndUpdateUser = () => {
                             <Button onClick={() => openSelectCommunityModal()}>Select Community</Button>
                         </div>
 
-                        <div className='selected-fields'>
-                            <div className='filed'>
-                                <div className='content'>
-                                    <div className='name'>
-                                        <span>Role`</span>
-                                        <span className='type'>
-                                            {!isEmpty(selectedRole) ? selectedRole?.name : ''}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <Button onClick={() => openSelectRoleModal()}>Select Role</Button>
-                        </div>
-
                         <div className='button-div'>
                             {(formik.isValid && formik.dirty) &&
                                 <Button loading={loading} htmlType='submit' className='submit-button'>Save</Button>}
@@ -145,4 +108,4 @@ const CreateAndUpdateUser = () => {
     )
 };
 
-export default CreateAndUpdateUser;
+export default CreateAndUpdateCustomer;
