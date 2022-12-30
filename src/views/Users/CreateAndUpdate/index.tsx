@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Divider, Form} from 'antd';
+import {Button, Checkbox, Divider, Form, Input, Radio} from 'antd';
 import {FormikProvider} from 'formik';
 import {isEmpty} from 'lodash';
 import AdminLayout from 'views/layouts/Admin';
@@ -9,8 +9,20 @@ import useContainer from './hook';
 import "./style.scss";
 
 const CreateAndUpdateUser = () => {
-    const {id, formik, openSelectRegionModal, selectedRegion, loading, selectedCommunity, selectedRole} = useContainer();
-console.log(selectedRole)
+    const {
+        id,
+        formik,
+        openSelectRegionModal,
+        openSelectCommunityModal,
+        openSelectRoleModal,
+        selectedRegion,
+        loading,
+        selectedCommunity,
+        selectedRole,
+        onChangeIsCompany,
+    } = useContainer();
+
+    console.log(formik.values)
     return (
         <AdminLayout>
             <div className='create-and-update-user'>
@@ -49,36 +61,81 @@ console.log(selectedRole)
                             labelClassName="label"
                             formItemClassName='input-form-item'
                         />
-
+                        {!id &&
+                            <>
+                                <InputFiled
+                                    name="email"
+                                    placeholder="Email"
+                                    label="Email"
+                                    className="input"
+                                    labelClassName="label"
+                                    formItemClassName='input-form-item'
+                                />
+                                <InputFiled
+                                    name="password"
+                                    placeholder="Password"
+                                    label="Password"
+                                    labelClassName="label"
+                                    className="input"
+                                    formItemClassName='input-form-item'
+                                    asComponent={Input.Password}
+                                    autoComplete="new-password"
+                                />
+                            </>
+                        }
+                        <div className='check-box-content'>
+                            Is company
+                            <Checkbox
+                                value={!!formik.values.is_company}
+                                checked={!!formik.values.is_company}
+                                className='check-box'
+                                onChange={onChangeIsCompany}
+                            />
+                        </div>
                         <div className='selected-fields'>
-                            {!isEmpty(selectedRegion) && (
+                            <div className='filed'>
                                 <div className='content'>
-                                    <div className='name'><span>Region`</span><span className='type'>{selectedRegion?.region}</span></div>
+                                    <div className='name'>
+                                        <span>Region`</span>
+                                        <span className='type'>
+                                            {!isEmpty(selectedRegion) ? selectedRegion?.region : ''}
+                                        </span>
+                                    </div>
                                 </div>
-                            )}
+                            </div>
                             <Button onClick={() => openSelectRegionModal()}>Select Region</Button>
                         </div>
 
                         <div className='selected-fields'>
-                            {!isEmpty(selectedCommunity) && (
+                            <div className='filed'>
                                 <div className='content'>
-                                    <div className='name'><span>Community`</span><span className='type'>{selectedCommunity?.community}</span></div>
+                                    <div className='name'>
+                                        <span>Community`</span>
+                                        <span className='type'>
+                                            {!isEmpty(selectedCommunity) ? selectedCommunity?.community : ''}
+                                        </span>
+                                    </div>
                                 </div>
-                            )}
-                            <Button onClick={() => openSelectRegionModal()}>Select Community</Button>
+                            </div>
+                            <Button onClick={() => openSelectCommunityModal()}>Select Community</Button>
                         </div>
 
                         <div className='selected-fields'>
-                            {!isEmpty(selectedRole) && (
+                            <div className='filed'>
                                 <div className='content'>
-                                    <div className='name'><span>Role`</span><span className='type'>{selectedRole?.[0].name}</span></div>
+                                    <div className='name'>
+                                        <span>Role`</span>
+                                        <span className='type'>
+                                            {!isEmpty(selectedRole) ? selectedRole?.name : ''}
+                                        </span>
+                                    </div>
                                 </div>
-                            )}
-                            <Button onClick={() => openSelectRegionModal()}>Select Role</Button>
+                            </div>
+                            <Button onClick={() => openSelectRoleModal()}>Select Role</Button>
                         </div>
 
                         <div className='button-div'>
-                            {!isEmpty(selectedRegion) &&
+                            {(formik.isValid && formik.dirty) &&
                                 <Button loading={loading} htmlType='submit' className='submit-button'>Save</Button>}
                         </div>
 
