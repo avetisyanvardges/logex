@@ -47,7 +47,6 @@ function useContainer({ name, items, formikPermissions }: {name: string, items: 
         indeterminate,
         getDisabledValue,
         onCheckAllChange,
-        disabledStatus
     };
 }
 
