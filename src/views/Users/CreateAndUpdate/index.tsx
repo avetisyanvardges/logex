@@ -10,7 +10,7 @@ import "./style.scss";
 
 const CreateAndUpdateUser = () => {
     const {id, formik, openSelectRegionModal, selectedRegion, loading, selectedCommunity, selectedRole} = useContainer();
-
+console.log(selectedRole)
     return (
         <AdminLayout>
             <div className='create-and-update-user'>
@@ -69,9 +69,9 @@ const CreateAndUpdateUser = () => {
                         </div>
 
                         <div className='selected-fields'>
-                            {!isEmpty(selectedCommunity) && (
+                            {!isEmpty(selectedRole) && (
                                 <div className='content'>
-                                    <div className='name'><span>Role`</span><span className='type'>{selectedCommunity?.community}</span></div>
+                                    <div className='name'><span>Role`</span><span className='type'>{selectedRole?.[0].name}</span></div>
                                 </div>
                             )}
                             <Button onClick={() => openSelectRegionModal()}>Select Role</Button>
