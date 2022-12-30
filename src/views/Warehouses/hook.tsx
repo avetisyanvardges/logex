@@ -48,19 +48,8 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
     const columns = useMemo(() => (
         [
             {
-                title: 'Warehouse en',
-                width: 100,
-                dataIndex: 'warehouse_en',
-                fixed: 'left' as 'left',
-            },
-            {
                 title: 'Warehouse am',
                 width: 100,
-                dataIndex: 'warehouse_am',
-            },
-            {
-                width: 100,
-                title: 'Warehouse ru',
                 dataIndex: 'warehouse_am',
             },
             {
