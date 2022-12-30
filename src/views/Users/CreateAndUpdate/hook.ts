@@ -36,7 +36,7 @@ function useContainer() {
     const {isLoading: createLoading} = useParametricSelector(createEndpoint);
     const [selectedRegion, setSelectedRegion] = useState<ISelectedRegion>({});
     const [selectedCommunity, setSelectedCommunity] = useState<ISelectedCommunity>({});
-    const [selectedRole, setSelectedRole] = useState<ISelectedRole>({});
+    const [selectedRole, setSelectedRole] = useState<ISelectedRole[]>([]);
     const {userByUpdate} = useTypedSelector(({admins}) => admins);
 
     /**  Formik handleSubmit  */
@@ -92,10 +92,27 @@ function useContainer() {
     /**  onUpdateHandler  */
     const onUpdateHandler = () => {
         if (!id || isEmpty(userByUpdate)) return;
-        userByUpdate?.region && setSelectedRegion(userByUpdate.region);
-        userByUpdate?.community && setSelectedCommunity(userByUpdate.community);
-        // @ts-ignore
-        isEmpty(userByUpdate?.role?.[0]) && setSelectedRole(userByUpdate.role[0]);
+        if(userByUpdate?.region) {
+            setSelectedRegion(userByUpdate.region);
+
+        }
+        if(userByUpdate?.community) {
+            setSelectedCommunity(userByUpdate.community);
+        }
+        if(!isEmpty(userByUpdate?.role)) {
+            setSelectedRole(userByUpdate.role || []);
+        }
+
+        // formik.setValues({
+        //     ...formik.values,
+        //     role_id: userByUpdate?.role?.[0].id,
+        //     first_name: '',
+        //     last_name: '',
+        //     phone: '',
+        //     region_id: '',
+        //     community_id: userByUpdate?.cmunity.id,
+        //     address: '',
+        // })
     };
 
     /**  on params update handler  */
