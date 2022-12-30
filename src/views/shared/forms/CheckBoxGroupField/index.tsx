@@ -3,11 +3,20 @@ import {Checkbox, Col, Divider, Row} from 'antd';
 import useContainer from './hook';
 
 interface IProps {
-    items: any[], name: string,sections?: boolean, className?: string,
+    items: any[], name: string,sections?: boolean, className?: string, permissions?: string[],
 }
 
-const CheckBoxGroupField: FC<IProps> = ({items, name,sections,  ...props}) => {
+const CheckBoxGroupField: FC<IProps> = ({items, name, permissions, sections,  ...props}) => {
     const { field, onChangeHandler, checkAll, indeterminate, onCheckAllChange } = useContainer({ name, items });
+
+    const getDisabledValue = (arg: any) => {
+        let result = true;
+        arg.map((item: any) => {
+            if(permissions?.includes(item.value)) result = false;
+        })
+        return result;
+    }
+
     return (
         <>
             <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}
@@ -23,11 +32,14 @@ const CheckBoxGroupField: FC<IProps> = ({items, name,sections,  ...props}) => {
                                     <div style={{border: '1px solid #ddd', padding: 20, borderRadius: '9px'}}>
                                         <h2>{key}</h2>
 
-                                        {items[key].map(({value, label, ...rest}: any) => {
+                                        {items[key].map((item: any, index: number) => {
                                             // console.log(label.includes('full') || label.includes('list'))
                                             return (
-                                                <Checkbox {...rest} key={value} value={value}>
-                                                    {label}
+                                                <Checkbox
+                                                    {...item} key={item.value} value={item.value}
+                                                    disabled={index < 3 ? false : getDisabledValue(items[key].slice(0, 3))}
+                                                >
+                                                    {item.label}
                                                 </Checkbox>
                                             );
                                         })}
