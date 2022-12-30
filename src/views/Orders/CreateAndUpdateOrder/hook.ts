@@ -17,23 +17,28 @@ import useParametricSelector from "hooks/useParametricSelector";
 import {showModal} from "../../../state/modals/actions";
 
 interface ISelectedCustomer { customer?: string, id?: number }
+interface ISelectedRegion {
+    region?: string,
+    id?: number
+}
+
+interface ISelectedCommunity {
+    community?: string,
+    id?: number
+}
 
 
 function useContainer() {
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const {id} = useParams();
     // endpoints
-    const { endpoint: getPermissionEndpoint } = fetchPermissionsEndpoint;
-    const { endpoint: createEndpoint } = createRoleEndpoint;
-    const { endpoint: updateEndpoint } = updateRoleEndpoint(id || '');
-    const { endpoint: getRoleByIdEndpoint } = fetchRolesByIdEndpoint(id || '');
+
     // selectors
-    const { isLoading: getPermissionsLoading } = useParametricSelector(getPermissionEndpoint);
-    const { isLoading: getRoleByIdLoading } = useParametricSelector(getRoleByIdEndpoint);
-    const { isLoading: createLoader, error: createError } = useParametricSelector(createEndpoint);
-    const { isLoading: updateLoader, error: updateError } = useParametricSelector(updateEndpoint);
-    const { permissions, roleById } = useTypedSelector(({roles}) => roles);
+
+    const {permissions, roleById} = useTypedSelector(({roles}) => roles);
     const [selectedCustomer, setSelectedCustomer] = useState<ISelectedCustomer>({});
+    const [selectedRegion, setSelectedRegion] = useState<ISelectedRegion>({});
+    const [selectedCommunity, setSelectedCommunity] = useState<ISelectedCommunity>({});
     const [isSender, setSender] = useState<string>('');
 
     /** checkbox group options  */
@@ -46,11 +51,22 @@ function useContainer() {
 
     /**  Formik handleSubmit  */
     const onSubmit = (values: ICreateAndUpdateRolePayload) => {
-        if(id) {
+        if (id) {
             dispatch(updateRole({...values, id}));
         } else {
             dispatch(createRole(values));
         }
+    };
+
+    /** open modal for select region  */
+    const openSelectRegionModal = (region?: ISelectedRegion): void => {
+        dispatch(showModal({
+            modalType: 'SELECT_REGION_MODAL',
+            modalProps: {
+                onSelectHandler,
+                selectedRegionId: selectedRegion?.id,
+            }
+        }))
     };
 
     /**  Formik initialization  */
@@ -65,9 +81,7 @@ function useContainer() {
             sender_name: ''
         },
         validationSchema,
-        initialErrors: {
-            name: createError?.message || updateError?.message,
-        },
+        initialErrors: {},
         onSubmit,
     });
 
@@ -75,13 +89,13 @@ function useContainer() {
     const onMountHandler = () => {
         formik.resetForm();
         dispatch(fetchPermissionsRequest());
-        if(id) dispatch(fetchRolesByIdRequest(id));
+        if (id) dispatch(fetchRolesByIdRequest(id));
     };
 
     /** open modal for select region  */
-    const onSelectHandler = (customerType?:string, customer?: ISelectedCustomer) => {
-        console.log(customer,999)
-        if(isEmpty(customer)) return;
+    const onSelectHandler = (customerType?: string, customer?: ISelectedCustomer) => {
+        console.log(customer, 999)
+        if (isEmpty(customer)) return;
         formik.setValues({
             ...formik.values,
             [`${customerType}_id`]: String(customer.id),
@@ -101,7 +115,7 @@ function useContainer() {
 
     /**  On update handler  */
     const onUpdateHandler = () => {
-        if(!id && isEmpty(roleById.permissions)) return;
+        if (!id && isEmpty(roleById.permissions)) return;
 
         const checkedItems = roleById.permissions.reduce((acc: number[] | any, item: IPermission) => {
             acc.push(item.id);
@@ -120,15 +134,15 @@ function useContainer() {
     useMount(onMountHandler);
 
     return {
-        getPermissionsLoading,
-        getRoleByIdLoading,
         formik,
         roleById,
         permissions,
         options,
-        buttonLoader: createLoader || updateLoader,
-        openSelectCustomerModal
-    }
+        selectedCommunity,
+        selectedRegion,
+        openSelectCustomerModal,
+        openSelectRegionModal,
+    };
 }
 
 export default useContainer;

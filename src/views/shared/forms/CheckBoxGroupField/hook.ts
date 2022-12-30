@@ -1,15 +1,18 @@
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useField} from "formik";
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import useTypedSelector from "../../../../hooks/useTypedSelector";
+
 
 function useContainer({ name, items, formikPermissions }: {name: string, items: any[],formikPermissions: string[]}) {
     const {permissions} = useTypedSelector(({roles}) => roles);
     const [checkAll, setCheckAll] = useState(false);
     const [indeterminate, setIndeterminate] = useState(true);
     const [field, , helpers] = useField(name);
-    const { setValue } = helpers;
+    // const [disabledStatus,setDisabledStatus] = useState<any>({})
+    const [updateState, setUpdateState] = useState(false)
+    const {setValue} = helpers;
 
     /** Handle change */
     const onChangeHandler = useCallback((value: CheckboxValueType[]) => {
@@ -24,7 +27,6 @@ function useContainer({ name, items, formikPermissions }: {name: string, items: 
             });
             return acc;
         }, []);
-
         setValue(e.target.checked ? allValues : []);
         setIndeterminate(false);
         setCheckAll(e.target.checked);
@@ -45,6 +47,7 @@ function useContainer({ name, items, formikPermissions }: {name: string, items: 
         indeterminate,
         getDisabledValue,
         onCheckAllChange,
+        disabledStatus
     };
 }
 
