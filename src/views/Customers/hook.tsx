@@ -5,13 +5,15 @@ import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
 import useParametricSelector from "hooks/useParametricSelector";
 import TableOperations from "views/shared/TableOperations";
-import {fetchCustomersRequest} from "state/customers/actions";
+import {deleteCustomer, fetchCustomersRequest} from "state/customers/actions";
 import {fetchCustomersEndpoint} from "state/customers/endpoints";
 import {ICustomers} from "state/customers/types";
 import {IPagePropsPermissions} from "state/types";
+import {useNavigate} from 'react-router-dom';
 
 function useContainer({edit, remove}: IPagePropsPermissions) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { page, params, handleChangeParams } = useQueryParams();
     const { customers, customersMeta } = useTypedSelector(({customers}) => customers);
     const { endpoint: getCustomersEndpoint } = fetchCustomersEndpoint;
@@ -19,17 +21,17 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
 
     /**  create  */
     const handleCreate = () => {
-        console.log('handleCreate');
+        navigate(`/customer/create`);
     };
 
     /**  edt  */
-    const handleEdit = () => {
-        console.log('handleEdite')
+    const handleEdit = (customer: any) => {
+        navigate(`/customer/update/${customer.id}`);
     };
 
     /**  delete  */
-    const handleDelete = () => {
-        console.log('handleEdite')
+    const handleDelete = (id: string) => {
+        dispatch(deleteCustomer({params, id}));
     };
 
     /**  on params update handler  */

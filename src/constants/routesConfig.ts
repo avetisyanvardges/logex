@@ -9,9 +9,10 @@ import Roles from 'views/Roles';
 import CreateAndUpdateRole from "views/Roles/CreateAndUpdateRole";
 import {IPagePermissions} from 'state/types';
 import {PERMISSIONS} from './permissions';
-import CreateAndUpdateCommunity from '../views/Communities/CreateAndUpdate';
-import CreateAndUpdateUser from '../views/Users/CreateAndUpdate';
-import CreateAndUpdateOrder from "../views/Orders/CreateAndUpdateOrder";
+import CreateAndUpdateCommunity from 'views/Communities/CreateAndUpdate';
+import CreateAndUpdateUser from 'views/Users/CreateAndUpdate';
+import CreateAndUpdateOrder from "views/Orders/CreateAndUpdateOrder";
+import CreateAndUpdateCustomer from 'views/Customers/CreateAndUpdate';
 
 interface IList {
     name: string,
@@ -37,6 +38,18 @@ export const ROUTES_LIST: IList[] = [
         name: 'Customers',
         component: Customers,
         path: '/customer',
+        permissions: PERMISSIONS.CUSTOMER,
+    },
+    {
+        name: 'Create customer',
+        component: CreateAndUpdateCustomer,
+        path: '/customer/create',
+        permissions: PERMISSIONS.CUSTOMER,
+    },
+    {
+        name: 'Update customer',
+        component: CreateAndUpdateCustomer,
+        path: '/customer/update/:id',
         permissions: PERMISSIONS.CUSTOMER,
     },
     {
