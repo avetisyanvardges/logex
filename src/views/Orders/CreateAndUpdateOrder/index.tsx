@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Col, Divider, Form, Row} from 'antd';
+import {Button, Checkbox, Col, Divider, Form, Row} from 'antd';
 import {FormikProvider} from 'formik';
 
 import AdminLayout from 'views/layouts/Admin';
@@ -12,12 +12,12 @@ import {isEmpty} from "lodash";
 const CreateAndUpdateOrder = () => {
     const {
         formik,
-        options,
         roleById,
         selectedRegion,
         selectedCommunity,
         openSelectCustomerModal,
-        openSelectRegionModal
+        openSelectRegionModal,
+        onChangeIsCompany
     } = useContainer();
 
     // if(getPermissionsLoading) {
@@ -26,7 +26,7 @@ const CreateAndUpdateOrder = () => {
 
     return (
         <AdminLayout>
-            <div className='order-forms'>
+            <div className='create-and-update-user'>
                 <div className='form-header'>
                     <NextButton/>
                     <p className='title'>{roleById.name ? `Update ${roleById.name} role` : 'Create new order'}</p>
@@ -34,7 +34,7 @@ const CreateAndUpdateOrder = () => {
                 <Form onFinish={formik.handleSubmit} className='form'>
                     <FormikProvider value={formik}>
                         <Row gutter={36}>
-                            <Col span={6}>
+                            <Col span={20}>
                                 <div style={{border: '1px solid #ddd', padding: 20, borderRadius: '9px', marginLeft: 5}}>
                                     <div style={{display: 'flex', flexDirection: 'row'}}>
                                         <h2 style={{flex: 1}}>Sender</h2>
@@ -81,6 +81,15 @@ const CreateAndUpdateOrder = () => {
                                         labelClassName="label"
                                         formItemClassName='input-form-item'
                                     />
+                                    <div className='check-box-content'>
+                                        Is company
+                                        <Checkbox
+                                            value={!!formik.values.is_company}
+                                            checked={!!formik.values.is_company}
+                                            className='check-box'
+                                            onChange={onChangeIsCompany}
+                                        />
+                                    </div>
 
                                     <div className='selected-fields'>
                                         {!isEmpty(selectedRegion) && (
@@ -113,7 +122,7 @@ const CreateAndUpdateOrder = () => {
                                     </div>
                                 </div>
                             </Col>
-                            <Col span={6}>
+                            <Col span={20}>
                                 <div style={{border: '1px solid #ddd', padding: 20, borderRadius: '9px'}}>
                                     <div style={{display: 'flex', flexDirection: 'row'}}>
                                         <h2 style={{flex: 1}}>Recipient</h2>
@@ -160,25 +169,45 @@ const CreateAndUpdateOrder = () => {
                                         labelClassName="label"
                                         formItemClassName='input-form-item'
                                     />
+                                    <div className='check-box-content'>
+                                        Is company
+                                        <Checkbox
+                                            value={!!formik.values.is_company}
+                                            checked={!!formik.values.is_company}
+                                            className='check-box'
+                                            onChange={onChangeIsCompany}
+                                        />
+                                    </div>
+
 
                                     <div className='selected-fields'>
-                                        {!isEmpty(selectedRegion) && (
+                                        <div className='filed'>
                                             <div className='content'>
-                                                <div className='name'><span>Region`</span><span
-                                                    className='type'>{selectedRegion?.region}</span></div>
+                                                <div className='name'>
+                                                    <span>Region`</span>
+                                                    <span className='type'>
+                                            {!isEmpty(selectedRegion) ? selectedRegion?.region : ''}
+                                        </span>
+                                                </div>
                                             </div>
-                                        )}
+                                        </div>
                                         <Button onClick={() => openSelectRegionModal()}>Select Region</Button>
                                     </div>
 
                                     <div className='selected-fields'>
-                                        {!isEmpty(selectedCommunity) && (
+                                        <div className='filed'>
                                             <div className='content'>
-                                                <div className='name'><span>Community`</span><span
-                                                    className='type'>{selectedCommunity?.community}</span></div>
+                                                <div className='name'>
+                                                    <span>Community`</span>
+                                                    <span className='type'>
+                                            {!isEmpty(selectedCommunity) ? selectedCommunity?.community : ''}
+                                        </span>
+                                                </div>
                                             </div>
-                                        )}
-                                        <Button onClick={() => openSelectRegionModal()}>Select Community</Button>
+                                        </div>
+                                        <Button onClick={() => {
+                                            // openSelectCommunityModal()
+                                        }}>Select Community</Button>
                                     </div>
                                 </div>
                             </Col>

@@ -22,7 +22,6 @@ const CreateAndUpdateUser = () => {
         onChangeIsCompany,
     } = useContainer();
 
-    console.log(formik.values)
     return (
         <AdminLayout>
             <div className='create-and-update-user'>
