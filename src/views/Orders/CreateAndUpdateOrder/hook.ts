@@ -41,21 +41,15 @@ function useContainer() {
     const [selectedCommunity, setSelectedCommunity] = useState<ISelectedCommunity>({});
     const [isSender, setSender] = useState<string>('');
 
-    /** checkbox group options  */
-    const options = useMemo(() => {
-        return permissions.reduce((acc: { label: string, value: number }[], item: IPermission) => {
-            acc.push({label: permissionName(item.name), value: item.id});
-            return acc;
-        }, []);
-    }, [permissions]);
+
+    /** on change is company  */
+    const onChangeIsCompany = ({target: value}: any) => {
+        formik.setFieldValue('is_company', value.checked ? 1 : 0);
+    };
 
     /**  Formik handleSubmit  */
     const onSubmit = (values: ICreateAndUpdateRolePayload) => {
-        if (id) {
-            dispatch(updateRole({...values, id}));
-        } else {
-            dispatch(createRole(values));
-        }
+       console.log(values)
     };
 
     /** open modal for select region  */
@@ -75,6 +69,7 @@ function useContainer() {
         initialValues: {
             name: '',
             permissions: [],
+            is_company: 0,
             recipient_id: '',
             sender_id: '',
             recipient_name: '',
@@ -122,11 +117,6 @@ function useContainer() {
             return acc;
         }, []);
 
-        formik.setValues({
-            ...formik.values,
-            name: roleById.name,
-            permissions: checkedItems,
-        })
     };
 
     /**  Lifecycle  */
@@ -137,11 +127,11 @@ function useContainer() {
         formik,
         roleById,
         permissions,
-        options,
         selectedCommunity,
         selectedRegion,
         openSelectCustomerModal,
         openSelectRegionModal,
+        onChangeIsCompany
     };
 }
 
