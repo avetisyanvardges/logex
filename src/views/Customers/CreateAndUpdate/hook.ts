@@ -10,6 +10,7 @@ import useTypedSelector from 'hooks/useTypedSelector';
 import {showModal} from 'state/modals/actions';
 import {updateCustomerEndpoint, createCustomerEndpoint} from 'state/customers/endpoints';
 import useParametricSelector from 'hooks/useParametricSelector';
+import useErrorHandler from '../../../hooks/useErrorHandler';
 
 interface ISelectedRegion { region?: string, id?: number}
 
@@ -49,6 +50,9 @@ function useContainer() {
         validationSchema,
         onSubmit,
     });
+
+    /** error handler  */
+    useErrorHandler({errors: {...createError?.error, ...updateError?.error}, formik});
 
     /** on change is company  */
     const onChangeIsCompany = ({target: value}: any) => {
@@ -118,32 +122,11 @@ function useContainer() {
         dispatch(fetchCustomerByUpdateRequest(id));
     };
 
-    /**  on errors handler handler  */
-    const onErrorsHandler = () => {
-        if(!isEmpty(createError)) {
-            const errors =  Object.keys(createError?.error).reduce((acc: any, key: any) => {
-                acc[key] = createError.error[key][0];
-                return acc;
-            }, {})
-            formik.setErrors(errors)
-        }
-        if(!isEmpty(updateError)) {
-            const errors =  Object.keys(updateError?.error).reduce((acc: any, key: any) => {
-                acc[key] = updateError.error[key][0];
-                return acc;
-            }, {})
-            formik.setErrors(errors)
-        }
-    };
-
     /**  Lifecycle  */
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useMount(onMountHandler);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(onUpdateHandler, [customerByUpdate]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(onErrorsHandler, [createError, updateError]);
-
 
     return {
         id,

@@ -5,7 +5,7 @@ export type fetchCustomersRequestAction = ActionWithPayload<CustomersActionTypes
 export type fetchCustomersSuccessAction =
     ActionWithPayload<CustomersActionTypes.FETCH_CUSTOMERS_SUCCESS, { meta: IMeta, customers: ICustomers[] }>;
 export type fetchCustomerByUpdateRequestAction = ActionWithPayload<CustomersActionTypes.FETCH_CUSTOMER_BY_UPDATE_REQUEST, string>;
-export type fetchUserByUpdateSuccessAction = ActionWithPayload<CustomersActionTypes.FETCH_CUSTOMER_BY_UPDATE_SUCCESS, ICustomers>;
+export type fetchCustomerByUpdateSuccessAction = ActionWithPayload<CustomersActionTypes.FETCH_CUSTOMER_BY_UPDATE_SUCCESS, ICustomers>;
 export type createCustomerAction = ActionWithPayload<CustomersActionTypes.CREATE_CUSTOMER, ICreateAndUpdateCustomerPayload>;
 export type updateCustomerAction = ActionWithPayload<CustomersActionTypes.UPDATE_CUSTOMER, {id: string, customer: ICreateAndUpdateCustomerPayload}>;
 export type deleteCustomerAction = ActionWithPayload<CustomersActionTypes.DELETE_CUSTOMER, { params: IParams, id: string }>;
@@ -45,4 +45,4 @@ export const deleteCustomer = (data: { params: IParams, id: string }) => ({
     payload: data,
 });
 
-export type CustomersActions = fetchCustomersSuccessAction | fetchUserByUpdateSuccessAction;
+export type CustomersActions = fetchCustomersSuccessAction | fetchCustomerByUpdateSuccessAction;

@@ -1,8 +1,8 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import {useField} from "formik";
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-import useTypedSelector from "../../../../hooks/useTypedSelector";
+import useTypedSelector from "hooks/useTypedSelector";
 
 
 function useContainer({ name, items, formikPermissions }: {name: string, items: any[],formikPermissions: string[]}) {

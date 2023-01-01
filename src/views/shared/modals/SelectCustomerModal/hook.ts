@@ -1,11 +1,10 @@
 import {useEffect, useState} from "react";
 import {RadioChangeEvent} from 'antd';
 import {useDispatch} from "react-redux";
-import {fetchRegionsRequest} from "state/regions/actions";
 import useTypedSelector from 'hooks/useTypedSelector';
 import {fetchRegionsEndpoint} from 'state/regions/endpoints';
 import useParametricSelector from 'hooks/useParametricSelector';
-import {fetchCustomersRequest} from "../../../../state/customers/actions";
+import {fetchCustomersRequest} from "state/customers/actions";
 
 interface IProps {
     selectedCustomerId?: number,
