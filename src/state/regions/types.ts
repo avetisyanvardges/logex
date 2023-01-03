@@ -6,6 +6,8 @@ export enum RegionsTypes {
     CREATE_REGION = 'CREATE_REGION',
     UPDATE_REGION = 'UPDATE_REGION',
     DELETE_REGION = 'DELETE_REGION',
+    FETCH_REGION_BY_ID_REQUEST = 'FETCH_REGION_BY_ID_REQUEST',
+    FETCH_REGION_BY_ID_SUCCESS = 'FETCH_REGION_BY_ID_SUCCESS',
     FETCH_COMMUNITIES_REQUEST = 'FETCH_COMMUNITIES_REQUEST',
     FETCH_COMMUNITIES_SUCCESS = 'FETCH_COMMUNITIES_SUCCESS',
     FETCH_COMMUNITY_BY_ID_REQUEST = 'FETCH_COMMUNITY_BY_ID_REQUEST',
@@ -27,9 +29,14 @@ export interface ICommunityById {
     community_am: string, community_en: string, community_ru: string, id: number, region: { id: number, region: string }
 }
 
+export interface IRegionById {
+    region_am?: string, region_en?: string, region_ru?: string, id?: number,
+}
+
 export interface IRegionsState {
     regionsMeta: IMeta,
     regions: IRegion[],
+    regionById: IRegionById,
     communities: ICommunity[],
     communitiesMeta: IMeta,
     communityById: any,

@@ -4,7 +4,7 @@ import {
     IRegionTypes,
     IRegion,
     IFetchCommunitiesSuccessPayload,
-    ICommunityById, IUpdateAndCreateCommunity
+    ICommunityById, IUpdateAndCreateCommunity, IRegionById
 } from "state/regions/types";
 import { ActionWithPayload, IParams } from "state/types";
 
@@ -13,6 +13,8 @@ export type fetchRegionsSuccessAction = ActionWithPayload<RegionsTypes.FETCH_REG
 export type createRegionAction = ActionWithPayload<RegionsTypes.CREATE_REGION, {region: IRegionTypes} & {params: IParams}>;
 export type updateRegionAction = ActionWithPayload<RegionsTypes.UPDATE_REGION, {region: IRegion} & {params: IParams}>;
 export type deleteRegionAction = ActionWithPayload<RegionsTypes.DELETE_REGION, {id: string} & {params: IParams}>;
+export type fetchRegionByIdRequestAction = ActionWithPayload<RegionsTypes.FETCH_REGION_BY_ID_REQUEST, string>;
+export type fetchRegionByIdSuccessAction = ActionWithPayload<RegionsTypes.FETCH_REGION_BY_ID_SUCCESS, IRegionById>;
 export type fetchCommunitiesRequestAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITIES_REQUEST, IParams>;
 export type fetchCommunitiesSuccessAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITIES_SUCCESS, IFetchCommunitiesSuccessPayload>;
 export type fetchCommunityByIdRequestAction = ActionWithPayload<RegionsTypes.FETCH_COMMUNITY_BY_ID_REQUEST, string>;
@@ -43,6 +45,16 @@ export const updateRegion = (data: {region: IRegion} & {params: IParams}) => ({
 
 export const deleteRegion = (data: {params: IParams, id: string}) => ({
     type: RegionsTypes.DELETE_REGION,
+    payload: data,
+});
+
+export const fetchRegionByIdRequest = (id: string) => ({
+    type: RegionsTypes.FETCH_REGION_BY_ID_REQUEST,
+    payload: id,
+});
+
+export const fetchRegionByIdSuccess = (data: IRegionById) => ({
+    type: RegionsTypes.FETCH_REGION_BY_ID_SUCCESS,
     payload: data,
 });
 
@@ -81,4 +93,5 @@ export const deleteCommunity = (data: {id: string} & {params: IParams}) => ({
     payload: data,
 });
 
-export type RegionActionTypes = fetchRegionsSuccessAction | fetchCommunitiesSuccessAction | fetchCommunityByIdSuccessAction;
+export type RegionActionTypes = fetchRegionsSuccessAction | fetchCommunitiesSuccessAction
+    | fetchCommunityByIdSuccessAction | fetchRegionByIdSuccessAction;

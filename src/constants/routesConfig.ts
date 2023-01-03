@@ -13,6 +13,7 @@ import CreateAndUpdateCommunity from 'views/Communities/CreateAndUpdate';
 import CreateAndUpdateUser from 'views/Users/CreateAndUpdate';
 import CreateAndUpdateOrder from "views/Orders/CreateAndUpdateOrder";
 import CreateAndUpdateCustomer from 'views/Customers/CreateAndUpdate';
+import CreateAndUpdateWarehouse from 'views/Warehouses/CreateAndUpdate';
 
 interface IList {
     name: string,
@@ -116,6 +117,18 @@ export const ROUTES_LIST: IList[] = [
         name: 'Warehouses',
         component: Warehouses,
         path: '/warehouse',
+        permissions: PERMISSIONS.WAREHOUSES,
+    },
+    {
+        name: 'Create warehouse',
+        component: CreateAndUpdateWarehouse,
+        path: '/warehouse/create',
+        permissions: PERMISSIONS.WAREHOUSES,
+    },
+    {
+        name: 'Update warehouse',
+        component: CreateAndUpdateWarehouse,
+        path: '/warehouse/update/:id',
         permissions: PERMISSIONS.WAREHOUSES,
     },
     {
