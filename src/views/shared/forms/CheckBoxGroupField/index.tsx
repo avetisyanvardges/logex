@@ -18,34 +18,29 @@ const CheckBoxGroupField: FC<IProps> = ({items, name, formikPermissions, section
             <Divider/>
             {sections ? <Row gutter={36}>
                 <Checkbox.Group {...field} {...props} onChange={onChangeHandler}>
-                    {Object.keys(items).map((key: any,index) => {
-                            return (
-                                <Col key={`${index}_${key}`} span={6} style={{marginBottom: 30}}>
-                                    <div style={{border: '1px solid #ddd', padding: 20, borderRadius: '9px'}}>
-                                        <h2>{key}</h2>
-
-                                        {items[key].map((item: any, index: number) => {
-                                            // console.log(label.includes('full') || label.includes('list'))
-                                            return (
-                                                <Checkbox
-                                                    {...item} key={item.value} value={item.value}
-                                                    disabled={index < 2 ? false : getDisabledValue(items[key].slice(0, 2))}
-                                                >
-                                                    {item.label}
-                                                </Checkbox>
-                                            );
-                                        })}
-                                    </div>
-                                </Col>
-                            );
-
-
+                    {Object.keys(items).map((key: any, index) => {
+                        return (
+                            <Col key={`${index}_${key}`} span={6} style={{marginBottom: 30}}>
+                                <div style={{border: '1px solid #ddd', padding: 20, borderRadius: '9px'}}>
+                                    <h2>{key}</h2>
+                                    {items[key].map((item: any, index: number) => {
+                                        return (
+                                            <Checkbox
+                                                {...item} key={item.value} value={item.value}
+                                                disabled={index < 2 ? false : getDisabledValue(items[key].slice(0, 2))}>
+                                                {item.label}
+                                            </Checkbox>
+                                        );
+                                    })}
+                                </div>
+                            </Col>
+                        );
                     })}
                 </Checkbox.Group>
             </Row> : (
                 <Checkbox.Group {...field} {...props} onChange={onChangeHandler}>
                     {items.map(({value, label, ...rest}) => (
-                        <Checkbox {...rest} key={value} value={value} >
+                        <Checkbox {...rest} key={value} value={value}>
                             {label}
                         </Checkbox>
                     ))}
@@ -54,6 +49,7 @@ const CheckBoxGroupField: FC<IProps> = ({items, name, formikPermissions, section
 
         </>
     );
+
 }
 
 export default CheckBoxGroupField;

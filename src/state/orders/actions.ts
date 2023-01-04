@@ -1,5 +1,5 @@
 import {OrderTypes, IFetchOrdersSuccessPayload, IOrderTypes, IOrders,} from "state/orders/types";
-import { ActionWithPayload, IParams } from "state/types";
+import {ActionWithPayload, IParams, IRoleById} from "state/types";
 
 export type fetchOrdersRequestAction = ActionWithPayload<OrderTypes.FETCH_ORDERS_REQUEST, IParams>;
 export type fetchOrdersSuccessAction = ActionWithPayload<OrderTypes.FETCH_ORDERS_SUCCESS, IFetchOrdersSuccessPayload>;
@@ -17,7 +17,7 @@ export const fetchOrdersSuccess = (data: IFetchOrdersSuccessPayload) => ({
     payload: data,
 });
 
-export const createOrder = (data: {region: IOrderTypes} & {params: IParams}) => ({
+export const createOrder = (data: IOrderTypes) => ({
     type: OrderTypes.CREATE_ORDER,
     payload: data,
 });
@@ -32,4 +32,14 @@ export const deleteOrder = (data: {params: IParams, id: string}) => ({
     payload: data,
 });
 
-export type OrderActionTypes = fetchOrdersSuccessAction ;
+export const fetchOrderByIdRequest = (id: string) => ({
+    type: OrderTypes.FETCH_ORDER_BY_ID_REQUEST,
+    payload: id,
+});
+
+export const fetchOrderByIdSuccess = (data: IRoleById) => ({
+    type: OrderTypes.FETCH_ORDER_BY_ID_SUCCESS,
+    payload: data,
+});
+
+export type OrderActionTypes = fetchOrdersSuccessAction | any;

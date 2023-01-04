@@ -1,253 +1,217 @@
 import React from 'react';
-import {Button, Checkbox, Col, Divider, Form, Row} from 'antd';
+import {Button, Checkbox, Col, DatePicker, Divider, Dropdown, Form, MenuProps, Row, Space, Typography} from 'antd';
 import {FormikProvider} from 'formik';
 
 import AdminLayout from 'views/layouts/Admin';
 import NextButton from "views/shared/NextButton";
-import InputFiled from 'views/shared/forms/InputField';
 import useContainer from './hook';
 import './style.scss';
-import {isEmpty} from "lodash";
+import SelectUser from "../SelectUser";
+import Exchange from "../../../assets/svg/ExchangeSvg";
+import InputFiled from "../../shared/forms/InputField";
+import {DownOutlined} from "@ant-design/icons";
+import {STATUS, STATUS_NAME} from "../../../constants/statuses";
+import Loader from "../../shared/Loader";
 
 const CreateAndUpdateOrder = () => {
     const {
         formik,
-        roleById,
-        selectedRegion,
-        selectedCommunity,
-        openSelectCustomerModal,
         openSelectRegionModal,
-        onChangeIsCompany
+        statuses,
+        onChangeIsReturn,
+        onChangeStatus,
+        getOrderByIdLoading,
+        buttonLoader,
+        orderById
     } = useContainer();
 
-    // if(getPermissionsLoading) {
-    //        return <Loader isAdmin />
-    // }
+    if(getOrderByIdLoading) {
+        return <Loader isAdmin />
+    }
 
     return (
         <AdminLayout>
             <div className='create-and-update-user'>
                 <div className='form-header'>
                     <NextButton/>
-                    <p className='title'>{roleById.name ? `Update ${roleById.name} role` : 'Create new order'}</p>
+                    <p className='title'>{false ? `Update order` : 'Create new order'}</p>
                 </div>
                 <Form onFinish={formik.handleSubmit} className='form'>
                     <FormikProvider value={formik}>
-                        <Row gutter={36}>
-                            <Col span={20}>
-                                <div style={{border: '1px solid #ddd', padding: 20, borderRadius: '9px', marginLeft: 5}}>
-                                    <div style={{display: 'flex', flexDirection: 'row'}}>
-                                        <h2 style={{flex: 1}}>Sender</h2>
-                                        <div onClick={() => openSelectCustomerModal('sender')} style={{
-                                            cursor: 'pointer',
-                                            height: 30,
-                                            border: '1px solid #ddd',
-                                            marginLeft: 5,
-                                            padding: 5,
-                                            borderRadius: 8
-                                        }}>
-                                            <h5>{formik?.values?.sender_name || 'Select Sender'}</h5>
-                                        </div>
+                        <div style={{marginBottom: 10}}>
+                            <Col>
+                                <div style={{display: 'flex', flexDirection: 'row'}}>
+                                    <div onClick={() => openSelectRegionModal(undefined, 'from')} style={{
+                                        flex: 1,
+                                        alignItems: "center",
+                                        justifyContent: 'center',
+                                        display: 'flex',
+                                        border: '1px solid #ddd',
+                                        padding: 20,
+                                        borderRadius: '9px',
+                                        borderTopRightRadius: 0,
+                                        borderBottomRightRadius: 0,
+                                        cursor: 'pointer',
+                                    }}>
+                                        <h3>{`From: ${formik.values.from_name}`}</h3>
                                     </div>
-                                    <InputFiled
-                                        name="sender.first_name"
-                                        placeholder="First name"
-                                        label="First name"
-                                        className="input"
-                                        labelClassName="label"
-                                        formItemClassName='input-form-item'
-                                    />
-                                    <InputFiled
-                                        name="sender.last_name"
-                                        placeholder="Last name"
-                                        label="Last name"
-                                        className="input"
-                                        labelClassName="label"
-                                        formItemClassName='input-form-item'
-                                    />
-                                    <InputFiled
-                                        name="sender.phone"
-                                        placeholder="Phone"
-                                        label="Phone"
-                                        className="input"
-                                        labelClassName="label"
-                                        formItemClassName='input-form-item'
-                                    />
-                                    <InputFiled
-                                        name="sender.address"
-                                        placeholder="Address"
-                                        label="Address"
-                                        className="input"
-                                        labelClassName="label"
-                                        formItemClassName='input-form-item'
-                                    />
-                                    <div className='check-box-content'>
-                                        Is company
-                                        <Checkbox
-                                            value={!!formik.values.is_company}
-                                            checked={!!formik.values.is_company}
-                                            className='check-box'
-                                            onChange={onChangeIsCompany}
-                                        />
+                                    <div onClick={() => {
+                                        const from = {id: formik.values.from_id, name: formik.values.from_name}
+                                        const to = {id: formik.values.to_id, name: formik.values.to_name}
+                                        formik.setValues({
+                                            ...formik.values,
+                                            from_id: to.id,
+                                            from_name: to.name,
+                                            to_id: from.id,
+                                            to_name: from.name
+                                        });
+                                    }} style={{
+                                        width: 50,
+                                        height: 50,
+                                        borderRadius: 25,
+                                        position: "absolute",
+                                        top: 0,
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                        backgroundColor: '#fff',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        border: '1px solid #ddd',
+                                        cursor: 'pointer',
+                                        marginLeft: 'auto',
+                                        marginRight: 'auto',
+                                        marginTop: 'auto',
+                                        marginBottom: 'auto',
+                                        textAlign: 'center',
+                                    }}>
+                                        <Exchange/>
                                     </div>
 
-                                    <div className='selected-fields'>
-                                        {!isEmpty(selectedRegion) && (
-                                            <div className='content'>
-                                                <div className='name'><span>Region`</span><span
-                                                    className='type'>{selectedRegion?.region}</span></div>
-                                            </div>
-                                        )}
-                                        <Button onClick={() => openSelectRegionModal()}>Select Region</Button>
-                                    </div>
+                                    <div onClick={() => openSelectRegionModal(undefined, 'to')} style={{
+                                        flex: 1,
+                                        alignItems: "center",
+                                        justifyContent: 'center',
+                                        display: 'flex',
+                                        border: '1px solid #ddd',
+                                        padding: 20,
+                                        borderRadius: '9px',
+                                        borderTopLeftRadius: 0,
+                                        borderBottomLeftRadius: 0,
+                                        cursor: 'pointer'
 
-                                    <div className='selected-fields'>
-                                        {!isEmpty(selectedCommunity) && (
-                                            <div className='content'>
-                                                <div className='name'><span>Community`</span><span
-                                                    className='type'>{selectedCommunity?.community}</span></div>
-                                            </div>
-                                        )}
-                                        <Button onClick={() => {
-                                            console.log(formik.values, 9999)
-                                            openSelectRegionModal()
-                                        }}>Select Community</Button>
-                                    </div>
-
-
-                                    <div className='button-div'>
-                                        {!isEmpty(selectedRegion) &&
-                                            <Button loading={false} htmlType='submit'
-                                                    className='submit-button'>Save</Button>}
+                                    }}>
+                                        <h3>{`To: ${formik.values.to_name}`}</h3>
                                     </div>
                                 </div>
                             </Col>
-                            <Col span={20}>
+                        </div>
+                        <Row gutter={24}>
+                            <SelectUser title='Sender' formik={formik} id={orderById?.sender?.id} />
+                            <SelectUser title='Recipient' formik={formik} id={orderById?.recipient?.id} />
+                            <Col span={8}>
                                 <div style={{border: '1px solid #ddd', padding: 20, borderRadius: '9px'}}>
-                                    <div style={{display: 'flex', flexDirection: 'row'}}>
-                                        <h2 style={{flex: 1}}>Recipient</h2>
-                                        <div onClick={() => openSelectCustomerModal('recipient')} style={{
-                                            cursor: 'pointer',
-                                            height: 30,
-                                            border: '1px solid #ddd',
-                                            marginLeft: 5,
-                                            padding: 5,
-                                            borderRadius: 8
-                                        }}>
-                                            <h5>{formik?.values?.sender_name || 'Select Recipient'}</h5>
-                                        </div>
-                                    </div>
-                                    <InputFiled
-                                        name="recipient.first_name"
-                                        placeholder="First name"
-                                        label="First name"
-                                        className="input"
-                                        labelClassName="label"
-                                        formItemClassName='input-form-item'
-                                    />
-                                    <InputFiled
-                                        name="recipient.last_name"
-                                        placeholder="Last name"
-                                        label="Last name"
-                                        className="input"
-                                        labelClassName="label"
-                                        formItemClassName='input-form-item'
-                                    />
-                                    <InputFiled
-                                        name="recipient.phone"
-                                        placeholder="Phone"
-                                        label="Phone"
-                                        className="input"
-                                        labelClassName="label"
-                                        formItemClassName='input-form-item'
-                                    />
-                                    <InputFiled
-                                        name="recipient.address"
-                                        placeholder="Address"
-                                        label="Address"
-                                        className="input"
-                                        labelClassName="label"
-                                        formItemClassName='input-form-item'
-                                    />
-                                    <div className='check-box-content'>
-                                        Is company
-                                        <Checkbox
-                                            value={!!formik.values.is_company}
-                                            checked={!!formik.values.is_company}
-                                            className='check-box'
-                                            onChange={onChangeIsCompany}
+                                    <h2 style={{flex: 1}}>Additional</h2>
+                                    <div className='form'>
+                                        <InputFiled
+                                            name={`description`}
+                                            placeholder="Description"
+                                            label="Description"
+                                            className="input"
+                                            labelClassName="label"
+                                            formItemClassName='input-form-item'
                                         />
-                                    </div>
+                                        <InputFiled
+                                            name={`additional_address`}
+                                            placeholder="Additional address"
+                                            label="Additional address"
+                                            className="input"
+                                            labelClassName="label"
+                                            formItemClassName='input-form-item'
+                                        />
+                                        <InputFiled
+                                            name={`comment`}
+                                            placeholder="Comment"
+                                            label="Comment"
+                                            className="input"
+                                            labelClassName="label"
+                                            formItemClassName='input-form-item'
+                                        />
+                                        <InputFiled
+                                            name={`admin_comment`}
+                                            placeholder="Admin comment"
+                                            label="Admin comment"
+                                            className="input"
+                                            labelClassName="label"
+                                            formItemClassName='input-form-item'
+                                        />
 
-
-                                    <div className='selected-fields'>
-                                        <div className='filed'>
-                                            <div className='content'>
-                                                <div className='name'>
-                                                    <span>Region`</span>
-                                                    <span className='type'>
-                                            {!isEmpty(selectedRegion) ? selectedRegion?.region : ''}
-                                        </span>
+                                        <div className='check-box-content'>
+                                            Is return
+                                            <Checkbox
+                                                value={!!formik.values.is_return}
+                                                checked={!!formik.values.is_return}
+                                                className='check-box'
+                                                onChange={onChangeIsReturn}
+                                            />
+                                        </div>
+                                        <div className='selected-fields'>
+                                            <div className='filed'>
+                                                <div className='content'>
+                                                    <div className='name'>
+                                                        <span>Delivery date</span>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <DatePicker onChange={(date, dateString) => formik.setValues({
+                                                ...formik.values,
+                                                delivery_date: dateString
+                                            })}/>
                                         </div>
-                                        <Button onClick={() => openSelectRegionModal()}>Select Region</Button>
-                                    </div>
-
-                                    <div className='selected-fields'>
-                                        <div className='filed'>
-                                            <div className='content'>
-                                                <div className='name'>
-                                                    <span>Community`</span>
-                                                    <span className='type'>
-                                            {!isEmpty(selectedCommunity) ? selectedCommunity?.community : ''}
-                                        </span>
+                                        <div className='selected-fields'>
+                                            <div className='filed'>
+                                                <div className='content'>
+                                                    <div className='name'>
+                                                        <span>Status</span>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <Dropdown
+                                                menu={{
+                                                    items: statuses,
+                                                    selectable: true,
+                                                    defaultSelectedKeys: [formik.values.status],
+                                                    onClick: onChangeStatus
+                                                }}>
+                                                <Typography.Link>
+                                                    <Space>
+                                                        {STATUS_NAME[formik.values.status] || 'Select'}
+                                                        <DownOutlined/>
+                                                    </Space>
+                                                </Typography.Link>
+                                            </Dropdown>
                                         </div>
-                                        <Button onClick={() => {
-                                            // openSelectCommunityModal()
-                                        }}>Select Community</Button>
                                     </div>
                                 </div>
                             </Col>
                         </Row>
-                        <Button onClick={() => {
-                            console.log(formik.values, 9999)
-                            openSelectCustomerModal('recipient')
-                        }}>Select Recipient</Button>
-
-                        <p className='label'>{formik?.values?.sender_name}</p>
-                        <p className='label'>{formik?.values?.recipient_name}</p>
-                        <InputFiled
-                            name="name"
-                            placeholder="Order name"
-                            className="name-input"
-                            formItemClassName='input-form-item'
-                        />
-                        <InputFiled
-                            name="name"
-                            placeholder="Order name"
-                            className="name-input"
-                            formItemClassName='input-form-item'
-                        />
-                        <InputFiled
-                            name="name"
-                            placeholder="Order name"
-                            className="name-input"
-                            formItemClassName='input-form-item'
-                        />
+                        <Col>
+                        </Col>
                         <Divider/>
                         <div className='button-div'>
-                            <Button
-                                loading={false}
-                                htmlType='submit' className='submit-button'>Save</Button>
+                            <Button loading={buttonLoader} htmlType='submit' className='submit-button'>Save</Button>
                         </div>
                     </FormikProvider>
                 </Form>
             </div>
         </AdminLayout>
     );
+
+
+
+
+
 };
 
 export default CreateAndUpdateOrder;

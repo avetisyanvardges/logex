@@ -1,36 +1,36 @@
 import {useEffect, useState} from "react";
 import {RadioChangeEvent} from 'antd';
 import {useDispatch} from "react-redux";
+import {fetchRegionsRequest} from "state/regions/actions";
 import useTypedSelector from 'hooks/useTypedSelector';
 import {fetchRegionsEndpoint} from 'state/regions/endpoints';
 import useParametricSelector from 'hooks/useParametricSelector';
-import {fetchCustomerByUpdateRequest, fetchCustomersRequest} from "state/customers/actions";
+import warehouses from "../../../../state/warehouses/reducer";
+import fetchWarehouses from "../../../../state/warehouses/operations/fetchWarehouses";
+import {fetchWarehousesRequest} from "../../../../state/warehouses/actions";
 
 interface IProps {
-    selectedCustomerId?: number,
+    selectedRegionId?: number,
     onClose: () => void,
     onSelectHandler: any,
 }
 
-function useContainer({selectedCustomerId, onClose, onSelectHandler}: IProps) {
+function useContainer({selectedRegionId, onClose, onSelectHandler}: IProps) {
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
-    const { customers,customerByUpdate, customersMeta } = useTypedSelector(({customers}) => customers);
+    const { warehouses, warehousesMeta } = useTypedSelector(({warehouses}) => warehouses);
     const { endpoint: getRegionsEndpoint } = fetchRegionsEndpoint;
     const { isLoading: isFetchingRegions } = useParametricSelector(getRegionsEndpoint);
-    const [value, setValue] = useState(() => selectedCustomerId || 0);
+    const [value, setValue] = useState(() => selectedRegionId || 0);
     const [selectedValue, setSelectedValue] = useState<any>({});
 
     /**  on save handler  */
     const onSave = () => {
-        dispatch(fetchCustomerByUpdateRequest(selectedValue.id, (customer) => {
-            onSelectHandler({
-                customer,
-                id: selectedValue.id
-            });
-        }));
+        onSelectHandler({
+            warehouse: selectedValue.warehouse_am,
+            id: selectedValue.id
+        });
         onClose();
-
     };
 
     /**  on change handler  */
@@ -45,7 +45,7 @@ function useContainer({selectedCustomerId, onClose, onSelectHandler}: IProps) {
 
     /**  on mount handler  */
     const onMountHandler = () => {
-        dispatch(fetchCustomersRequest({page: String(page), per_page: '8'}));
+        dispatch(fetchWarehousesRequest({page: String(page), per_page: '8'}));
     }
 
     /**  Lifecycle  */
@@ -53,12 +53,12 @@ function useContainer({selectedCustomerId, onClose, onSelectHandler}: IProps) {
     useEffect(onMountHandler, [page]);
 
     return {
-        customers,
+        warehouses,
         isFetchingRegions,
         value,
         onChange,
         setPage,
-        customersMeta,
+        warehousesMeta,
         page,
         selectedValue,
         onSelect,
