@@ -2,17 +2,37 @@
   padding: 0 20px;
   .form {
     padding-top: 20px;
-    width: 400px;
+    width: 500px;
+
+    .check-box-content {
+      margin: 20px 0;
+      .check-box {
+        margin-left: 10px;
+      }
+    }
     .label {
       width: 110px;
       text-align: left;
     }
-    .region {
-      .content {
-        margin-left: 0;
-        .name {
+    .selected-fields {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .filed {
+        min-width: 100px;
+        .content {
+          margin: 10px 0;
 
+          .name {
+            .type {
+              margin-left: 20px;
+            }
+          }
         }
+      }
+      button {
+        width: 150px;
       }
     }
     .button-div {

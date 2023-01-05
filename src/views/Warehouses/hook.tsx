@@ -5,13 +5,15 @@ import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
 import useParametricSelector from "hooks/useParametricSelector";
 import TableOperations from "views/shared/TableOperations";
-import {fetchWarehousesRequest} from 'state/warehouses/actions';
+import {deleteWarehouse, fetchWarehousesRequest} from 'state/warehouses/actions';
 import { fetchWarehousesEndpoint } from "state/warehouses/endpoints";
 import {IWarehouse} from 'state/warehouses/types';
 import {IPagePropsPermissions} from "state/types";
+import {useNavigate} from 'react-router-dom';
 
 function useContainer({edit, remove}: IPagePropsPermissions) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { page, params, handleChangeParams } = useQueryParams();
     const { warehouses, warehousesMeta } = useTypedSelector(({warehouses}) => warehouses);
     const { endpoint: getWarehousesEndpoint } = fetchWarehousesEndpoint;
@@ -19,17 +21,17 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
 
     /**  create  */
     const handleCreate = () => {
-        console.log('handleCreate');
+        navigate(`/warehouse/create`);
     };
 
     /**  edt  */
-    const handleEdit = () => {
-        console.log('handleEdite')
+    const handleEdit = (warehouse: any) => {
+        navigate(`/warehouse/update/${warehouse.id}`);
     };
 
     /**  delete  */
-    const handleDelete = () => {
-        console.log('handleEdite')
+    const handleDelete = (id: string) => {
+        dispatch(deleteWarehouse({id, params}));
     };
 
     /**  on params update handler  */
@@ -48,19 +50,8 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
     const columns = useMemo(() => (
         [
             {
-                title: 'Warehouse en',
-                width: 100,
-                dataIndex: 'warehouse_en',
-                fixed: 'left' as 'left',
-            },
-            {
                 title: 'Warehouse am',
                 width: 100,
-                dataIndex: 'warehouse_am',
-            },
-            {
-                width: 100,
-                title: 'Warehouse ru',
                 dataIndex: 'warehouse_am',
             },
             {

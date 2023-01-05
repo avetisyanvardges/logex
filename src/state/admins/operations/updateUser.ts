@@ -18,7 +18,7 @@ const updateUser = createLogic({
         const { url } = updateUsersEndpoint(action.payload.id);
 
         try {
-            await httpClient.post(url, action.payload.user);
+            await httpClient.put(url, action.payload.user);
             history.back();
 
         }catch {

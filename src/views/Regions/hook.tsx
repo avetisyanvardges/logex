@@ -55,17 +55,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
             {
                 title: 'Region am',
                 dataIndex: 'region_am',
-                width: '24%',
-            },
-            {
-                title: 'Region en',
-                dataIndex: 'region_en',
-                width: '24%',
-            },
-            {
-                title: 'Region ru',
-                dataIndex: 'region_ru',
-                width: '24%',
+                width: '50%',
             },
             {
                 title: 'Operations',

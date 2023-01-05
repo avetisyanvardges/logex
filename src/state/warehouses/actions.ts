@@ -1,9 +1,14 @@
 import {ActionWithPayload, IMeta, IParams} from "state/types";
-import {WarehousesActionTypes, IWarehouse} from "state/warehouses/types";
+import {WarehousesActionTypes, IWarehouse, ICreateAndUpdateWarehouses} from "state/warehouses/types";
 
 export type fetchWarehousesRequestAction = ActionWithPayload<WarehousesActionTypes.FETCH_WAREHOUSES_REQUEST, IParams>;
 export type fetchWarehousesSuccessAction =
     ActionWithPayload<WarehousesActionTypes.FETCH_WAREHOUSES_SUCCESS, { meta: IMeta, warehouses: IWarehouse[] }>;
+export type fetchWarehouseByUpdateRequestAction = ActionWithPayload<WarehousesActionTypes.FETCH_WAREHOUSE_BY_UPDATE_REQUEST, string>;
+export type fetchWarehouseByUpdateSuccessAction = ActionWithPayload<WarehousesActionTypes.FETCH_WAREHOUSE_BY_UPDATE_SUCCESS, IWarehouse>;
+export type createWarehouseAction = ActionWithPayload<WarehousesActionTypes.CREATE_WAREHOUSE, ICreateAndUpdateWarehouses>;
+export type updateWarehouseAction = ActionWithPayload<WarehousesActionTypes.UPDATE_WAREHOUSE, {id: string, warehouse: ICreateAndUpdateWarehouses}>;
+export type deleteWarehouseAction = ActionWithPayload<WarehousesActionTypes.DELETE_WAREHOUSE, { params: IParams, id: string }>;
 
 export const fetchWarehousesRequest = (params: IParams) => ({
     type: WarehousesActionTypes.FETCH_WAREHOUSES_REQUEST,
@@ -15,4 +20,29 @@ export const fetchWarehousesSuccess = (data: {meta: IMeta, warehouses: IWarehous
     payload: data,
 });
 
-export type WarehousesActions = fetchWarehousesSuccessAction;
+export const fetchWarehouseByUpdateRequest = (id: string) => ({
+    type: WarehousesActionTypes.FETCH_WAREHOUSE_BY_UPDATE_REQUEST,
+    payload: id,
+});
+
+export const fetchWarehouseByUpdateSuccess = (warehouse: IWarehouse) => ({
+    type: WarehousesActionTypes.FETCH_WAREHOUSE_BY_UPDATE_SUCCESS,
+    payload: warehouse,
+});
+
+export const createWarehouse = (warehouse: ICreateAndUpdateWarehouses) => ({
+    type: WarehousesActionTypes.CREATE_WAREHOUSE,
+    payload: warehouse,
+});
+
+export const updateWarehouse = (data: {id: string, warehouse: ICreateAndUpdateWarehouses}) => ({
+    type: WarehousesActionTypes.UPDATE_WAREHOUSE,
+    payload: data,
+});
+
+export const deleteWarehouse = (data: { params: IParams, id: string }) => ({
+    type: WarehousesActionTypes.DELETE_WAREHOUSE,
+    payload: data,
+});
+
+export type WarehousesActions = fetchWarehousesSuccessAction | fetchWarehouseByUpdateSuccessAction;

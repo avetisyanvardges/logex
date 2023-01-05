@@ -52,22 +52,12 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
             {
                 title: 'Community am',
                 dataIndex: 'community_am',
-                width: '20%',
-            },
-            {
-                title: 'Community en',
-                dataIndex: 'community_en',
-                width: '20%',
-            },
-            {
-                title: 'Community ru',
-                dataIndex: 'community_ru',
-                width: '20%',
+                width: '30%',
             },
             {
                 title: 'Region',
                 dataIndex: ['region', 'region'],
-                width: '20%',
+                width: '30%',
             },
             {
                 title: 'Operations',

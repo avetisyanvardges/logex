@@ -7,6 +7,7 @@ import fetchCommunityById from './fetchCommunityById';
 import createCommunity from './createCommunity';
 import updateCommunity from './updateCommunity';
 import deleteCommunity from './deleteCommunity';
+import fetchRegionById from './fetchRegionById';
 
 const regionsOperations = [
     fetchRegions,
@@ -18,6 +19,7 @@ const regionsOperations = [
     createCommunity,
     updateCommunity,
     deleteCommunity,
+    fetchRegionById,
 ];
 
 export default regionsOperations;
