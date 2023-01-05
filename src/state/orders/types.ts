@@ -4,6 +4,8 @@ import {ICurrentAdmin} from "../admins/types";
 export enum OrderTypes {
     FETCH_ORDERS_REQUEST = 'FETCH_ORDERS_REQUEST',
     FETCH_ORDERS_SUCCESS = 'FETCH_ORDERS_SUCCESS',
+    FETCH_ORDER_BY_ID_REQUEST = 'FETCH_ORDER_BY_ID_REQUEST',
+    FETCH_ORDER_BY_ID_SUCCESS = 'FETCH_ORDER_BY_ID_SUCCESS',
     CREATE_ORDER = 'CREATE_ORDER',
     UPDATE_ORDER = 'UPDATE_ORDER',
     DELETE_ORDER = 'DELETE_ORDER',
@@ -53,5 +55,5 @@ export interface IOrders extends IOrderTypes { id: number }
 
 export interface IFetchOrdersSuccessPayload { meta: IMeta, orders: IOrders[] | any }
 
-export interface IOrdersState { ordersMeta: IMeta, orders: IOrders[] | any }
+export interface IOrdersState { ordersMeta: IMeta, orders: IOrders[] | any, orderById: any }
 

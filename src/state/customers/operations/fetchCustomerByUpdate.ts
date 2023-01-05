@@ -7,7 +7,7 @@ import {fetchCustomerByUpdateRequestAction, fetchCustomerByUpdateSuccess} from '
 
 interface IDependencies {
     httpClient: AxiosInstance,
-    action: fetchCustomerByUpdateRequestAction,
+    action: fetchCustomerByUpdateRequestAction | any,
 }
 
 const fetchCustomerByUpdate = createLogic({
@@ -15,11 +15,11 @@ const fetchCustomerByUpdate = createLogic({
     latest: true,
 
     async process({action, httpClient}: IDependencies, dispatch, done) {
-        const {url} = fetchCustomerByUpdateEndpoint(action.payload);
+        const {url} = fetchCustomerByUpdateEndpoint(action.payload.id);
 
         try {
             const {data: {data}} = await httpClient.get(url);
-
+            action.payload?.callback && await action.payload.callback(data)
             dispatch(fetchCustomerByUpdateSuccess(data))
 
         } catch {

@@ -1,64 +1,105 @@
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {useParams} from 'react-router-dom';
 import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
 import {isEmpty} from "lodash";
-
-import {IPermission} from "state/types";
-import {ICreateAndUpdateRolePayload} from 'state/roles/types';
-import { createRole, fetchPermissionsRequest, fetchRolesByIdRequest, updateRole } from "state/roles/actions";
-import { fetchPermissionsEndpoint, fetchRolesByIdEndpoint, createRoleEndpoint, updateRoleEndpoint } from "state/roles/endpoints";
-
-import useMount from "hooks/useMount";
-import permissionName from "utils/permissionName";
-import useTypedSelector from "hooks/useTypedSelector";
-import validationSchema from "lib/yupLocalised/scheme/role";
-import useParametricSelector from "hooks/useParametricSelector";
 import {showModal} from "../../../state/modals/actions";
+import {MenuProps} from "antd";
+import {STATUS} from "../../../constants/statuses";
+import {createOrder, fetchOrderByIdRequest, updateOrder} from "../../../state/orders/actions";
+import useTypedSelector from "../../../hooks/useTypedSelector";
+import useParametricSelector from "../../../hooks/useParametricSelector";
+import {createOrderEndpoint, fetchOrderByIdEndpoint, updateOrderEndpoint} from "../../../state/orders/endpoints";
+import useMount from "../../../hooks/useMount";
+import {IPermission} from "../../../state/types";
 
 interface ISelectedCustomer { customer?: string, id?: number }
+
 interface ISelectedRegion {
     region?: string,
     id?: number
 }
 
-interface ISelectedCommunity {
-    community?: string,
-    id?: number
-}
-
-
 function useContainer() {
     const dispatch = useDispatch();
     const {id} = useParams();
-    // endpoints
-
+    const [selectedWarehouse, setSelectedRegion] = useState<ISelectedRegion>({});
+    const {endpoint: createEndpoint} = createOrderEndpoint;
+    const {endpoint: updateEndpoint} = updateOrderEndpoint(id || '');
+    const {endpoint: getOrderByIdEndpoint} = fetchOrderByIdEndpoint(id || '');
     // selectors
+    const {isLoading: getOrderByIdLoading} = useParametricSelector(getOrderByIdEndpoint);
+    const {isLoading: createLoader, error: createError} = useParametricSelector(createEndpoint);
+    const {isLoading: updateLoader, error: updateError} = useParametricSelector(updateEndpoint);
+    const {currentAdmin} = useTypedSelector(({admins}) => admins)
+    const {ordersMeta, orderById} = useTypedSelector(({orders}) => orders);
 
-    const {permissions, roleById} = useTypedSelector(({roles}) => roles);
-    const [selectedCustomer, setSelectedCustomer] = useState<ISelectedCustomer>({});
-    const [selectedRegion, setSelectedRegion] = useState<ISelectedRegion>({});
-    const [selectedCommunity, setSelectedCommunity] = useState<ISelectedCommunity>({});
-    const [isSender, setSender] = useState<string>('');
 
+    /**  Status items  */
+    const statuses: MenuProps['items'] = [
+        {
+            key: STATUS.IN_PROCESS,
+            label: 'In process',
+        },
+        {
+            key: STATUS.CONFIRM,
+            label: 'Confirm',
+        },
+        {
+            key: STATUS.REJECT,
+            label: 'Reject',
+        },
+        {
+            key: STATUS.ACCEPTED,
+            label: 'Accepted',
+        },
+        {
+            key: STATUS.AT_WAREHOUSE,
+            label: 'At warehouse',
+        },
+        {
+            key: STATUS.ON_WAY,
+            label: 'On way',
+        },
+        {
+            key: STATUS.IN_COURIER,
+            label: 'In courier',
+        },
+        {
+            key: STATUS.RETURN,
+            label: 'Return',
+        },
+        {
+            key: STATUS.FAILED,
+            label: 'Failed',
+        },
+        {
+            key: STATUS.RECEIVED,
+            label: 'Received',
+        },
+    ];
 
-    /** on change is company  */
-    const onChangeIsCompany = ({target: value}: any) => {
-        formik.setFieldValue('is_company', value.checked ? 1 : 0);
+    /**  Change status value  */
+    const onChangeStatus: MenuProps['onClick'] = ({key}) => {
+        formik.setValues({...formik.values, status: key});
     };
 
     /**  Formik handleSubmit  */
-    const onSubmit = (values: ICreateAndUpdateRolePayload) => {
-       console.log(values)
+    const onSubmit = (values: any) => {
+        if (id) {
+            dispatch(updateOrder({...values, id}));
+        } else {
+            dispatch(createOrder(values))
+        }
     };
 
     /** open modal for select region  */
-    const openSelectRegionModal = (region?: ISelectedRegion): void => {
+    const openSelectRegionModal = (region?: ISelectedRegion, fromTo?: string): void => {
         dispatch(showModal({
-            modalType: 'SELECT_REGION_MODAL',
+            modalType: 'SELECT_WAREHOUSE_MODAL',
             modalProps: {
-                onSelectHandler,
-                selectedRegionId: selectedRegion?.id,
+                onSelectHandler: (warehouse: any) => onSelectHandler(warehouse, fromTo),
+                selectedWarehouseId: selectedWarehouse?.id,
             }
         }))
     };
@@ -67,71 +108,85 @@ function useContainer() {
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            name: '',
-            permissions: [],
-            is_company: 0,
+            user_id: currentAdmin.id,
+            sender: {
+                first_name: '',
+                last_name: '',
+                phone: '',
+                address: '',
+                is_company: '',
+                region_id: '',
+                community_id: ''
+            },
+            recipient: {
+                first_name: '',
+                last_name: '',
+                phone: '',
+                address: '',
+                is_company: '',
+                region_id: '',
+                community_id: '',
+            },
+            is_return: 0,
+            delivery_date: '',
+            status: '',
+            from_name: '',
+            to_name: '',
+            from_id: '',
+            to_id: '',
             recipient_id: '',
             sender_id: '',
-            recipient_name: '',
-            sender_name: ''
         },
-        validationSchema,
         initialErrors: {},
         onSubmit,
     });
 
-    /**  On mount handler  */
-    const onMountHandler = () => {
-        formik.resetForm();
-        dispatch(fetchPermissionsRequest());
-        if (id) dispatch(fetchRolesByIdRequest(id));
-    };
-
     /** open modal for select region  */
-    const onSelectHandler = (customerType?: string, customer?: ISelectedCustomer) => {
-        console.log(customer, 999)
-        if (isEmpty(customer)) return;
+    const onSelectHandler = (warehouse: any, fromTo: any) => {
+        if (isEmpty(warehouse)) return;
         formik.setValues({
             ...formik.values,
-            [`${customerType}_id`]: String(customer.id),
-            [`${customerType}_name`]: String(customer?.customer),
+            [`${fromTo}_id`]: String(warehouse.id),
+            [`${fromTo}_name`]: String(warehouse.warehouse),
         })
     };
 
-    const openSelectCustomerModal = (customerType: string): void => {
-        dispatch(showModal({
-            modalType: 'SELECT_CUSTOMER_MODAL',
-            modalProps: {
-                onSelectHandler: (customer: ISelectedCustomer) => onSelectHandler(customerType, customer),
-                selectedCustomerId: selectedCustomer?.id,
-            }
-        }))
-    };
+    /** change return checkbox value  */
+    const onChangeIsReturn = ({target: value}: any) => {
+        formik.setValues({...formik.values, is_return: value.checked ? 1 : 0})
+    }
 
     /**  On update handler  */
     const onUpdateHandler = () => {
-        if (!id && isEmpty(roleById.permissions)) return;
+        if (!id) return;
+        formik.setValues({
+            ...formik.values,
+            ...orderById
+        })
+    };
 
-        const checkedItems = roleById.permissions.reduce((acc: number[] | any, item: IPermission) => {
-            acc.push(item.id);
-            return acc;
-        }, []);
-
+    /**  On mount handler  */
+    const onMountHandler = () => {
+        formik.resetForm();
+        if (id) dispatch(fetchOrderByIdRequest(id));
     };
 
     /**  Lifecycle  */
-    useEffect(onUpdateHandler, [roleById]);
+    useEffect(onUpdateHandler, [orderById]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useMount(onMountHandler);
 
+
     return {
+        getOrderByIdLoading,
         formik,
-        roleById,
-        permissions,
-        selectedCommunity,
-        selectedRegion,
-        openSelectCustomerModal,
+        selectedWarehouse,
+        statuses,
         openSelectRegionModal,
-        onChangeIsCompany
+        onChangeIsReturn,
+        onChangeStatus,
+        buttonLoader: createLoader || updateLoader,
+        orderById
     };
 }
 

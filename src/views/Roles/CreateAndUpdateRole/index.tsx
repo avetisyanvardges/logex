@@ -9,6 +9,7 @@ import CheckBoxGroupField from "views/shared/forms/CheckBoxGroupField";
 import FormHeader from 'views/shared/FormHeader';
 import useContainer from './hook';
 import './style.scss';
+import {isEmpty} from "lodash";
 
 const CreateAndUpdateRole = () => {
     const {getPermissionsLoading, getRoleByIdLoading, formik, options, roleById, buttonLoader} = useContainer();
@@ -39,7 +40,9 @@ const CreateAndUpdateRole = () => {
                             formikPermissions={formik.values.permissions}
                         />
                         <div className='button-div'>
-                            <Button loading={buttonLoader} htmlType='submit' className='submit-button'>Save</Button>
+                            {!isEmpty(formik.values.permissions) &&
+                                <Button loading={buttonLoader} htmlType='submit' className='submit-button'>Save</Button>
+                            }
                         </div>
                     </FormikProvider>
                 </Form>

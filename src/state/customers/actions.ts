@@ -20,9 +20,9 @@ export const fetchCustomersSuccess = (data: {meta: IMeta, customers: ICustomers[
     payload: data,
 });
 
-export const fetchCustomerByUpdateRequest = (id: string) => ({
+export const fetchCustomerByUpdateRequest = (id: string,callback?: (customer: any) => void) => ({
     type: CustomersActionTypes.FETCH_CUSTOMER_BY_UPDATE_REQUEST,
-    payload: id,
+    payload: {id, callback},
 });
 
 export const fetchCustomerByUpdateSuccess = (user: ICustomers) => ({
