@@ -5,7 +5,6 @@ import {useFormik} from "formik";
 import {isEmpty} from "lodash";
 
 import {IPermission} from "state/types";
-import {ICreateAndUpdateRolePayload} from 'state/roles/types';
 import { createRole, fetchPermissionsRequest, fetchRolesByIdRequest, updateRole } from "state/roles/actions";
 import { fetchPermissionsEndpoint, fetchRolesByIdEndpoint, createRoleEndpoint, updateRoleEndpoint } from "state/roles/endpoints";
 
@@ -14,6 +13,13 @@ import permissionName from "utils/permissionName";
 import useTypedSelector from "hooks/useTypedSelector";
 import validationSchema from "lib/yupLocalised/scheme/role";
 import useParametricSelector from "hooks/useParametricSelector";
+
+interface IOnSubmit {
+    name: string,
+    permissions: {
+        [key: string]: number,
+    }
+}
 
 function useContainer() {
     const dispatch = useDispatch();
@@ -42,11 +48,12 @@ function useContainer() {
     }, [permissions]);
 
     /**  Formik handleSubmit  */
-    const onSubmit = (values: ICreateAndUpdateRolePayload) => {
+    const onSubmit = (values: IOnSubmit) => {
+        const result = {name: values.name, permissions: Object.values(values.permissions)}
         if(id) {
-            dispatch(updateRole({...values, id}));
+            dispatch(updateRole({...result, id}));
         } else {
-            dispatch(createRole(values));
+            dispatch(createRole(result));
         }
     };
 
@@ -55,7 +62,7 @@ function useContainer() {
         enableReinitialize: true,
         initialValues: {
             name: '',
-            permissions: [],
+            permissions: {},
         },
         validationSchema,
         initialErrors: {
@@ -75,10 +82,10 @@ function useContainer() {
     const onUpdateHandler = () => {
         if(!id && isEmpty(roleById.permissions)) return;
 
-        const checkedItems = roleById.permissions.reduce((acc: number[] | any, item: IPermission) => {
-            acc.push(item.id);
+        const checkedItems = roleById.permissions.reduce((acc: any, item: IPermission) => {
+            acc[item.id] = item.id;
             return acc;
-        }, []);
+        }, {});
 
         formik.setValues({
             ...formik.values,

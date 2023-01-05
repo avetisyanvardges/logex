@@ -11,7 +11,7 @@ import useTypedSelector from 'hooks/useTypedSelector';
 import {showModal} from 'state/modals/actions';
 import {updateUsersEndpoint, createUserEndpoint} from 'state/admins/endpoints';
 import useParametricSelector from 'hooks/useParametricSelector';
-import useErrorHandler from '../../../hooks/useErrorHandler';
+import useErrorHandler from 'hooks/useErrorHandler';
 
 interface ISelectedRegion { region?: string, id?: number}
 

@@ -2,41 +2,44 @@ import {useCallback, useState} from "react";
 import {useField} from "formik";
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-import useTypedSelector from "hooks/useTypedSelector";
 
-
-function useContainer({ name, items, formikPermissions }: {name: string, items: any[],formikPermissions: string[]}) {
-    const {permissions} = useTypedSelector(({roles}) => roles);
+function useContainer({ name, items, formikPermissions }: {name: string, items: any[], formikPermissions: any}) {
     const [checkAll, setCheckAll] = useState(false);
     const [indeterminate, setIndeterminate] = useState(true);
     const [field, , helpers] = useField(name);
-    // const [disabledStatus,setDisabledStatus] = useState<any>({})
-    const [updateState, setUpdateState] = useState(false)
     const {setValue} = helpers;
 
     /** Handle change */
     const onChangeHandler = useCallback((value: CheckboxValueType[]) => {
-        setValue(value);
+        const result = value.reduce((acc: any, item: any) => {
+            acc[String(item)] = item;
+            return acc;
+        }, {});
+        setValue(result);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const onCheckAllChange = (e: CheckboxChangeEvent) => {
-        let allValues = Object.values(items).reduce((acc: number[] | any, arr: { label: string, value: number }[]) => {
-            arr.map((item) => {
-                acc.push(item.value);
+        let allValues = Object.values(items).reduce((acc: any, arr: { label: string, value: number }[]) => {
+            arr.forEach((item) => {
+                acc[item.value] = item.value;
             });
             return acc;
-        }, []);
-        setValue(e.target.checked ? allValues : []);
+        }, {});
+        setValue(e.target.checked ? allValues : {});
         setIndeterminate(false);
         setCheckAll(e.target.checked);
     };
 
     const getDisabledValue = (arg: any) => {
         let result = true;
-        arg.map((item: any) => {
-            if(formikPermissions?.includes(item.value)) result = false;
-        })
+        if(!formikPermissions?.[arg[0]?.value] && !formikPermissions?.[arg[1]?.value]) {
+            arg.slice(2).forEach((item: any) => {
+                delete field.value?.[item.value]
+            })
+        } else {
+            result = false;
+        }
         return result;
     }
 

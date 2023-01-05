@@ -11,10 +11,10 @@ import useContainer from './hook';
 import './style.scss';
 
 const CreateAndUpdateRole = () => {
-    const { getPermissionsLoading, getRoleByIdLoading, formik, options, roleById, buttonLoader } = useContainer();
+    const {getPermissionsLoading, getRoleByIdLoading, formik, options, roleById, buttonLoader} = useContainer();
 
-    if(getPermissionsLoading || getRoleByIdLoading) {
-           return <Loader isAdmin />
+    if (getPermissionsLoading || getRoleByIdLoading) {
+        return <Loader isAdmin/>
     }
 
     return (
@@ -30,9 +30,14 @@ const CreateAndUpdateRole = () => {
                             className="name-input"
                             formItemClassName='input-form-item'
                         />
-                        <Divider />
+                        <Divider/>
                         <p className='label'>Permissions</p>
-                        <CheckBoxGroupField formikPermissions={formik.values.permissions} items={options} name='permissions' className='check-box-field' sections={true} />
+                        <CheckBoxGroupField
+                            items={options}
+                            name='permissions'
+                            className='check-box-field' sections={true}
+                            formikPermissions={formik.values.permissions}
+                        />
                         <div className='button-div'>
                             <Button loading={buttonLoader} htmlType='submit' className='submit-button'>Save</Button>
                         </div>
