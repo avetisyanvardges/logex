@@ -17,7 +17,6 @@ const SelectUser: React.FC<IProps> = ({title, formik, id}) => {
         openSelectRegionModal,
         openSelectCommunityModal,
         selectedRegion,
-        loading,
         selectedCommunity,
         onChangeIsCompany,
         openSelectCustomerModal

@@ -17,7 +17,7 @@ function useContainer({ name, items, formikPermissions }: {name: string, items: 
         }, {});
         setValue(result);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [setValue]);
 
     const onCheckAllChange = (e: CheckboxChangeEvent) => {
         let allValues = Object.values(items).reduce((acc: any, arr: { label: string, value: number }[]) => {

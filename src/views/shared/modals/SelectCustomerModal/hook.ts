@@ -15,7 +15,7 @@ interface IProps {
 function useContainer({selectedCustomerId, onClose, onSelectHandler}: IProps) {
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
-    const { customers,customerByUpdate, customersMeta } = useTypedSelector(({customers}) => customers);
+    const { customers, customersMeta } = useTypedSelector(({customers}) => customers);
     const { endpoint: getRegionsEndpoint } = fetchRegionsEndpoint;
     const { isLoading: isFetchingRegions } = useParametricSelector(getRegionsEndpoint);
     const [value, setValue] = useState(() => selectedCustomerId || 0);

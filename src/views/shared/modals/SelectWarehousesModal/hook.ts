@@ -1,13 +1,10 @@
 import {useEffect, useState} from "react";
 import {RadioChangeEvent} from 'antd';
 import {useDispatch} from "react-redux";
-import {fetchRegionsRequest} from "state/regions/actions";
 import useTypedSelector from 'hooks/useTypedSelector';
 import {fetchRegionsEndpoint} from 'state/regions/endpoints';
 import useParametricSelector from 'hooks/useParametricSelector';
-import warehouses from "../../../../state/warehouses/reducer";
-import fetchWarehouses from "../../../../state/warehouses/operations/fetchWarehouses";
-import {fetchWarehousesRequest} from "../../../../state/warehouses/actions";
+import {fetchWarehousesRequest} from "state/warehouses/actions";
 
 interface IProps {
     selectedRegionId?: number,
