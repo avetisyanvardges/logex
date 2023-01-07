@@ -35,3 +35,13 @@ code {
   url("assets/fonts/NotoSansArmenian-Regular.ttf");
   font-style: normal;
 }
+
+a {
+  text-decoration: none!important;
+}
+a:hover {
+  color: #5BC852!important;
+}
+.ant-menu-item-selected, .ant-menu-item-selected a, .ant-menu-item-selected a:hover{
+  color: #5BC852!important;
+}

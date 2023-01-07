@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo} from "react";
 import { useDispatch } from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 import {Popover} from 'antd';
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
@@ -11,7 +12,6 @@ import useMount from "hooks/useMount";
 import {ICurrentAdmin} from "state/admins/types";
 import sliceText from "utils/sliceText";
 import {IPagePropsPermissions} from "state/types";
-import {useNavigate} from 'react-router-dom';
 
 function useContainer({edit, remove}: IPagePropsPermissions) {
     const dispatch = useDispatch();
@@ -52,8 +52,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
     const columns = useMemo(() => ([
         {
             title: 'Full name',
-            width: 100,
-            fixed: 'left' as 'left',
+            width: '100px',
             render: (_: any, record: ICurrentAdmin) =>
                 <Popover content={<span>{`${record.first_name} ${record.last_name}`}</span>}>
                     <span>{sliceText(`${record.first_name} ${record.last_name}`, 15)}</span>
@@ -61,43 +60,42 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
         },
         {
             title: 'Phone',
-            width: 100,
+            width: '100px',
             render: (_: any, record: ICurrentAdmin) =>
                 <Popover content={<span>{record.phone}</span>}>
                     <span>{sliceText(record.phone, 13)}</span>
                 </Popover>
         },
         {
-            width: 150,
+            width: '150px',
             title: 'Email',
             dataIndex: 'email',
         },
         {
-            width: 100,
+            width: '100px',
             title: 'Community',
             dataIndex: ['community', 'community'],
         },
         {
-            width: 100,
+            width: '100px',
             title: 'Region',
             dataIndex: ['region', 'region'],
         },
         {
-            width: 100,
+            width: '100px',
             title: 'Address',
             dataIndex: 'address',
         },
         {
-            width: 100,
+            width: '100px',
             title: 'Role',
             render: (_: any, record: ICurrentAdmin) =>
                 <div className='role'>{record.role && record.role.map(({name, id}) =><span key={id + name}>{name}</span>)}</div>
         },
         {
-            width: 100,
+            width: '70px',
             fixed: 'right' as 'right',
             title: 'Operations',
-            dataIndex: 'operation',
             render: (_: any, record: ICurrentAdmin) =>
                 <TableOperations isEdit={edit} isDelete={remove} record={record} handleEdit={handleEdit} handleDelete={handleDelete} />
         },

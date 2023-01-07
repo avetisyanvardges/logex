@@ -59,7 +59,6 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
             },
             {
                 title: 'Operations',
-                dataIndex: 'operation',
                 render: (_: any, record: IRegion) =>
                     <TableOperations
                         record={record}

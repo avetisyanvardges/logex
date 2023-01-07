@@ -47,40 +47,37 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
     /**
      * Table columns
      * **/
-    const columns = useMemo(() => (
+    const columns: any = useMemo(() => (
         [
             {
                 title: 'Full name',
-                width: 100,
-                fixed: 'left' as 'left',
+                width: '120px',
                 dataIndex: 'first_name',
-                // render: (_: any, record: ICustomers) => <span>{`${record.first_name} ${record.last_name}`}</span>
             },
             {
                 title: 'Phone',
-                width: 100,
+                width: '100px',
                 dataIndex: 'phone',
             },
             {
-                width: 100,
+                width: '100px',
                 title: 'Community',
                 dataIndex: ['community', 'community'],
             },
             {
-                width: 100,
+                width: '100px',
                 title: 'Region',
                 dataIndex: ['region', 'region'],
             },
             {
-                width: 100,
+                width: '100px',
                 title: 'Address',
                 dataIndex: 'address',
             },
             {
-                width: 100,
+                width: '70px',
                 title: 'Operations',
                 fixed: 'right' as 'right',
-                dataIndex: 'operation',
                 render: (_: any, record: ICustomers) =>
                     <TableOperations
                         isEdit={edit}

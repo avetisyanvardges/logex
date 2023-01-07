@@ -55,7 +55,6 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
             {
                 title: 'Operations',
                 width: '50%',
-                dataIndex: 'operation',
                 render: (_: any, record: IRole) =>
                     <TableOperations
                         isEdit={edit}

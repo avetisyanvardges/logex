@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import {FormikProvider} from "formik";
 import {Input, Form, Button} from "antd";
 import InputFiled from 'views/shared/forms/InputField';
@@ -35,13 +34,12 @@ const SignIn = () => {
                            bordered={false}
                            prefix={<PasswordSvg />}
                        />
-                       <div className='forgotPasswordInformation'>
-                           <Link to='#' className='forgotPassword'>Մոռացե՞լ եք գաղտնաբառը</Link>
-                       </div>
+                       {/*<div className='forgotPasswordInformation'>*/}
+                       {/*    <Link to='#' className='forgotPassword'>Մոռացե՞լ եք գաղտնաբառը</Link>*/}
+                       {/*</div>*/}
                        <Button loading={isLoading} htmlType='submit' className='signInButton'>
                            Մուտք
                        </Button>
-                       {/*disabled={!(formik.isValid && formik.dirty)}*/}
                    </FormikProvider>
                </Form>
             </div>

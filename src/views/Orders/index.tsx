@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {useState} from 'react';
 import AdminLayout from '../layouts/Admin';
 import useContainer from "./hook";
 import TableHeader from "../shared/TableHeader";
@@ -63,7 +63,7 @@ const Orders = (props: any) => {
 
     return (
         <AdminLayout>
-            <div className='orders'>
+            <div className='page-with-table'>
                 <TableHeader isCreate={props.create} onCreate={handleCreateOrder} totalCount={ordersMeta.total}/>
                 <Table
                     rowKey='id' bordered dataSource={orders} columns={columns}

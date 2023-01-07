@@ -7,8 +7,7 @@ const AuthLayout: FC<LayoutProps> = ({children}) => (
     <div className='authLayout'>
         <div className='header'><LogexLogo width={163} height={83} /></div>
         <div className='static'>
-            <div className='staticContent'>
-            </div>
+            <div className='staticContent'/>
         </div>
         <div className='dynamicContent'>{children}</div>
     </div>

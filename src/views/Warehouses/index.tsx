@@ -2,9 +2,8 @@ import React, {FC} from 'react';
 import {Table} from 'antd';
 import AdminLayout from 'views/layouts/Admin';
 import TableHeader from 'views/shared/TableHeader';
-import useContainer from './hook';
 import {IPagePropsPermissions} from "state/types";
-import "./style.scss";
+import useContainer from './hook';
 
 interface IProps extends IPagePropsPermissions {}
 
@@ -12,7 +11,7 @@ const Warehouses: FC<IProps> = (props) => {
     const { warehouses, warehousesMeta, getWarehousesLoading, params, handleChangeParams, page, columns, handleCreate } = useContainer(props);
     return (
         <AdminLayout>
-            <div className='warehouses'>
+            <div className='page-with-table'>
                 <TableHeader isCreate={props.create} onCreate={handleCreate} totalCount={warehousesMeta.total} />
                 <Table
                     bordered
