@@ -7,8 +7,9 @@ import UserAvatar from 'views/shared/UserAvatar';
 import LogexLogo from 'assets/svg/LogexLogo';
 import {LayoutProps} from '../types';
 import useContainer from './hook';
+import "assets/styles/table.scss";
+import "assets/styles/selectModal.scss";
 import "./style.scss";
-import "./table.scss";
 
 const {Header, Sider, Content} = Layout;
 
