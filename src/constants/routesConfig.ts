@@ -14,6 +14,7 @@ import CreateAndUpdateUser from 'views/Users/CreateAndUpdate';
 import CreateAndUpdateOrder from "views/Orders/CreateAndUpdateOrder";
 import CreateAndUpdateCustomer from 'views/Customers/CreateAndUpdate';
 import CreateAndUpdateWarehouse from 'views/Warehouses/CreateAndUpdate';
+import Parcels from "../views/Parcels";
 
 interface IList {
     name: string,
@@ -149,6 +150,24 @@ export const ROUTES_LIST: IList[] = [
         path: '/role/update/:id',
         permissions: PERMISSIONS.ROLE,
     },
+    {
+        name: 'Parcels',
+        component: Parcels,
+        path: '/parcels',
+        permissions: PERMISSIONS.ROLE,
+    },
+    {
+        name: 'Create Parcel',
+        component: CreateAndUpdateRole,
+        path: '/parcel/create',
+        permissions: PERMISSIONS.ROLE,
+    },
+    {
+        name: 'Update Parcel',
+        component: CreateAndUpdateRole,
+        path: '/parcel/update/:id',
+        permissions: PERMISSIONS.ROLE,
+    },
 ];
 
 export const MENU_ITEMS: IMenuItem[] = [
@@ -185,6 +204,11 @@ export const MENU_ITEMS: IMenuItem[] = [
     {
         name: 'Roles',
         path: '/role',
+        permission: PERMISSIONS.ROLE.list,
+    },
+    {
+        name: 'Parcels',
+        path: '/parcels',
         permission: PERMISSIONS.ROLE.list,
     },
 ];

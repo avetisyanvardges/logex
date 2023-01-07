@@ -1,10 +1,10 @@
-import React, { FC } from "react";
-import { Button, Layout, Menu, Dropdown, Space } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined, DownOutlined } from '@ant-design/icons';
+import React, {FC} from "react";
+import {Button, Dropdown, Layout, Menu, Space} from 'antd';
+import {DownOutlined, MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons';
 
 import UserAvatar from 'views/shared/UserAvatar';
 import LogexLogo from 'assets/svg/LogexLogo';
-import { LayoutProps } from '../types';
+import {LayoutProps} from '../types';
 import useContainer from './hook';
 import "./style.scss";
 

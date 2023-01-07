@@ -1,28 +1,25 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
-import {RegionsTypes} from "state/regions/types";
-import {updateRegionEndpoint} from 'state/regions/endpoints';
-import {updateRegionAction, fetchRegionsRequest} from 'state/regions/actions';
-import {hideModal} from "state/modals/actions";
+import {createLogic} from 'redux-logic';
+import {OrderTypes} from "../types";
+import {fetchOrdersRequest, updateOrderAction} from "../actions";
+import {updateOrderEndpoint} from "../endpoints";
+import history from "../../../utils/browserHistory";
 
 interface IDependencies {
     httpClient: AxiosInstance,
-    action: updateRegionAction,
+    action: updateOrderAction,
 }
 const updateOrder = createLogic({
-    type: RegionsTypes.UPDATE_REGION,
+    type: OrderTypes.UPDATE_ORDER,
     latest: true,
 
     async process({ action: { payload }, httpClient }: IDependencies, dispatch, done) {
-        const { url } = updateRegionEndpoint(String(payload.region.id));
-
-        const {region_am, region_en, region_ru} = payload.region;
+        const { url } = updateOrderEndpoint(String(payload.order.id));
 
         try {
-            await httpClient.put(url, {region_am, region_en, region_ru});
-            dispatch(fetchRegionsRequest(payload.params));
-            dispatch(hideModal());
-
+            await httpClient.put(url, payload.order);
+            dispatch(fetchOrdersRequest(payload.params));
+            history.back();
         }catch {
             // take in httpClient
         }

@@ -1,6 +1,6 @@
 import Account from 'lib/account';
-import { AdminActionTypes, IInitialState } from 'state/admins/types';
-import { AdminActions } from 'state/admins/actions';
+import {AdminActionTypes, IInitialState} from 'state/admins/types';
+import {AdminActions} from 'state/admins/actions';
 
 const initialState: IInitialState = {
     currentAdmin: Account.getAccount(),

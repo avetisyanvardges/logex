@@ -1,9 +1,9 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 
 import {RegionsTypes} from "state/regions/types";
 import {updateRegionEndpoint} from 'state/regions/endpoints';
-import {updateRegionAction, fetchRegionsRequest} from 'state/regions/actions';
+import {fetchRegionsRequest, updateRegionAction} from 'state/regions/actions';
 import {hideModal} from "state/modals/actions";
 
 interface IDependencies {

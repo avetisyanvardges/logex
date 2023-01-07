@@ -4,6 +4,7 @@ import customersOperations from "state/customers/operations";
 import warehousesOperations from "state/warehouses/operations";
 import rolesOperations from "state/roles/operations";
 import ordersOperations from "state/orders/operations";
+import parcelsOperations from "../parcel/operations";
 
 const rootOperations: any = [
     ...adminOperations,
@@ -11,7 +12,8 @@ const rootOperations: any = [
     ...customersOperations,
     ...warehousesOperations,
     ...rolesOperations,
-    ...ordersOperations
+    ...ordersOperations,
+    ...parcelsOperations
 ];
 
 export default rootOperations;

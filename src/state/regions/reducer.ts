@@ -1,4 +1,4 @@
-import {RegionsTypes, IRegionsState} from 'state/regions/types';
+import {IRegionsState, RegionsTypes} from 'state/regions/types';
 import {RegionActionTypes} from 'state/regions/actions';
 
 const regionsInitialState: IRegionsState = {

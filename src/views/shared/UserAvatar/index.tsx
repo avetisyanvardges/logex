@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import {FC} from 'react';
 import {Avatar} from "antd";
 import defaultAvatarImage from 'assets/images/avatar.png';
 import "./style.scss";

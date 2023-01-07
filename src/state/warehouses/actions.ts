@@ -1,5 +1,5 @@
 import {ActionWithPayload, IMeta, IParams} from "state/types";
-import {WarehousesActionTypes, IWarehouse, ICreateAndUpdateWarehouses} from "state/warehouses/types";
+import {ICreateAndUpdateWarehouses, IWarehouse, WarehousesActionTypes} from "state/warehouses/types";
 
 export type fetchWarehousesRequestAction = ActionWithPayload<WarehousesActionTypes.FETCH_WAREHOUSES_REQUEST, IParams>;
 export type fetchWarehousesSuccessAction =

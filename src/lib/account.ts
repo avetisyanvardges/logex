@@ -1,4 +1,4 @@
-import { ICurrentAdmin } from "state/admins/types";
+import {ICurrentAdmin} from "state/admins/types";
 
 class Account {
     static getAccessToken(): string {

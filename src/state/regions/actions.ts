@@ -1,12 +1,14 @@
 import {
-    RegionsTypes,
-    IFetchRegionsSuccessPayload,
-    IRegionTypes,
-    IRegion,
-    IFetchCommunitiesSuccessPayload,
-    ICommunityById, IUpdateAndCreateCommunity, IRegionById
+	ICommunityById,
+	IFetchCommunitiesSuccessPayload,
+	IFetchRegionsSuccessPayload,
+	IRegion,
+	IRegionById,
+	IRegionTypes,
+	IUpdateAndCreateCommunity,
+	RegionsTypes
 } from "state/regions/types";
-import { ActionWithPayload, IParams } from "state/types";
+import {ActionWithPayload, IParams} from "state/types";
 
 export type fetchRegionsRequestAction = ActionWithPayload<RegionsTypes.FETCH_REGIONS_REQUEST, IParams>;
 export type fetchRegionsSuccessAction = ActionWithPayload<RegionsTypes.FETCH_REGIONS_SUCCESS, IFetchRegionsSuccessPayload>;

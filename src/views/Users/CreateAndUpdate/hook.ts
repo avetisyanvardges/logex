@@ -9,7 +9,7 @@ import {createUser, fetchUserByUpdateRequest, updateUser} from 'state/admins/act
 import useMount from 'hooks/useMount';
 import useTypedSelector from 'hooks/useTypedSelector';
 import {showModal} from 'state/modals/actions';
-import {updateUsersEndpoint, createUserEndpoint} from 'state/admins/endpoints';
+import {createUserEndpoint, updateUsersEndpoint} from 'state/admins/endpoints';
 import useParametricSelector from 'hooks/useParametricSelector';
 import useErrorHandler from 'hooks/useErrorHandler';
 

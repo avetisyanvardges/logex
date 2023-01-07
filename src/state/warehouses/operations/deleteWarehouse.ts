@@ -1,5 +1,5 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 
 import {WarehousesActionTypes} from "state/warehouses/types";
 import {deleteWarehouseEndpoint} from 'state/warehouses/endpoints';

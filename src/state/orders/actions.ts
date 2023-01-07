@@ -1,4 +1,4 @@
-import {OrderTypes, IFetchOrdersSuccessPayload, IOrderTypes, IOrders,} from "state/orders/types";
+import {IFetchOrdersSuccessPayload, IOrderTypes, OrderTypes,} from "state/orders/types";
 import {ActionWithPayload, IParams, IRoleById} from "state/types";
 
 export type fetchOrdersRequestAction = ActionWithPayload<OrderTypes.FETCH_ORDERS_REQUEST, IParams>;
@@ -22,7 +22,7 @@ export const createOrder = (data: IOrderTypes) => ({
     payload: data,
 });
 
-export const updateOrder = (data: {order: IOrderTypes} & {params: IParams}) => ({
+export const updateOrder = (data: {order: IOrderTypes, id: string} & {params: IParams}) => ({
     type: OrderTypes.UPDATE_ORDER,
     payload: data,
 });

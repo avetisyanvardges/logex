@@ -5,8 +5,13 @@ import {useFormik} from "formik";
 import {isEmpty} from "lodash";
 
 import {IPermission} from "state/types";
-import { createRole, fetchPermissionsRequest, fetchRolesByIdRequest, updateRole } from "state/roles/actions";
-import { fetchPermissionsEndpoint, fetchRolesByIdEndpoint, createRoleEndpoint, updateRoleEndpoint } from "state/roles/endpoints";
+import {createRole, fetchPermissionsRequest, fetchRolesByIdRequest, updateRole} from "state/roles/actions";
+import {
+	createRoleEndpoint,
+	fetchPermissionsEndpoint,
+	fetchRolesByIdEndpoint,
+	updateRoleEndpoint
+} from "state/roles/endpoints";
 
 import useMount from "hooks/useMount";
 import permissionName from "utils/permissionName";

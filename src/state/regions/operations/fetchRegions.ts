@@ -1,5 +1,5 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 
 import {RegionsTypes} from "state/regions/types";
 import {fetchRegionsEndpoint} from 'state/regions/endpoints';
