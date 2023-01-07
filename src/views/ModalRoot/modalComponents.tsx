@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import {FC} from 'react';
 import RegionsFormModal from 'views/shared/modals/RegionsFormModal';
 import SelectRegionModal from 'views/shared/modals/SelectRegionModal';
 import SelectCustomer from "views/shared/modals/SelectCustomerModal";

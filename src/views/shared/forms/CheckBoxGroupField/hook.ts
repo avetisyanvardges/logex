@@ -1,7 +1,7 @@
 import {useCallback, useState} from "react";
 import {useField} from "formik";
-import type { CheckboxValueType } from 'antd/es/checkbox/Group';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import type {CheckboxValueType} from 'antd/es/checkbox/Group';
+import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 
 function useContainer({ name, items, formikPermissions }: {name: string, items: any[], formikPermissions: any}) {
     const [checkAll, setCheckAll] = useState(false);

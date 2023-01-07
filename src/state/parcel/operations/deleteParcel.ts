@@ -1,5 +1,5 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 import {deleteParcelAction, fetchParcelRequest} from "../actions";
 import {ParcelTypes} from "../types";
 import {deleteParcelEndpoint} from "../endpoints";

@@ -1,12 +1,12 @@
 import React, {useEffect, useMemo} from "react";
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import useMount from "hooks/useMount";
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
 import useParametricSelector from "hooks/useParametricSelector";
 import TableOperations from "views/shared/TableOperations";
 import {deleteWarehouse, fetchWarehousesRequest} from 'state/warehouses/actions';
-import { fetchWarehousesEndpoint } from "state/warehouses/endpoints";
+import {fetchWarehousesEndpoint} from "state/warehouses/endpoints";
 import {IWarehouse} from 'state/warehouses/types';
 import {IPagePropsPermissions} from "state/types";
 import {useNavigate} from 'react-router-dom';

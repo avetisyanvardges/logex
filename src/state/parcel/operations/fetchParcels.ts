@@ -5,7 +5,6 @@ import {fetchParcelRequestAction, fetchParcelSuccess} from "../actions";
 import {fetchParcelsEndpoint} from "../endpoints";
 
 
-
 interface IDependencies {
     httpClient: AxiosInstance,
     action: fetchParcelRequestAction,
@@ -19,14 +18,14 @@ const fetchParcels = createLogic({
         const { url } = fetchParcelsEndpoint;
 
         try {
-            const {data:{data}} = await httpClient.get(url, {params: action.payload});
+            const {data:{data:{data, meta}}} = await httpClient.get(url, {params: action.payload});
             // const metaData = {
             //     current_page: data.meta.current_page,
             //     last_page: data.meta.last_page,
             //     total: data.meta.total
             // }
             console.log(data)
-            dispatch(fetchParcelSuccess({ meta: {}, parcel: data }));
+            dispatch(fetchParcelSuccess({ meta, parcel: data }));
 
         }catch {
             // take in httpClient

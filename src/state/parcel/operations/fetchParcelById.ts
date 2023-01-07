@@ -1,5 +1,5 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 import {fetchParcelByIdRequestAction, fetchParcelByIdSuccess} from "../actions";
 import {ParcelTypes} from "../types";
 import {fetchParcelsByIdEndpoint} from "../endpoints";

@@ -1,4 +1,4 @@
-import { DataRequestTypes } from 'state/data/types';
+import {DataRequestTypes} from 'state/data/types';
 import {DataRequestActions} from 'state/data/actions';
 
 interface IInitialState {

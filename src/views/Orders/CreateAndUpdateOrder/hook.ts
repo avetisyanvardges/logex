@@ -11,7 +11,6 @@ import useTypedSelector from "../../../hooks/useTypedSelector";
 import useParametricSelector from "../../../hooks/useParametricSelector";
 import {createOrderEndpoint, fetchOrderByIdEndpoint, updateOrderEndpoint} from "../../../state/orders/endpoints";
 import useMount from "../../../hooks/useMount";
-import {IPermission} from "../../../state/types";
 
 interface ISelectedCustomer { customer?: string, id?: number }
 
@@ -87,7 +86,8 @@ function useContainer() {
     /**  Formik handleSubmit  */
     const onSubmit = (values: any) => {
         if (id) {
-            dispatch(updateOrder({...values, id}));
+            const data: any = {order: values, id}
+            dispatch(updateOrder(data));
         } else {
             dispatch(createOrder(values))
         }
@@ -161,7 +161,13 @@ function useContainer() {
         if (!id) return;
         formik.setValues({
             ...formik.values,
-            ...orderById
+            ...orderById,
+            from_name: orderById.from?.warehouse,
+            from_id: orderById.from?.id,
+            to_name: orderById.to?.warehouse,
+            to_id: orderById.to?.id,
+            recipient_id: orderById.recipient?.id,
+            sender_id: orderById.sender?.id
         })
     };
 

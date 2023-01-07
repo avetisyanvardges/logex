@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import {FormikProvider} from "formik";
-import {Input, Form, Button} from "antd";
+import {Button, Form, Input} from "antd";
 import InputFiled from 'views/shared/forms/InputField';
 import AuthLayout from "views/layouts/Auth";
 import MessageSvg from 'assets/svg/MessageSvg';

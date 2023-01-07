@@ -1,7 +1,7 @@
 import {useParams} from 'react-router-dom';
 import {useFormik} from 'formik';
 import {useEffect, useState} from 'react';
-import { isEmpty } from 'lodash';
+import {isEmpty} from 'lodash';
 import {useDispatch} from 'react-redux';
 import validationSchema from 'lib/yupLocalised/scheme/community';
 import {createCommunity, fetchCommunityByIdRequest, updateCommunity} from 'state/regions/actions';
@@ -9,7 +9,7 @@ import useMount from 'hooks/useMount';
 import useTypedSelector from 'hooks/useTypedSelector';
 import {showModal} from 'state/modals/actions';
 import {IUpdateAndCreateCommunity} from "state/regions/types";
-import {updateCommunityEndpoint, createCommunityEndpoint} from 'state/regions/endpoints';
+import {createCommunityEndpoint, updateCommunityEndpoint} from 'state/regions/endpoints';
 import useParametricSelector from 'hooks/useParametricSelector';
 
 interface ISelectedRegion { region?: string, id?: number }

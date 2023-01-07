@@ -1,9 +1,4 @@
-import {
-    AdminActionTypes,
-    ICurrentAdmin,
-    ISignInRequestPayload,
-    ICreateAndUpdateUserPayload,
-} from 'state/admins/types';
+import {AdminActionTypes, ICreateAndUpdateUserPayload, ICurrentAdmin, ISignInRequestPayload,} from 'state/admins/types';
 import {ActionWithPayload, IMeta, IParams} from 'state/types';
 
 export type signInRequestAction = ActionWithPayload<AdminActionTypes.SIGN_IN_REQUEST, ISignInRequestPayload>;

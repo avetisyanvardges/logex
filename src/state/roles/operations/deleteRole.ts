@@ -1,5 +1,5 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 
 import {RolesTypes} from "state/roles/types";
 import {deleteRoleEndpoint} from 'state/roles/endpoints';

@@ -1,5 +1,5 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 import history from 'utils/browserHistory';
 import {ParcelTypes} from "../types";
 import {updateParcelAction} from "../actions";

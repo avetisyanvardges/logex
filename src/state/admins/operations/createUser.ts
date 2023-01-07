@@ -1,5 +1,5 @@
 import axios, {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 
 import {AdminActionTypes} from "state/admins/types";
 import {createUserEndpoint} from 'state/admins/endpoints';

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Checkbox, Col, DatePicker, Divider, Dropdown, Form, MenuProps, Row, Space, Typography} from 'antd';
+import {Button, Checkbox, Col, DatePicker, Divider, Dropdown, Form, Row, Space, Typography} from 'antd';
 import {FormikProvider} from 'formik';
 
 import AdminLayout from 'views/layouts/Admin';
@@ -10,7 +10,7 @@ import SelectUser from "../SelectUser";
 import Exchange from "../../../assets/svg/ExchangeSvg";
 import InputFiled from "../../shared/forms/InputField";
 import {DownOutlined} from "@ant-design/icons";
-import {STATUS, STATUS_NAME} from "../../../constants/statuses";
+import {STATUS_NAME} from "../../../constants/statuses";
 import Loader from "../../shared/Loader";
 
 const CreateAndUpdateOrder = () => {

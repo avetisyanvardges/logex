@@ -11,7 +11,6 @@ import useTypedSelector from "../../../hooks/useTypedSelector";
 import useParametricSelector from "../../../hooks/useParametricSelector";
 import {createOrderEndpoint, fetchOrderByIdEndpoint, updateOrderEndpoint} from "../../../state/orders/endpoints";
 import useMount from "../../../hooks/useMount";
-import {IPermission} from "../../../state/types";
 
 interface ISelectedCustomer { customer?: string, id?: number }
 

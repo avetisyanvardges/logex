@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 
 import modals from "state/modals/reducer";
 import data from "state/data/reducer";

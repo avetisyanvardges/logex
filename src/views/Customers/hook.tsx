@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo} from "react";
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import useMount from "hooks/useMount";
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";

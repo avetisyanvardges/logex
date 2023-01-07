@@ -1,12 +1,13 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import type { MenuProps } from 'antd';
+import type {MenuProps} from 'antd';
 import {useLocation, useNavigate} from 'react-router-dom';
-import { FileTextOutlined } from '@ant-design/icons';
+import {FileTextOutlined} from '@ant-design/icons';
 import useTypedSelector from 'hooks/useTypedSelector';
 import LogAuth from 'assets/svg/LogAuth';
 import Account from 'lib/account';
 import history from "utils/browserHistory";
 import {MENU_ITEMS} from "constants/routesConfig";
+
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {

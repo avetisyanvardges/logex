@@ -6,7 +6,7 @@ import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from 'hooks/useTypedSelector';
 import useParametricSelector from "hooks/useParametricSelector";
 import useMount from "hooks/useMount";
-import { fetchRolesEndpoint } from "state/roles/endpoints";
+import {fetchRolesEndpoint} from "state/roles/endpoints";
 import {deleteRole, fetchRolesRequest} from 'state/roles/actions';
 import {IPagePropsPermissions, IRole} from 'state/types';
 import TableOperations from 'views/shared/TableOperations';

@@ -1,4 +1,4 @@
-import { Action, ActionWithPayload, IMeta, IParams, IPermission } from "state/types";
+import {Action, ActionWithPayload, IMeta, IParams, IPermission} from "state/types";
 import {ICreateAndUpdateParcelPayload, IParcel, ParcelTypes} from './types';
 
 export type fetchParcelRequestAction = ActionWithPayload<ParcelTypes.FETCH_PARCELS_REQUEST, IParams>;

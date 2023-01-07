@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
-import { isEmpty } from "lodash";
+import {isEmpty} from "lodash";
 import validationSchema from "lib/yupLocalised/scheme/regions";
 import {IRegion} from "state/regions/types";
 import {IParams} from 'state/types';
