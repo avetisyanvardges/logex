@@ -1,5 +1,5 @@
-import { DataRequestTypes, IEndpoint, IDataApiSuccessPayload, IDataApiFailurePayload } from "state/data/types";
-import { ActionWithPayload, Action } from 'state/types';
+import {DataRequestTypes, IDataApiFailurePayload, IDataApiSuccessPayload, IEndpoint} from "state/data/types";
+import {Action, ActionWithPayload} from 'state/types';
 
 export type dataApiRequestAction = ActionWithPayload<DataRequestTypes.DATA_API_REQUEST, IEndpoint>;
 export type dataApiSuccessAction = ActionWithPayload<DataRequestTypes.DATA_API_SUCCESS, IDataApiSuccessPayload>;

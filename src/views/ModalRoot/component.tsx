@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import MODAL_COMPONENTS from "views/ModalRoot/modalComponents";
-import { IModalRoot } from "state/modals/types";
+import {IModalRoot} from "state/modals/types";
 
 const ModalRoot: FC<IModalRoot> = ({ modalType, modalProps, onClose }) => {
     if (!modalType) return null;

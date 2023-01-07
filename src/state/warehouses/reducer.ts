@@ -1,4 +1,4 @@
-import {WarehousesActionTypes, IInitialState} from 'state/warehouses/types';
+import {IInitialState, WarehousesActionTypes} from 'state/warehouses/types';
 import {WarehousesActions} from './actions';
 
 const initialState: IInitialState = {

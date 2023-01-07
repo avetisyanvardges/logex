@@ -5,10 +5,10 @@ import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from 'hooks/useTypedSelector';
 import useParametricSelector from "hooks/useParametricSelector";
 import useMount from "hooks/useMount";
-import { deleteRegion, fetchRegionsRequest } from "state/regions/actions";
-import { fetchRegionsEndpoint } from "state/regions/endpoints";
-import { IRegion } from "state/regions/types";
-import { showModal } from 'state/modals/actions';
+import {deleteRegion, fetchRegionsRequest} from "state/regions/actions";
+import {fetchRegionsEndpoint} from "state/regions/endpoints";
+import {IRegion} from "state/regions/types";
+import {showModal} from 'state/modals/actions';
 import TableOperations from 'views/shared/TableOperations';
 import {IPagePropsPermissions} from 'state/types';
 

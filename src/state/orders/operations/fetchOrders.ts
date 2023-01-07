@@ -1,8 +1,6 @@
 import {AxiosInstance} from 'axios';
 import {createLogic} from 'redux-logic';
-
-import {RegionsTypes} from "state/regions/types";
-import {fetchRegionsRequestAction, fetchRegionsSuccess} from 'state/regions/actions';
+import {fetchRegionsRequestAction} from 'state/regions/actions';
 import {fetchOrdersEndpoint} from "../endpoints";
 import {OrderTypes} from "../types";
 import {fetchOrdersSuccess} from "../actions";

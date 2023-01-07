@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import LogexLogo from "assets/svg/LogexLogo";
-import { LayoutProps } from '../types';
+import {LayoutProps} from '../types';
 import "./style.scss";
 
 const AuthLayout: FC<LayoutProps> = ({children}) => (

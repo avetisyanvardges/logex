@@ -1,8 +1,8 @@
-import { createLogicMiddleware } from "redux-logic";
-import { applyMiddleware, legacy_createStore as createStore, compose } from "redux";
+import {createLogicMiddleware} from "redux-logic";
+import {applyMiddleware, compose, legacy_createStore as createStore} from "redux";
 import httpClient from "lib/httpClient";
 import rootOperations from "./rootOperations";
-import { rootReducer } from "./rootReducer";
+import {rootReducer} from "./rootReducer";
 
 declare global {
     interface Window {

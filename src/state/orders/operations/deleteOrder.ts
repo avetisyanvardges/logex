@@ -1,9 +1,9 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 
 import {RegionsTypes} from "state/regions/types";
 import {deleteRegionEndpoint} from 'state/regions/endpoints';
-import {fetchRegionsRequest, deleteRegionAction} from 'state/regions/actions';
+import {deleteRegionAction, fetchRegionsRequest} from 'state/regions/actions';
 
 interface IDependencies {
     httpClient: AxiosInstance,

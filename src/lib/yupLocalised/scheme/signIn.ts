@@ -1,5 +1,5 @@
 import yup from 'lib/yupLocalised';
-import { MAX_INPUT_LENGTH } from "constants/globals";
+import {MAX_INPUT_LENGTH} from "constants/globals";
 
 const validationSchema = yup.object().shape({
     email: yup.string().email('Էլ․ հասցեն վավեր չէ').required(),

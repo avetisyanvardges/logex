@@ -1,4 +1,4 @@
-import { IModalState, ModalActionTypes } from "state/modals/types";
+import {IModalState, ModalActionTypes} from "state/modals/types";
 import {ModalActions} from 'state/modals/actions';
 
 const initialState: IModalState = {

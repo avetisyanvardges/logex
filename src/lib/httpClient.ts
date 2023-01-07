@@ -1,10 +1,10 @@
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
 import history from 'utils/browserHistory';
 
-import { API_HOST } from "constants/globals";
+import {API_HOST} from "constants/globals";
 import Account from "lib/account";
-import { store } from "state/store";
-import { dataApiFailure, dataApiRequest, dataApiSuccess } from "state/data/actions";
+import {store} from "state/store";
+import {dataApiFailure, dataApiRequest, dataApiSuccess} from "state/data/actions";
 
 const httpClient = axios.create({
     baseURL: `${API_HOST}/api`,

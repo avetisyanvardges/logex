@@ -3,6 +3,7 @@ import {createLogic} from 'redux-logic';
 import {createRegionAction} from 'state/regions/actions';
 import {OrderTypes} from "../types";
 import {createOrderEndpoint} from "../endpoints";
+import history from "../../../utils/browserHistory";
 
 interface IDependencies {
     httpClient: AxiosInstance,
@@ -16,8 +17,8 @@ const createOrder = createLogic({
         const { url } = createOrderEndpoint;
 
         try {
-            const {data: {data}} = await httpClient.post(url, action.payload);
-            console.log(data, 999);
+            await httpClient.post(url, action.payload);
+            history.back();
 
         }catch {
             // take in httpClient

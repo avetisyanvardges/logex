@@ -1,0 +1,49 @@
+.create-and-update-user {
+  padding: 0 20px;
+  .form {
+    padding-top: 20px;
+    width: 100%;
+    display: inline-block;
+    .check-box-content {
+      margin: 20px 0;
+      .check-box {
+        margin-left: 10px;
+      }
+    }
+    .label {
+      width: 110px;
+      text-align: left;
+    }
+    .selected-fields {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .filed {
+        min-width: 100px;
+        .content {
+          margin: 10px 0;
+
+          .name {
+            .type {
+              margin-left: 20px;
+            }
+          }
+        }
+      }
+      button {
+        width: 150px;
+      }
+    }
+    .button-div {
+      display: flex;
+      justify-content: space-between;
+      .submit-button {
+        width: 120px;
+        background-color: #5BC852;
+        color: white;
+        font-family: NOTO-SANS_ARMENIAN, sans-serif;
+      }
+    }
+  }
+}

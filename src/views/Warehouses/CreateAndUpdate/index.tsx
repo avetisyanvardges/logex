@@ -1,7 +1,6 @@
 import React from 'react';
-import {Button, Divider, Form } from 'antd';
+import {Button, Divider, Form, TimePicker} from 'antd';
 import {FormikProvider} from 'formik';
-import { TimePicker } from 'antd';
 import {isEmpty} from 'lodash';
 import AdminLayout from 'views/layouts/Admin';
 import FormHeader from 'views/shared/FormHeader';

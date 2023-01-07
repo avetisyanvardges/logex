@@ -1,5 +1,5 @@
-import { Action, ActionWithPayload, IMeta, IParams, IPermission, IRole, IRoleById } from "state/types";
-import { ICreateAndUpdateRolePayload, RolesTypes } from './types';
+import {Action, ActionWithPayload, IMeta, IParams, IPermission, IRole, IRoleById} from "state/types";
+import {ICreateAndUpdateRolePayload, RolesTypes} from './types';
 
 export type fetchRolesRequestAction = ActionWithPayload<RolesTypes.FETCH_ROLES_REQUEST, IParams>;
 export type fetchRolesSuccessAction = ActionWithPayload<RolesTypes.FETCH_ROLES_SUCCESS, {roles: IRole[], meta: IMeta}>;

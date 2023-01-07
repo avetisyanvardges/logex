@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import {isEmpty} from "lodash";
-import {Button, Modal, Form} from 'antd';
-import { FormikProvider } from 'formik';
-import { IModalProps } from 'state/modals/types';
+import {Button, Form, Modal} from 'antd';
+import {FormikProvider} from 'formik';
+import {IModalProps} from 'state/modals/types';
 import InputFiled from "views/shared/forms/InputField";
 import {IRegion} from "state/regions/types";
 import {IParams} from 'state/types';

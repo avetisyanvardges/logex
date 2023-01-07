@@ -1,5 +1,5 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 
 import {CustomersActionTypes} from "state/customers/types";
 import {createCustomerEndpoint} from 'state/customers/endpoints';

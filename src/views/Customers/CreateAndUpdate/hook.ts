@@ -4,11 +4,11 @@ import {useEffect, useState} from 'react';
 import {isEmpty} from 'lodash';
 import {useDispatch} from 'react-redux';
 import validationSchema from 'lib/yupLocalised/scheme/customer';
-import {updateCustomer, createCustomer, fetchCustomerByUpdateRequest} from 'state/customers/actions';
+import {createCustomer, fetchCustomerByUpdateRequest, updateCustomer} from 'state/customers/actions';
 import useMount from 'hooks/useMount';
 import useTypedSelector from 'hooks/useTypedSelector';
 import {showModal} from 'state/modals/actions';
-import {updateCustomerEndpoint, createCustomerEndpoint} from 'state/customers/endpoints';
+import {createCustomerEndpoint, updateCustomerEndpoint} from 'state/customers/endpoints';
 import useParametricSelector from 'hooks/useParametricSelector';
 import useErrorHandler from '../../../hooks/useErrorHandler';
 

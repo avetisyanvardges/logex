@@ -1,11 +1,11 @@
 import {AxiosInstance} from 'axios';
-import { createLogic } from 'redux-logic';
+import {createLogic} from 'redux-logic';
 
 import Account from "lib/account";
 import history from "utils/browserHistory";
 import {AdminActionTypes} from "state/admins/types";
 import {signInEndpoint} from 'state/admins/endpoints';
-import {signInSuccess, signInRequestAction} from 'state/admins/actions';
+import {signInRequestAction, signInSuccess} from 'state/admins/actions';
 import {IRoleById} from "state/types";
 
 interface IDependencies {
