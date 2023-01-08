@@ -15,10 +15,9 @@ const updateParcel = createLogic({
 
     async process({ action, httpClient }: IDependencies, dispatch, done) {
         const { url } = updateParcelEndpoint(action.payload.id);
-        const {name, permissions} = action.payload;
 
         try {
-            await httpClient.put(url, {name, permissions});
+            await httpClient.put(url, {...action.payload});
             history.back();
 
         }catch {

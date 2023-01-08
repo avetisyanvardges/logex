@@ -66,7 +66,7 @@ function useContainer(title: string, formik: FormikProps<any>, id?: string) {
         onSelectCommunityHandler(customer?.community)
         formik.setValues({
             ...formik.values,
-            [`${title.toLowerCase()}`]: customer,
+            [`${title.toLowerCase()}`]: {...customer, region: null, region_id: customer.region.id, community_id: customer.community.id},
             [`${customerType}_id`]: String(customer.id),
         });
         console.log(formik.values)

@@ -11,6 +11,7 @@ import useTypedSelector from "../../../hooks/useTypedSelector";
 import useParametricSelector from "../../../hooks/useParametricSelector";
 import {createOrderEndpoint, fetchOrderByIdEndpoint, updateOrderEndpoint} from "../../../state/orders/endpoints";
 import useMount from "../../../hooks/useMount";
+import useErrorHandler from "../../../hooks/useErrorHandler";
 
 interface ISelectedCustomer { customer?: string, id?: number }
 
@@ -140,6 +141,9 @@ function useContainer() {
         initialErrors: {},
         onSubmit,
     });
+
+    // TODO - error handler
+    useErrorHandler({errors: {...createError?.error, ...updateError?.error}, formik});
 
     /** open modal for select region  */
     const onSelectHandler = (warehouse: any, fromTo: any) => {

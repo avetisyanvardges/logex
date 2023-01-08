@@ -2,7 +2,7 @@ import {AxiosInstance} from 'axios';
 import {createLogic} from 'redux-logic';
 import {fetchParcelByIdRequestAction, fetchParcelByIdSuccess} from "../actions";
 import {ParcelTypes} from "../types";
-import {fetchParcelsByIdEndpoint} from "../endpoints";
+import {fetchParcelByIdEndpoint} from "../endpoints";
 
 interface IDependencies {
     httpClient: AxiosInstance,
@@ -14,7 +14,7 @@ const fetchParcelById = createLogic({
     latest: true,
 
     async process({ action, httpClient }: IDependencies, dispatch, done) {
-        const { url } = fetchParcelsByIdEndpoint(action.payload);
+        const { url } = fetchParcelByIdEndpoint(action.payload);
 
         try {
             const {data: { data }} = await httpClient.get(url);

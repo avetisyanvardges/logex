@@ -4,8 +4,9 @@ import {ActionWithPayload, IMeta, IParams} from 'state/types';
 export type signInRequestAction = ActionWithPayload<AdminActionTypes.SIGN_IN_REQUEST, ISignInRequestPayload>;
 export type signInSuccessAction = ActionWithPayload<AdminActionTypes.SIGN_IN_SUCCESS, ICurrentAdmin>;
 export type fetchUsersRequestAction = ActionWithPayload<AdminActionTypes.FETCH_USERS_REQUEST, IParams>;
+export type fetchCouriersRequestAction = ActionWithPayload<AdminActionTypes.FETCH_COURIER_REQUEST, IParams>;
 export type fetchUsersSuccessAction = ActionWithPayload<AdminActionTypes.FETCH_USERS_SUCCESS, { meta: IMeta, users: ICurrentAdmin[] }>;
-export type fetchUserByUpdateRequestAction = ActionWithPayload<AdminActionTypes.FETCH_USER_BY_UPDATE_REQUEST, string>;
+export type fetchUserByUpdateRequestAction = ActionWithPayload<AdminActionTypes.FETCH_USER_BY_UPDATE_REQUEST, {id: string, callback?: (params: any) => void}>;
 export type fetchUserByUpdateSuccessAction = ActionWithPayload<AdminActionTypes.FETCH_USER_BY_UPDATE_SUCCESS, ICurrentAdmin>;
 export type createUserAction = ActionWithPayload<AdminActionTypes.CREATE_USER, ICreateAndUpdateUserPayload>;
 export type updateUserAction = ActionWithPayload<AdminActionTypes.UPDATE_USER, {id: string, user: ICreateAndUpdateUserPayload}>;
@@ -26,14 +27,24 @@ export const fetchUsersRequest = (params: IParams) => ({
     payload: params,
 });
 
+export const fetchCouriersRequest = (params: IParams) => ({
+    type: AdminActionTypes.FETCH_COURIER_REQUEST,
+    payload: params,
+});
+
+export const fetchCouriersSuccess = (data: { meta: IMeta, users: ICurrentAdmin[] }) => ({
+    type: AdminActionTypes.FETCH_USERS_SUCCESS,
+    payload: data,
+});
+
 export const fetchUsersSuccess = (data: { meta: IMeta, users: ICurrentAdmin[] }) => ({
     type: AdminActionTypes.FETCH_USERS_SUCCESS,
     payload: data,
 });
 
-export const fetchUserByUpdateRequest = (id: string) => ({
+export const fetchUserByUpdateRequest = (id?: string,callback?: (params: any) => void) => ({
     type: AdminActionTypes.FETCH_USER_BY_UPDATE_REQUEST,
-    payload: id,
+    payload: {id, callback},
 });
 
 export const fetchUserByUpdateSuccess = (user: ICurrentAdmin) => ({

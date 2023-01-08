@@ -44,7 +44,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
         dispatch(fetchParcelRequest(params));
     }
 
-    // TODO - lifecycle
+    // TODO - Lifecycle
     useEffect(onUpdateHandler, [page]);
     useMount(onMountHandler);
 

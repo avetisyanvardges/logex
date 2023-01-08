@@ -1,24 +1,23 @@
 import {AxiosInstance} from 'axios';
 import {createLogic} from 'redux-logic';
-
-import {RegionsTypes} from "state/regions/types";
-import {deleteRegionEndpoint} from 'state/regions/endpoints';
-import {deleteRegionAction, fetchRegionsRequest} from 'state/regions/actions';
+import {OrderTypes} from "../types";
+import {deleteOrderAction, fetchOrdersRequest} from "../actions";
+import {deleteOrderEndpoint} from "../endpoints";
 
 interface IDependencies {
     httpClient: AxiosInstance,
-    action: deleteRegionAction,
+    action: deleteOrderAction,
 }
 const deleteOrder = createLogic({
-    type: RegionsTypes.DELETE_REGION,
+    type: OrderTypes.DELETE_ORDER,
     latest: true,
 
     async process({ action: { payload }, httpClient }: IDependencies, dispatch, done) {
-        const { url } = deleteRegionEndpoint(String(payload.id));
+        const { url } = deleteOrderEndpoint(String(payload.id));
 
         try {
             await httpClient.delete(url);
-            dispatch(fetchRegionsRequest(payload.params));
+            dispatch(fetchOrdersRequest(payload.params));
 
         }catch {
             // take in httpClient

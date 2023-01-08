@@ -21,6 +21,35 @@ export const fetchParcelSuccess = (data: {parcel: IParcel[], meta: IMeta}) => ({
     payload: data,
 });
 
+export const addOrderRequest = (data:{id?:number, tracking_code?:string}) => ({
+    type: ParcelTypes.ADD_ORDER_REQUEST,
+    payload: data,
+});
+export const addOrderSuccess = (data: any) => ({
+    type: ParcelTypes.ADD_ORDER_SUCCESS,
+    payload: data,
+});
+
+export const removeOrderRequest = (data:{id?:number, tracking_code?:string}) => ({
+    type: ParcelTypes.REMOVE_ORDER_REQUEST,
+    payload: data,
+});
+
+export const removeOrderSuccess = (data: any) => ({
+    type: ParcelTypes.REMOVE_ORDER_SUCCESS,
+    payload: data,
+});
+
+export const sendParcelRequest = (params: IParams) => ({
+    type: ParcelTypes.REMOVE_ORDER_SUCCESS,
+    payload: params,
+});
+
+export const sendParcelSuccess = (data: any) => ({
+    type: ParcelTypes.REMOVE_ORDER_SUCCESS,
+    payload: data,
+});
+
 export const createParcel = (data: ICreateAndUpdateParcelPayload) => ({
     type: ParcelTypes.CREATE_PARCEL,
     payload: data,

@@ -4,7 +4,12 @@ import {ParcelActionTypes} from "./actions";
 const initialState: IParcelState = {
     parcel: [],
     parcelMeta: {},
-    parcelById: {},
+    parcelById: {
+        id: 0,
+        name: '',
+        courier_id: '',
+        orders: []
+    },
 }
 
 const parcels = (state = initialState, action: ParcelActionTypes) => {
@@ -13,7 +18,14 @@ const parcels = (state = initialState, action: ParcelActionTypes) => {
             console.log(action.payload)
             return { ...state, parcel: action.payload.parcel, parcelMeta: action.payload.meta };
         case ParcelTypes.FETCH_PARCEL_BY_ID_SUCCESS:
-            return { ...state, roleById: action.payload };
+            const newObj = action.payload
+            const newOrders = newObj.orders
+            const ordersList = newOrders?.reduce((acc: any, item: any, index) => {
+                acc.push(item.tracking_code)
+                return acc;
+            }, []);
+            newObj.orders = ordersList
+            return { ...state, parcelById: newObj };
         default:
             return state;
     }
