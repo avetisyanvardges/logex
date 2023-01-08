@@ -10,6 +10,7 @@
       display: flex;
       flex-direction: column;
       margin-left: 10px;
+      width: 320px;
       .error {
         color: red;
       }
@@ -26,13 +27,12 @@
     }
     .button-div {
       width: 90%;
-      display: flex;
-      justify-content: flex-end;
       .submit-button {
         background-color: #5BC852;
         color: white;
         width: 100px;
         height: 40px;
+        margin-left: 30px;
       }
     }
   }

@@ -2,7 +2,6 @@ import React from 'react';
 
 import AdminLayout from 'views/layouts/Admin';
 import useContainer from './hook';
-import './style.scss';
 import Loader from "../../shared/Loader";
 
 const CreateAndUpdateOrder = () => {

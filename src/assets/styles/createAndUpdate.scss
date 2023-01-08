@@ -1,9 +1,9 @@
-.create-and-update-user {
+.create-and-update {
   padding: 0 20px;
   .form {
     padding-top: 20px;
-    width: 100%;
-    display: inline-block;
+    width: 500px;
+
     .check-box-content {
       margin: 20px 0;
       .check-box {
@@ -43,6 +43,25 @@
         background-color: #5BC852;
         color: white;
         font-family: NOTO-SANS_ARMENIAN, sans-serif;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .create-and-update {
+    .form {
+      width: 95%;
+      margin: 5px;
+      .selected-fields {
+        flex-direction: column;
+        align-items: flex-start;
+        .filed {
+          margin-top: 20px;
+        }
+      }
+      .button-div {
+        margin-top: 30px;
       }
     }
   }

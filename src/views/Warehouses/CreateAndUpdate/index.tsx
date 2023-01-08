@@ -7,14 +7,13 @@ import FormHeader from 'views/shared/FormHeader';
 import InputFiled from 'views/shared/forms/InputField';
 import DateField from 'views/shared/forms/DateField';
 import useContainer from './hook';
-import "./style.scss";
 
 const CreateAndUpdateWarehouse = () => {
     const {id, formik, openSelectRegionModal, regionById, loading} = useContainer();
 
     return (
         <AdminLayout>
-            <div className='create-and-update-warehouse'>
+            <div className='create-and-update'>
                 <FormHeader title={id ? 'Update warehouse' : 'Create warehouse'}/>
                 <Form onFinish={formik.handleSubmit} className='form'>
                     <FormikProvider value={formik}>
