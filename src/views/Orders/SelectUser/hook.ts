@@ -35,15 +35,6 @@ function useContainer(title: string, formik: FormikProps<any>, id?: string) {
     const [selectedCommunity, setSelectedCommunity] = useState<ISelectedCommunity>({});
     const {customerByUpdate} = useTypedSelector(({customers}) => customers);
 
-    /**  Formik handleSubmit  */
-    const onSubmit = (values: any) => {
-        if (id) {
-            dispatch(updateCustomer({id, customer: values}));
-        } else {
-            dispatch(createCustomer(values));
-        }
-    };
-
 
     /** error handler  */
     useErrorHandler({errors: {...createError?.error, ...updateError?.error}, formik});
@@ -78,6 +69,7 @@ function useContainer(title: string, formik: FormikProps<any>, id?: string) {
             [`${title.toLowerCase()}`]: customer,
             [`${customerType}_id`]: String(customer.id),
         });
+        console.log(formik.values)
     };
 
     const openSelectCustomerModal = (customerType: string): void => {
@@ -117,7 +109,6 @@ function useContainer(title: string, formik: FormikProps<any>, id?: string) {
         if (!id || isEmpty(customerByUpdate)) return;
         setSelectedCommunity({});
         setSelectedRegion({});
-        console.log()
         if (customerByUpdate?.region) setSelectedRegion(customerByUpdate.region);
         if (customerByUpdate?.community) setSelectedCommunity(customerByUpdate.community);
         formik.setValues({
