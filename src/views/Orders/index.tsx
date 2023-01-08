@@ -19,7 +19,6 @@ const Orders = (props: any) => {
     const sender = activeExtraTab === 'sender'
     const recipient = activeExtraTab === 'recipient'
     const more = activeExtraTab === 'more';
-
     const expandedRowRender = (data:any) => {
         const {first_name, last_name, phone, address} = data?.[activeExtraTab] || {}
         return (

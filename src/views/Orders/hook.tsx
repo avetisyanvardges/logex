@@ -1,7 +1,6 @@
 import React, {useEffect, useMemo} from "react";
 import {useDispatch} from "react-redux";
 import {useNavigate} from 'react-router-dom';
-
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from 'hooks/useTypedSelector';
 import useParametricSelector from "hooks/useParametricSelector";
@@ -21,35 +20,31 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
     const { orders, ordersMeta } = useTypedSelector(({orders}) => orders);
     const { isLoading: isFetchingOrders } = useParametricSelector(getOrdersEndpoint);
 
-    /** create  */
+    // TODO - navigate to create page
     const handleCreateOrder = () => {
         navigate(`/order/create`);
     }
 
-
-
-
-    /** update  */
+    // TODO - navigate to update page
     const handleUpdateOrder = ({id}: {id: number}) => {
         navigate(`/order/update/${id}`);
     }
 
-    /**  delete  */
+    // TODO - delete order
     const handleDeleteOrder = (id: string) => {
         dispatch(deleteOrder({params, id}))
     }
 
-    /**  on params update handler  */
+    // TODO - handle params update
     const onUpdateHandler = () => {
         dispatch(fetchOrdersRequest(params));
     }
 
-    /**  Lifecycle  */
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // TODO - Lifecycle
     useEffect(onUpdateHandler, [page]);
     useMount();
 
-    /**  Table columns  */
+    // TODO - Table columns
     const columns = useMemo(() => (
         [
             {
@@ -95,7 +90,6 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
                     />
             },
         ]
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     ), [orders]);
 
     return {
