@@ -1,9 +1,9 @@
 import React from "react";
+import {Divider} from "antd";
 import AdminLayout from "views/layouts/Admin";
+import UserAvatar from "views/shared/UserAvatar";
 import useContainer from "./hook";
 import "./style.scss";
-import UserAvatar from "views/shared/UserAvatar";
-import {Button, Divider} from "antd";
 
 const Home = () => {
     const { currentAdmin } = useContainer();
@@ -20,11 +20,11 @@ const Home = () => {
                                 {currentAdmin.address && <p className='info'>{`Հասցե${'՝'} ${currentAdmin.address}`}</p>}
                                 {currentAdmin.phone && <p className='info'>{`Հեռ${'՝'} ${currentAdmin.phone}`}</p>}
                                 {currentAdmin.email && <p className='info'>{`Էլ․ հասցե${'՝'} ${currentAdmin.email}`}</p>}
-                                <div className='button-content'>
-                                    <Button className='button'>
-                                        Թարմացնել տվյալները
-                                    </Button>
-                                </div>
+                                {/*<div className='button-content'>*/}
+                                {/*    <Button className='button'>*/}
+                                {/*        Թարմացնել տվյալները*/}
+                                {/*    </Button>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                     </div>

@@ -1,13 +1,12 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import type {MenuProps} from 'antd';
-import {useLocation, useNavigate} from 'react-router-dom';
-import {FileTextOutlined} from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import { FileTextOutlined } from '@ant-design/icons';
 import useTypedSelector from 'hooks/useTypedSelector';
 import LogAuth from 'assets/svg/LogAuth';
 import Account from 'lib/account';
 import history from "utils/browserHistory";
 import {MENU_ITEMS} from "constants/routesConfig";
-
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
@@ -29,10 +28,10 @@ function useContainer() {
 
     /**  menu items  */
     const menuItems: MenuItem[] = [
-        getItem('Home', '/', <FileTextOutlined />),
+        getItem(<Link to='/'>Home</Link>, '/', <FileTextOutlined />),
         ...MENU_ITEMS.reduce((acc: MenuItem[], item) => {
             if(currentAdmin.permissions?.includes(item.permission)) {
-                acc.push(getItem(item.name, item.path, <FileTextOutlined />));
+                acc.push(getItem(<Link to={item.path}>{item.name}</Link>, item.path, <FileTextOutlined />));
             }
             return acc;
         }, []),

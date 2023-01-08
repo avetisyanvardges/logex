@@ -2,9 +2,8 @@ import React, {FC} from 'react';
 import {Table} from 'antd';
 import AdminLayout from 'views/layouts/Admin';
 import TableHeader from 'views/shared/TableHeader';
-import useContainer from "./hook";
 import {IPagePropsPermissions} from "state/types";
-import "./style.scss";
+import useContainer from "./hook";
 
 interface IProps extends IPagePropsPermissions {}
 
@@ -13,7 +12,7 @@ const Roles: FC<IProps> = (props) => {
 
     return (
         <AdminLayout>
-            <div className='roles'>
+            <div className='page-with-table'>
                 <TableHeader isCreate={props.create} onCreate={handleCreateRole} totalCount={rolesMeta.total} />
                  <Table
                      rowKey='id' bordered dataSource={roles} columns={columns}

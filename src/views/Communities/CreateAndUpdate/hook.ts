@@ -43,9 +43,6 @@ function useContainer() {
             region_id: '',
         },
         validationSchema,
-        // initialErrors: {
-        //     name: createError?.message || updateError?.message,
-        // },
         onSubmit,
     });
 
@@ -60,7 +57,7 @@ function useContainer() {
     };
 
     /** open modal for select region  */
-    const openSelectRegionModal = (region?: ISelectedRegion): void => {
+    const openSelectRegionModal = () => {
         dispatch(showModal({
             modalType: 'SELECT_REGION_MODAL',
             modalProps: {

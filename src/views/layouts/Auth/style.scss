@@ -40,7 +40,6 @@
     }
 
     .ant-form-item {
-      //margin: 0 0 59px;
       .ant-input {
         padding: 0 0 0 10px;
         height: 33px;
@@ -52,6 +51,50 @@
         line-height: 22px;
         letter-spacing: 0.02em;
         color: #B2C2B0;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1024px) {
+  .authLayout {
+    margin: 0 auto 0 0;
+    width: 95%;
+    justify-content: space-between;
+    .static {
+      width: 50%;
+      height: 75vh;
+    }
+    .dynamicContent {
+      width: 45%;
+      margin-left: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .authLayout {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    .header {
+      z-index: 3;
+    }
+    .static {
+      margin-top: -83px;
+      width: 100%;
+      height: 43vh;
+      .staticContent {
+        background-position: bottom;
+        background-size: 113% 210%;
+        background-repeat: no-repeat;
+        background-image: url("../../../assets/images/mobileAuthImage.png");
+      }
+    }
+    .dynamicContent {
+      width: 95%;
+      margin: -105px 0 0 0;
+      .ant-form-item-label {
+        display: none!important;
       }
     }
   }

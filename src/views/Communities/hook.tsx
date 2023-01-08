@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo} from "react";
 import {useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from "hooks/useTypedSelector";
 import {ICommunity} from "state/regions/types";
@@ -9,7 +10,6 @@ import {fetchCommunitiesEndpoint} from "state/regions/endpoints";
 import useParametricSelector from "hooks/useParametricSelector";
 import useMount from "hooks/useMount";
 import {IPagePropsPermissions} from "state/types";
-import {useNavigate} from 'react-router-dom';
 
 function useContainer({edit, remove}: IPagePropsPermissions) {
     const navigate = useNavigate();
@@ -52,16 +52,17 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
             {
                 title: 'Community am',
                 dataIndex: 'community_am',
-                width: '30%',
+                width: '100px',
             },
             {
                 title: 'Region',
                 dataIndex: ['region', 'region'],
-                width: '30%',
+                width: '100px',
             },
             {
                 title: 'Operations',
-                dataIndex: 'operation',
+                width: '70px',
+                fixed: 'right' as 'right',
                 render: (_: any, record: ICommunity) =>
                     <TableOperations
                         isDelete={remove}

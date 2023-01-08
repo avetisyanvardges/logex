@@ -44,3 +44,29 @@
     }
   }
 }
+
+@media screen and (max-width: 1024px) {
+  .signIn {
+    .form {
+      .signInInput {
+        width: 100%;
+      }
+      .signInButton {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .signIn {
+    .form {
+      .emailFormItem {
+        margin-bottom: 35px;
+      }
+      .signInButton {
+        margin-top: 13px;
+      }
+    }
+  }
+}

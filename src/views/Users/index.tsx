@@ -4,7 +4,6 @@ import AdminLayout from 'views/layouts/Admin';
 import TableHeader from "views/shared/TableHeader";
 import {IPagePropsPermissions} from "state/types";
 import useContainer from "./hook";
-import "./style.scss";
 
 interface IProps extends IPagePropsPermissions {}
 
@@ -13,9 +12,10 @@ const Users: FC<IProps> = (props) => {
 
     return (
         <AdminLayout>
-            <div className='users'>
+            <div className='page-with-table'>
                 <TableHeader isCreate={props.create} onCreate={handleCreate} totalCount={usersMeta.total} />
                 <Table
+                    style={{width: '78vw'}}
                     bordered rowKey='id' dataSource={users} scroll={{ x: 'max-content' }}
                     columns={columns} loading={getUsersLoading} className='table'
                     pagination={{

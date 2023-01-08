@@ -21,3 +21,16 @@
     }
   }
 }
+
+@media only screen and (max-width: 576px) {
+  .regions-form-modal {
+    .ant-form-item-label {
+      display: none!important;
+    }
+    .form {
+      .input {
+        width: 315px;
+      }
+    }
+  }
+}

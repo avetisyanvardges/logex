@@ -4,7 +4,6 @@ import AdminLayout from 'views/layouts/Admin';
 import TableHeader from 'views/shared/TableHeader';
 import {IPagePropsPermissions} from 'state/types';
 import useContainer from "./hook";
-import "./style.scss";
 
 interface IProps extends IPagePropsPermissions {}
 
@@ -14,7 +13,7 @@ const Regions: FC<IProps> = (props) => {
     } = useContainer(props);
     return (
         <AdminLayout>
-            <div className='regions'>
+            <div className='page-with-table'>
                 <TableHeader onCreate={openRegionsFormModal} totalCount={regionsMeta.total} isCreate={props.create} />
                  <Table
                      rowKey='id' bordered dataSource={regions} columns={columns}
