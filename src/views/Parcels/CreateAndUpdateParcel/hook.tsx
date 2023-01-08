@@ -180,7 +180,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
                 fixed: 'right' as 'right',
                 render: (_: any, {id, tracking_code}: IOrderTypes) =>
                     <div onClick={() => {
-                        trackIsAdded(tracking_code) ? removeOrderToParcel(id, tracking_code) : addOrderToParcel(id, tracking_code);
+                        trackIsAdded(tracking_code) ? removeOrderToParcel(parcelById.id, tracking_code) : addOrderToParcel(parcelById.id, tracking_code);
                     }} style={{
                         width: 100,
                         height: 40,

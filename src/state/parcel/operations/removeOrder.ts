@@ -1,7 +1,7 @@
 import {AxiosInstance} from 'axios';
 import {createLogic} from 'redux-logic';
 import {ParcelTypes} from "../types";
-import {addOrderEndpoint} from "../endpoints";
+import {addOrderEndpoint, removeOrderEndpoint} from "../endpoints";
 
 interface IDependencies {
     httpClient: AxiosInstance,
@@ -12,7 +12,7 @@ const removeOrder = createLogic({
     latest: true,
 
     async process({ action, httpClient }: IDependencies, dispatch, done) {
-        const { url } = addOrderEndpoint(action.payload.id);
+        const { url } = removeOrderEndpoint(action.payload.id);
 
         try {
 
