@@ -1,7 +1,6 @@
 import React from 'react';
 import AdminLayout from 'views/layouts/Admin';
 import useContainer from './hook';
-import './style.scss';
 import NextButton from "../../shared/NextButton";
 import {FormikProvider} from "formik";
 import {Button, Col, Form, Row, Table} from "antd";
