@@ -48,4 +48,17 @@ export const PERMISSIONS = {
         edit: 'customer-edit',
         remove: 'customer-delete',
     },
+    PARCEL: {
+        full: 'parcel-full',
+        list: 'parcel-list',
+        view: 'parcel-view',
+        create: 'parcel-create',
+        edit: 'parcel-edit',
+        remove: 'parcel-delete',
+        add_order: 'parcel-add-order',
+        remove_order: 'parcel-remove-order',
+        send: 'parcel-send',
+        courier_list: 'courier-list',
+    },
 };
+

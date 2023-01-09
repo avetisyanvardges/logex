@@ -100,9 +100,7 @@ function useContainer() {
     };
 
     /**  Lifecycle  */
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(onUpdateHandler, [roleById]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useMount(onMountHandler);
 
     return {

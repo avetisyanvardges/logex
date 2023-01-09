@@ -1,21 +1,21 @@
 import {AxiosInstance} from 'axios';
 import {createLogic} from 'redux-logic';
-import {fetchRegionsRequestAction} from 'state/regions/actions';
-import {fetchOrdersEndpoint} from "../endpoints";
-import {OrderTypes} from "../types";
-import {fetchOrdersSuccess} from "../actions";
+
+import {AdminActionTypes} from "state/admins/types";
+import {fetchCouriersEndpoint} from 'state/admins/endpoints';
+import {fetchCouriersRequestAction, fetchCouriersSuccess} from 'state/admins/actions';
 
 interface IDependencies {
     httpClient: AxiosInstance,
-    action: fetchRegionsRequestAction,
+    action: fetchCouriersRequestAction,
 }
 
-const fetchOrders = createLogic({
-    type: OrderTypes.FETCH_ORDERS_REQUEST,
+const fetchCourier = createLogic({
+    type: AdminActionTypes.FETCH_COURIER_REQUEST,
     latest: true,
 
     async process({ action, httpClient }: IDependencies, dispatch, done) {
-        const { url } = fetchOrdersEndpoint;
+        const { url } = fetchCouriersEndpoint;
 
         try {
             const {data: { data }} = await httpClient.get(url, { params: action.payload });
@@ -24,7 +24,7 @@ const fetchOrders = createLogic({
                 last_page: data.meta.last_page,
                 total: data.meta.total
             }
-            dispatch(fetchOrdersSuccess({ meta: metaData, orders: data.data    }));
+            dispatch(fetchCouriersSuccess({ meta: metaData, users: data.data }))
 
         }catch {
             // take in httpClient
@@ -33,4 +33,4 @@ const fetchOrders = createLogic({
     },
 });
 
-export default fetchOrders;
+export default fetchCourier;

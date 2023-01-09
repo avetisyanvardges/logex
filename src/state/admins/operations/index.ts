@@ -3,6 +3,7 @@ import fetchUsers from './fetchUsers';
 import createUser from './createUser';
 import updateUser from './updateUser';
 import deleteUser from './deleteUser';
+import fetchCouriers from './fetchCouriers';
 import fetchUserByUpdate from './fetchUserByUpdate';
 
 const adminOperations = [
@@ -12,6 +13,7 @@ const adminOperations = [
     updateUser,
     deleteUser,
     fetchUserByUpdate,
+    fetchCouriers
 ];
 
 export default adminOperations;

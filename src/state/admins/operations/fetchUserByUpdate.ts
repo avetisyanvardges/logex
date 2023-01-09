@@ -15,12 +15,12 @@ const fetchUserByUpdate = createLogic({
     latest: true,
 
     async process({action, httpClient}: IDependencies, dispatch, done) {
-        const {url} = fetchUserByUpdateEndpoint(action.payload);
+        const {url} = fetchUserByUpdateEndpoint(action.payload.id);
 
         try {
             const {data: {data}} = await httpClient.get(url);
-
-            dispatch(fetchUserByUpdateSuccess(data))
+            dispatch(fetchUserByUpdateSuccess(data));
+            action.payload.callback && action.payload.callback(data)
 
         } catch {
             // take in httpClient
