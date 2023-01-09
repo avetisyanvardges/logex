@@ -9,11 +9,11 @@ import useMount from "../../../hooks/useMount";
 import React, {useEffect, useMemo} from "react";
 import {useFormik} from "formik";
 import {
-    addOrderRequest,
-    createParcel,
-    fetchParcelByIdRequest,
-    removeOrderRequest,
-    updateParcel
+	addOrderRequest,
+	createParcel,
+	fetchParcelByIdRequest,
+	removeOrderRequest,
+	updateParcel
 } from "../../../state/parcel/actions";
 import {showModal} from "../../../state/modals/actions";
 import {fetchUserByUpdateRequest} from "../../../state/admins/actions";

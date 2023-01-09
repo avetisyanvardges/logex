@@ -1,6 +1,6 @@
 import React, {FC} from "react";
-import {Button, Layout, Menu, Dropdown, Space} from 'antd';
-import {MenuFoldOutlined, MenuUnfoldOutlined, DownOutlined, MenuOutlined, CloseOutlined} from '@ant-design/icons';
+import {Button, Dropdown, Layout, Menu, Space} from 'antd';
+import {CloseOutlined, DownOutlined, MenuFoldOutlined, MenuOutlined, MenuUnfoldOutlined} from '@ant-design/icons';
 import {Link} from 'react-router-dom';
 
 import UserAvatar from 'views/shared/UserAvatar';

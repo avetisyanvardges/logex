@@ -8,12 +8,13 @@ import useContainer from "./hook";
 interface Props extends IModalProps {
     onSelectHandler: any,
     selectedCommunityId?: number,
+    selectedRegionId?: number;
 }
 
-const SelectCommunityModal: FC<Props> = ({onClose, onSelectHandler, selectedCommunityId}) => {
+const SelectCommunityModal: FC<Props> = ({onClose, onSelectHandler, selectedCommunityId, selectedRegionId}) => {
     const {
         communities, isFetchingCommunities, value, onChange, setPage, communitiesMeta, page, onSelect, onSave,
-    } = useContainer({selectedCommunityId, onClose, onSelectHandler});
+    } = useContainer({selectedCommunityId, onClose, onSelectHandler, selectedRegionId});
 
     return (
         <Modal
@@ -47,10 +48,11 @@ const SelectCommunityModal: FC<Props> = ({onClose, onSelectHandler, selectedComm
                     <div className='loader'><Spin tip="Loading" size="large"/></div> :
                     (<Radio.Group onChange={onChange} value={value} className='cards'>
                         {!isEmpty(communities) && communities.map((item: any) => (
-                            <Radio value={item.id} className='card card-275' key={item.id} onClick={() => onSelect(item)}>
-                                <p className='name'>Community am` {item?.community_am}</p>
-                                <p className='name'>Community ru` {item?.community_ru}</p>
-                                <p className='name'>Community en` {item?.community_en}</p>
+                            <Radio value={item.id} className='card card-275' key={item.id}
+                                   onClick={() => onSelect(item)}>
+                                <p className='name'>{item?.community_am}</p>
+                                {/*<p className='name'>Community ru` {item?.community_ru}</p>*/}
+                                {/*<p className='name'>Community en` {item?.community_en}</p>*/}
                             </Radio>
                         ))
                         }
@@ -59,6 +61,6 @@ const SelectCommunityModal: FC<Props> = ({onClose, onSelectHandler, selectedComm
             </>
         </Modal>
     )
-}
+};
 
 export default SelectCommunityModal;

@@ -163,16 +163,28 @@ function useContainer() {
     /**  On update handler  */
     const onUpdateHandler = () => {
         if (!id) return;
+        console.log(11111)
         formik.setValues({
             ...formik.values,
             ...orderById,
+            sender: {
+                ...orderById.sender,
+                region: null, region_id: orderById?.sender?.region?.id, community_id: orderById?.sender?.community?.id,
+            },
+            recipient: {
+                ...orderById.sender,
+                region: null, region_id: orderById?.recipient?.region?.id, community_id: orderById?.recipient?.community?.id,
+            },
             from_name: orderById.from?.warehouse,
             from_id: orderById.from?.id,
             to_name: orderById.to?.warehouse,
             to_id: orderById.to?.id,
             recipient_id: orderById.recipient?.id,
             sender_id: orderById.sender?.id
-        })
+        });
+
+
+
     };
 
     /**  On mount handler  */

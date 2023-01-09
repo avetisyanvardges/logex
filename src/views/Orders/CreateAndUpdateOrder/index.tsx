@@ -12,6 +12,7 @@ import Loader from "views/shared/Loader";
 import SelectUser from "../SelectUser";
 import useContainer from './hook';
 import './style.scss';
+import moment from "moment";
 
 const CreateAndUpdateOrder = () => {
     const {
@@ -29,11 +30,12 @@ const CreateAndUpdateOrder = () => {
         return <Loader isAdmin/>
     }
 
+
     return (
         <AdminLayout>
             <div className='create-and-update-orders'>
                 <div className='form-header'>
-                    <NextButton/>
+                    <NextButton />
                     <p className='title'>{false ? `Update order` : 'Create new order'}</p>
                 </div>
                 <Form onFinish={formik.handleSubmit} className='form'>
@@ -143,7 +145,7 @@ const CreateAndUpdateOrder = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <DatePicker onChange={(date, dateString) => formik.setValues({
+                                        <DatePicker value={moment(formik.values.delivery_date || new Date())} onChange={(date, dateString) => formik.setValues({
                                             ...formik.values,
                                             delivery_date: dateString
                                         })}/>

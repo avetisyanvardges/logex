@@ -10,14 +10,15 @@ interface IProps {
     selectedCommunityId?: number,
     onClose: () => void,
     onSelectHandler: any,
+    selectedRegionId?: number;
 }
 
-function useContainer({selectedCommunityId, onClose, onSelectHandler}: IProps) {
+function useContainer({selectedCommunityId, onClose, onSelectHandler, selectedRegionId}: IProps) {
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
-    const { communities, communitiesMeta } = useTypedSelector(({regions}) => regions);
-    const { endpoint: getCommunitiesEndpoint } = fetchCommunitiesEndpoint;
-    const { isLoading: isFetchingCommunities } = useParametricSelector(getCommunitiesEndpoint);
+    const {communities, communitiesMeta} = useTypedSelector(({regions}) => regions);
+    const {endpoint: getCommunitiesEndpoint} = fetchCommunitiesEndpoint;
+    const {isLoading: isFetchingCommunities} = useParametricSelector(getCommunitiesEndpoint);
     const [value, setValue] = useState(() => selectedCommunityId || 0);
     const [selectedValue, setSelectedValue] = useState<any>({});
 
@@ -42,7 +43,8 @@ function useContainer({selectedCommunityId, onClose, onSelectHandler}: IProps) {
 
     /**  on mount handler  */
     const onMountHandler = () => {
-        dispatch(fetchCommunitiesRequest({page: String(page), per_page: '8'}));
+        // @ts-ignore
+        dispatch(fetchCommunitiesRequest({page: String(page), per_page: '8', region_id: selectedRegionId}));
     }
 
     /**  Lifecycle  */

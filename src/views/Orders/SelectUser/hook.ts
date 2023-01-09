@@ -2,7 +2,7 @@ import {FormikProps} from 'formik';
 import {useEffect, useState} from 'react';
 import {isEmpty} from 'lodash';
 import {useDispatch} from 'react-redux';
-import {createCustomer, fetchCustomerByUpdateRequest, updateCustomer} from 'state/customers/actions';
+import {fetchCustomerByUpdateRequest} from 'state/customers/actions';
 import useMount from 'hooks/useMount';
 import useTypedSelector from 'hooks/useTypedSelector';
 import {showModal} from 'state/modals/actions';
@@ -100,6 +100,7 @@ function useContainer(title: string, formik: FormikProps<any>, id?: string) {
             modalProps: {
                 onSelectHandler: onSelectCommunityHandler,
                 selectedCommunityId: selectedCommunity?.id,
+                selectedRegionId: selectedRegion?.id,
             }
         }))
     };

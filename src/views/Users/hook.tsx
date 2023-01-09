@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo} from "react";
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {Popover} from 'antd';
 import useQueryParams from "hooks/useQueryParams";

@@ -70,6 +70,22 @@ const SelectUser: React.FC<IProps> = ({title, formik, id}) => {
                         labelClassName="label"
                         formItemClassName='input-form-item'
                     />
+                    <InputFiled
+                        name={`${title.toLowerCase()}_give_money`}
+                        placeholder="Give money"
+                        label="Give money"
+                        className="input"
+                        labelClassName="label"
+                        formItemClassName='input-form-item'
+                    />
+                    <InputFiled
+                        name={`${title.toLowerCase()}_take_money`}
+                        placeholder="Take money"
+                        label="Take money"
+                        className="input"
+                        labelClassName="label"
+                        formItemClassName='input-form-item'
+                    />
                     <div className='check-box-content'>
                         Is company
                         <Checkbox

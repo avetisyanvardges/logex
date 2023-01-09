@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import AdminLayout from '../layouts/Admin';
 import useContainer from "./hook";
 import TableHeader from "../shared/TableHeader";
-import {Table} from "antd";
+import {Col, Row, Table} from "antd";
 
 const Orders = (props: any) => {
     const {
@@ -15,15 +15,28 @@ const Orders = (props: any) => {
         columns,
         handleCreateOrder
     } = useContainer(props);
+    const [activeExpRow, setActiveExpRow] = useState();
     const [activeExtraTab, setActiveExtraTab] = useState('sender');
     const sender = activeExtraTab === 'sender'
     const recipient = activeExtraTab === 'recipient'
     const more = activeExtraTab === 'more';
     const expandedRowRender = (data:any) => {
-        const {first_name, last_name, phone, address} = data?.[activeExtraTab] || {}
+        const {
+            first_name,
+            last_name,
+            phone,
+            address,
+        } = data?.[activeExtraTab] || {};
+        const {
+            description,
+            additional_address,
+            comment,
+            admin_comment,
+            is_return
+        } = data
         return (
-            <div style={{display: 'flex', flexDirection: 'row'}}>
-                <div style={{flex: 1}}>
+            <Row key={data.id}>
+                <Col span={8}>
                     <div onClick={() => setActiveExtraTab('sender')} style={{cursor: 'pointer'}}>
                         <p style={{color: sender ? '#5BC852' : '#B2C2B0'}}>Ուղարկող</p>
                     </div>
@@ -33,30 +46,75 @@ const Orders = (props: any) => {
                     <div onClick={() => setActiveExtraTab('more')} style={{cursor: 'pointer'}}>
                         <p style={{color: more ? '#5BC852' : '#B2C2B0'}}>Մանրամասներ</p>
                     </div>
-                </div>
-                <div style={{flex: 1}}>
-                    <div>
-                        <p style={{color: '#B2C2B0'}}>Անուն Ազգանուն։</p>
-                    </div>
-                    <div>
-                        <p style={{color: '#B2C2B0'}}>Հեռախոսահամար։</p>
-                    </div>
-                    <div>
-                        <p style={{color: '#B2C2B0'}}>Հասցե։</p>
-                    </div>
-                </div>
-                <div style={{flex: 1}}>
-                    <div>
-                        <p>{first_name + ' ' + last_name}</p>
-                    </div>
-                    <div>
-                        <p>{phone}</p>
-                    </div>
-                    <div>
-                        <p>{address}</p>
-                    </div>
-                </div>
-            </div>
+                </Col>
+                <Col span={12}>
+                    <Row>
+                        <Col span={12}>
+                            <div>
+                                <p style={{color: '#B2C2B0'}}>{more ? 'Նկարագրություն' : 'Անուն Ազգանուն'}։</p>
+                            </div>
+                        </Col>
+                        <Col span={12}>
+                            <div>
+                                <p>{more ? description : first_name + ' ' + last_name}</p>
+                            </div>
+                        </Col>
+
+                    </Row>
+                    <Row>
+                        <Col span={12}>
+                            <div>
+                                <p style={{color: '#B2C2B0'}}>{more ? 'Լրացուցիչ հասցե' : 'Հեռախոսահամար'}։</p>
+                            </div>
+                        </Col>
+                        <Col span={12}>
+                            <div>
+                                <p>{more ? additional_address : phone}</p>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={12}>
+                            <div>
+                                <p style={{color: '#B2C2B0'}}>{more ? 'Նշումներ' : 'Հասցե'}։</p>
+                            </div>
+                        </Col>
+                        <Col span={12}>
+                            <div>
+                                <p>{more ? comment : address}</p>
+                            </div>
+                        </Col>
+                    </Row>
+                    {more &&
+                        <>
+                            <Row>
+                                <Col span={12}>
+                                    <div>
+                                        <p style={{color: '#B2C2B0'}}>Ադմինի նշումներ։</p>
+                                    </div>
+                                </Col>
+                                <Col span={12}>
+                                    <div>
+                                        <p>{admin_comment}</p>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={12}>
+                                    <div>
+                                        <p style={{color: '#B2C2B0'}}>հետադարձ։</p>
+                                    </div>
+                                </Col>
+                                <Col span={12}>
+                                    <div>
+                                        <p>{is_return ? 'Yes' : 'No'}</p>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </>
+                    }
+                </Col>
+            </Row>
         );
     }
 
@@ -67,7 +125,20 @@ const Orders = (props: any) => {
                 <Table
                     rowKey='id' bordered dataSource={orders} columns={columns}
                     loading={isFetchingOrders} className='table'
-                    expandable={{expandedRowRender, defaultExpandedRowKeys: ['0']}}
+                    expandable={{
+                        expandedRowRender,
+                        rowExpandable: (record) => true,
+                        expandedRowKeys: activeExpRow,
+                        defaultExpandedRowKeys: ['0'],
+                        onExpand: (expanded, record) => {
+                            const keys = [];
+                            if (expanded) {
+                                keys.push(record.id);
+                            }
+                            // @ts-ignore
+                            setActiveExpRow(keys);
+                        }
+                    }}
                     pagination={{
                         pageSize: +params.per_page,
                         showSizeChanger: false,
@@ -78,7 +149,7 @@ const Orders = (props: any) => {
                 />
             </div>
         </AdminLayout>
-    )
+    );
 };
 
 export default Orders;
