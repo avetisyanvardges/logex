@@ -74,7 +74,7 @@ export const fetchPermissionsSuccess = (data: IPermission[]) => ({
     payload: data,
 });
 
-export const fetchParcelByIdRequest = (id: string) => ({
+export const fetchParcelByIdRequest = (id: number) => ({
     type: ParcelTypes.FETCH_PARCEL_BY_ID_REQUEST,
     payload: id,
 });

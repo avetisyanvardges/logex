@@ -24,8 +24,6 @@ import useQueryParams from "../../../hooks/useQueryParams";
 import {fetchOrdersEndpoint} from "../../../state/orders/endpoints";
 import {deleteOrder, fetchOrdersRequest} from "../../../state/orders/actions";
 import {IOrderTypes} from "../../../state/orders/types";
-import TableOperations from "../../shared/TableOperations";
-import addOrder from "../../../state/parcel/operations/addOrder";
 
 interface ISelectedCourier {
     courier: any
@@ -91,12 +89,12 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
     };
 
     // TODO - add order to parcel
-    const addOrderToParcel = (id?: number, tracking_code?: string): void => {
+    const addOrderToParcel = (id: number, tracking_code?: string): void => {
         dispatch(addOrderRequest({id, tracking_code}));
     };
 
     // TODO - add order to parcel
-    const removeOrderToParcel = (id?: number, tracking_code?: string): void => {
+    const removeOrderToParcel = (id: number, tracking_code?: string): void => {
         dispatch(removeOrderRequest({id, tracking_code}));
     };
 
@@ -133,6 +131,7 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
     const onMountHandler = () => {
         formik.resetForm();
         if (!id) return;
+        // @ts-ignore
         dispatch(fetchParcelByIdRequest(id));
         dispatch(fetchOrdersRequest(params));
     };
