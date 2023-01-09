@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Divider, Form} from 'antd';
 import {FormikProvider} from 'formik';
+import {isEmpty} from "lodash";
 
 import AdminLayout from 'views/layouts/Admin';
 import InputFiled from 'views/shared/forms/InputField';
@@ -9,7 +10,6 @@ import CheckBoxGroupField from "views/shared/forms/CheckBoxGroupField";
 import FormHeader from 'views/shared/FormHeader';
 import useContainer from './hook';
 import './style.scss';
-import {isEmpty} from "lodash";
 
 const CreateAndUpdateRole = () => {
     const {getPermissionsLoading, getRoleByIdLoading, formik, options, roleById, buttonLoader} = useContainer();

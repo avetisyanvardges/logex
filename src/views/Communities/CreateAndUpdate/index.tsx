@@ -6,14 +6,13 @@ import AdminLayout from 'views/layouts/Admin';
 import FormHeader from 'views/shared/FormHeader';
 import InputFiled from 'views/shared/forms/InputField';
 import useContainer from './hook';
-import "./style.scss";
 
 const CreateAndUpdateCommunity = () => {
     const {id, formik, openSelectRegionModal, selectedRegion, loading} = useContainer();
 
     return (
         <AdminLayout>
-            <div className='create-and-update-community'>
+            <div className='create-and-update'>
                 <FormHeader title={id ? 'Update community' : 'Create community'}/>
                 <Form onFinish={formik.handleSubmit} className='form'>
                     <FormikProvider value={formik}>
@@ -41,16 +40,22 @@ const CreateAndUpdateCommunity = () => {
                             labelClassName="label"
                             formItemClassName='input-form-item'
                         />
-                        <div className='region'>
-                            {!isEmpty(selectedRegion) && (
+
+                        <div className='selected-fields'>
+                            <div className='filed'>
                                 <div className='content'>
-                                    <p className='name'>{`Region՝ ${selectedRegion?.region}`}</p>
+                                    <div className='name'>
+                                        <span>Region`</span>
+                                        <span className='type'>
+                                            {!isEmpty(selectedRegion) ? selectedRegion?.region : ''}
+                                        </span>
+                                    </div>
                                 </div>
-                            )}
+                            </div>
+                            <Button onClick={() => openSelectRegionModal()}>Select Region</Button>
                         </div>
 
                         <div className='button-div'>
-                            <Button onClick={() => openSelectRegionModal()}>Select Region</Button>
                             {!isEmpty(selectedRegion) &&
                                 <Button loading={loading} htmlType='submit' className='submit-button'>Save</Button>}
                         </div>

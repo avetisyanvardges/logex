@@ -6,7 +6,6 @@ import AdminLayout from 'views/layouts/Admin';
 import FormHeader from 'views/shared/FormHeader';
 import InputFiled from 'views/shared/forms/InputField';
 import useContainer from './hook';
-import "./style.scss";
 
 const CreateAndUpdateUser = () => {
     const {
@@ -23,7 +22,7 @@ const CreateAndUpdateUser = () => {
     } = useContainer();
     return (
         <AdminLayout>
-            <div className='create-and-update-user'>
+            <div className='create-and-update'>
                 <FormHeader title={id ? 'Update user' : 'Create user'}/>
                 <Form onFinish={formik.handleSubmit} className='form'>
                     <FormikProvider value={formik}>

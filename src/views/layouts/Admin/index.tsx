@@ -9,6 +9,7 @@ import {LayoutProps} from '../types';
 import useContainer from './hook';
 import "assets/styles/table.scss";
 import "assets/styles/selectModal.scss";
+import "assets/styles/createAndUpdate.scss";
 import "./style.scss";
 
 const {Header, Sider, Content} = Layout;

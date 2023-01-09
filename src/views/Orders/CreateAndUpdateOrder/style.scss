@@ -1,6 +1,29 @@
-.create-and-update-user {
+.create-and-update-orders {
   padding: 0 20px;
   .form {
+    .exchange {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #ffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      margin: auto;
+      text-align: center;
+    }
+    .select-fields {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
     padding-top: 20px;
     width: 100%;
     display: inline-block;
@@ -43,6 +66,17 @@
         background-color: #5BC852;
         color: white;
         font-family: NOTO-SANS_ARMENIAN, sans-serif;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .create-and-update-orders {
+    .form {
+      .exchange {
+        width: 31px!important;
+        height: 31px!important;
       }
     }
   }

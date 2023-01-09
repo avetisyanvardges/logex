@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {Checkbox, Col, Divider, Row} from 'antd';
+import {Checkbox, Divider, Row} from 'antd';
 import useContainer from './hook';
 
 interface IProps {
@@ -20,8 +20,15 @@ const CheckBoxGroupField: FC<IProps> = ({items, name, formikPermissions, section
                 <Checkbox.Group {...field} {...props} onChange={onChangeHandler} value={Object.values(formikPermissions)}>
                     {Object.keys(items).map((key: any,index) => {
                             return (
-                                <Col key={`${index}_${key}`} span={6} style={{marginBottom: 30}}>
-                                    <div style={{border: '1px solid #ddd', padding: 20, borderRadius: '9px'}}>
+                                <div key={`${index}_${key}`} style={{margin: 20}}>
+                                    <div style={{
+                                        border: '1px solid #ddd',
+                                        padding: 20,
+                                        width: '180px',
+                                        borderRadius: '9px',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                    }}>
                                         <h2>{key}</h2>
 
                                         {items[key].map((item: any, index: number) => (
@@ -33,7 +40,7 @@ const CheckBoxGroupField: FC<IProps> = ({items, name, formikPermissions, section
                                             </Checkbox>
                                         ))}
                                     </div>
-                                </Col>
+                                </div>
                             );
 
 
