@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AdminLayout from '../layouts/Admin';
 import useContainer from "./hook";
 import TableHeader from "../shared/TableHeader";
 import {Col, Row, Table} from "antd";
 
-const Orders = (props: any) => {
+const Courier = (props: any) => {
     const {
         handleChangeParams,
         page,
@@ -13,13 +13,19 @@ const Orders = (props: any) => {
         orders,
         isFetchingOrders,
         columns,
-        handleCreateOrder
+        handleCreateOrder,
+        courier_orders,
+        activeTab,
+        setActiveTab
     } = useContainer(props);
     const [activeExpRow, setActiveExpRow] = useState();
     const [activeExtraTab, setActiveExtraTab] = useState('sender');
     const sender = activeExtraTab === 'sender'
     const recipient = activeExtraTab === 'recipient'
     const more = activeExtraTab === 'more';
+    const pickup = activeTab === 'pickup'
+    const delivery = activeTab === 'delivery'
+
     const expandedRowRender = (data:any) => {
         const {
             first_name,
@@ -134,9 +140,34 @@ const Orders = (props: any) => {
     return (
         <AdminLayout>
             <div className='page-with-table'>
-                <TableHeader isCreate={props.create} onCreate={handleCreateOrder} totalCount={ordersMeta.total}/>
+                <TableHeader isCreate={false} onCreate={handleCreateOrder} totalCount={ordersMeta?.total}/>
+                <Row>
+                    <Col span={12}>
+                        <div onClick={() => setActiveTab('pickup')} style={{
+                            display: "flex",
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: pickup ? '#5DBA2F' : '',
+                            cursor: 'pointer'
+                        }}>
+                            <h2 style={{color: pickup ? 'white' : 'black'}}>Pickup</h2>
+                        </div>
+                    </Col>
+                    <Col span={12}>
+                        <div onClick={() => setActiveTab('delivery')} style={{
+                            display: "flex",
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: delivery ? '#5DBA2F' : '',
+                            cursor: 'pointer'
+
+                        }}>
+                            <h2 style={{color: delivery ? 'white' : 'black'}}>Delivery</h2>
+                        </div>
+                    </Col>
+                </Row>
                 <Table
-                    rowKey='id' bordered dataSource={orders} columns={columns}
+                    rowKey='id' bordered dataSource={courier_orders} columns={columns}
                     loading={isFetchingOrders} className='table'
                     expandable={{
                         expandedRowRender,
@@ -156,7 +187,7 @@ const Orders = (props: any) => {
                         pageSize: +params.per_page,
                         showSizeChanger: false,
                         current: +page,
-                        total: ordersMeta.total,
+                        total: ordersMeta?.total,
                         onChange: (pageNumber) => handleChangeParams(pageNumber)
                     }}
                 />
@@ -165,4 +196,4 @@ const Orders = (props: any) => {
     );
 };
 
-export default Orders;
+export default Courier;

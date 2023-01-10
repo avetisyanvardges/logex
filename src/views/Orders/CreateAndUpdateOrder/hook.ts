@@ -128,6 +128,7 @@ function useContainer() {
                 region_id: '',
                 community_id: '',
             },
+            cost: 0,
             is_return: 0,
             delivery_date: '',
             status: '',

@@ -4,16 +4,20 @@ import {OrderActionTypes} from "./actions";
 const ordersInitialState: IOrdersState = {
     ordersMeta: {},
     orders: [],
-    orderById:{}
+    orderById:{},
+    courier_orders: []
 }
 
 const orders = (state = ordersInitialState, action: OrderActionTypes) => {
     switch (action.type) {
         case OrderTypes.FETCH_ORDERS_SUCCESS:
-            console.log(action.payload)
             return {...state, ordersMeta: action.payload.meta, orders: action.payload.orders};
         case OrderTypes.FETCH_ORDER_BY_ID_SUCCESS:
             return {...state, orderById: action.payload};
+        case OrderTypes.FETCH_PICKUP_ORDERS_SUCCESS:
+            return {...state,ordersMeta: action.payload.meta, courier_orders: action.payload.orders};
+        case OrderTypes.FETCH_DELIVERY_ORDERS_SUCCESS:
+            return {...state,ordersMeta: action.payload.meta, courier_orders: action.payload.data};
         default:
             return state;
     }

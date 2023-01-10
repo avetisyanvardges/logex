@@ -16,6 +16,46 @@ export const fetchOrdersSuccess = (data: IFetchOrdersSuccessPayload) => ({
     type: OrderTypes.FETCH_ORDERS_SUCCESS,
     payload: data,
 });
+export const acceptOrderRequest = (params: IParams) => ({
+    type: OrderTypes.ACCEPT_ORDER_REQUEST,
+    payload: params,
+});
+
+export const acceptOrderSuccess = (data: IFetchOrdersSuccessPayload) => ({
+    type: OrderTypes.ACCEPT_ORDER_SUCCESS,
+    payload: data,
+});
+
+export const receivedOrderRequest = (params: IParams) => ({
+    type: OrderTypes.RECEIVE_ORDER_REQUEST,
+    payload: params,
+});
+
+export const receiveOrderSuccess = (data: IFetchOrdersSuccessPayload) => ({
+    type: OrderTypes.RECEIVE_ORDER_SUCCESS,
+    payload: data,
+});
+
+export const fetchPickupOrdersRequest = (params: IParams) => ({
+    type: OrderTypes.FETCH_PICKUP_ORDERS_REQUEST,
+    payload: params,
+});
+
+export const fetchPickupOrdersSuccess = (data: IFetchOrdersSuccessPayload) => ({
+    type: OrderTypes.FETCH_PICKUP_ORDERS_SUCCESS,
+    payload: data,
+});
+
+export const fetchDeliveryOrdersRequest = (params: IParams) => ({
+    type: OrderTypes.FETCH_DELIVERY_ORDERS_REQUEST,
+    payload: params,
+});
+
+export const fetchDeliveryOrdersSuccess = (data: IFetchOrdersSuccessPayload) => ({
+    type: OrderTypes.FETCH_DELIVERY_ORDERS_SUCCESS,
+    payload: data,
+});
+
 
 export const createOrder = (data: IOrderTypes) => ({
     type: OrderTypes.CREATE_ORDER,

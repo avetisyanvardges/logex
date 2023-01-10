@@ -96,6 +96,14 @@ const CreateAndUpdateOrder = () => {
                                 <h2 style={{flex: 1}}>Additional</h2>
                                 <div className='form'>
                                     <InputFiled
+                                        name={`cost`}
+                                        placeholder="Cost"
+                                        label="Cost"
+                                        className="input"
+                                        labelClassName="label"
+                                        formItemClassName='input-form-item'
+                                    />
+                                    <InputFiled
                                         name={`description`}
                                         placeholder="Description"
                                         label="Description"
