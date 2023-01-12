@@ -1,8 +1,8 @@
 import React from 'react';
-import AdminLayout from '../layouts/Admin';
-import useContainer from "./hook";
-import TableHeader from "../shared/TableHeader";
 import {Table} from "antd";
+import AdminLayout from 'views/layouts/Admin';
+import TableHeader from "views/shared/TableHeader";
+import useContainer from "./hook";
 
 const Parcels = (props: any) => {
     const {

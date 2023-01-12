@@ -1,23 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import AdminLayout from '../layouts/Admin';
-import useContainer from "./hook";
-import TableHeader from "../shared/TableHeader";
+import React, {useState} from 'react';
 import {Col, Row, Table} from "antd";
+import AdminLayout from 'views/layouts/Admin';
+import TableHeader from "views/shared/TableHeader";
+import useContainer from "./hook";
 
-const Courier = (props: any) => {
+const Courier = () => {
     const {
-        handleChangeParams,
-        page,
-        params,
-        ordersMeta,
-        orders,
-        isFetchingOrders,
-        columns,
-        handleCreateOrder,
-        courier_orders,
-        activeTab,
-        setActiveTab
-    } = useContainer(props);
+        handleChangeParams, page, params, ordersMeta, isFetchingOrders, columns, courier_orders, activeTab, setActiveTab
+    } = useContainer();
     const [activeExpRow, setActiveExpRow] = useState();
     const [activeExtraTab, setActiveExtraTab] = useState('sender');
     const sender = activeExtraTab === 'sender'
@@ -26,7 +16,7 @@ const Courier = (props: any) => {
     const pickup = activeTab === 'pickup'
     const delivery = activeTab === 'delivery'
 
-    const expandedRowRender = (data:any) => {
+    const expandedRowRender = (data: any) => {
         const {
             first_name,
             last_name,
@@ -140,7 +130,7 @@ const Courier = (props: any) => {
     return (
         <AdminLayout>
             <div className='page-with-table'>
-                <TableHeader isCreate={false} onCreate={handleCreateOrder} totalCount={ordersMeta?.total}/>
+                <TableHeader isCreate={false} onCreate={() => null} totalCount={ordersMeta?.total}/>
                 <Row>
                     <Col span={12}>
                         <div onClick={() => setActiveTab('pickup')} style={{

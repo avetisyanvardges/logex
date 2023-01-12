@@ -6,6 +6,8 @@ export type fetchOrdersSuccessAction = ActionWithPayload<OrderTypes.FETCH_ORDERS
 export type createOrderAction = ActionWithPayload<OrderTypes.CREATE_ORDER, {order: IOrderTypes} & {params: IParams}>;
 export type updateOrderAction = ActionWithPayload<OrderTypes.UPDATE_ORDER, {order: IOrderTypes} & {params: IParams}>;
 export type deleteOrderAction = ActionWithPayload<OrderTypes.DELETE_ORDER, {id: string} & {params: IParams}>;
+export type orderAcceptedRequestAction = ActionWithPayload<OrderTypes.ACCEPT_ORDER_REQUEST, any>;
+export type orderReceivedRequestAction = ActionWithPayload<OrderTypes.RECEIVE_ORDER_REQUEST, any>;
 
 export const fetchOrdersRequest = (params: IParams) => ({
     type: OrderTypes.FETCH_ORDERS_REQUEST,
@@ -16,23 +18,13 @@ export const fetchOrdersSuccess = (data: IFetchOrdersSuccessPayload) => ({
     type: OrderTypes.FETCH_ORDERS_SUCCESS,
     payload: data,
 });
-export const acceptOrderRequest = (params: IParams) => ({
+export const acceptOrderRequest = (data: any) => ({
     type: OrderTypes.ACCEPT_ORDER_REQUEST,
-    payload: params,
-});
-
-export const acceptOrderSuccess = (data: IFetchOrdersSuccessPayload) => ({
-    type: OrderTypes.ACCEPT_ORDER_SUCCESS,
     payload: data,
 });
 
-export const receivedOrderRequest = (params: IParams) => ({
+export const receivedOrderRequest = (data: any) => ({
     type: OrderTypes.RECEIVE_ORDER_REQUEST,
-    payload: params,
-});
-
-export const receiveOrderSuccess = (data: IFetchOrdersSuccessPayload) => ({
-    type: OrderTypes.RECEIVE_ORDER_SUCCESS,
     payload: data,
 });
 

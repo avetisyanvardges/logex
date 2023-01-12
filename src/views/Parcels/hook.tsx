@@ -1,15 +1,16 @@
 import React, {useEffect, useMemo} from "react";
 import {IPagePropsPermissions} from 'state/types';
 import {useNavigate} from "react-router-dom";
-import useTypedSelector from "../../hooks/useTypedSelector";
-import useMount from "../../hooks/useMount";
+import useTypedSelector from "hooks/useTypedSelector";
+import useMount from "hooks/useMount";
 import {useDispatch} from "react-redux";
-import useQueryParams from "../../hooks/useQueryParams";
-import TableOperations from "../shared/TableOperations";
-import {deleteParcel, fetchParcelRequest} from "../../state/parcel/actions";
-import {IParcel} from "../../state/parcel/types";
-import {fetchParcelsEndpoint} from "../../state/parcel/endpoints";
-import useParametricSelector from "../../hooks/useParametricSelector";
+import useQueryParams from "hooks/useQueryParams";
+import TableOperations from "views/shared/TableOperations";
+import {deleteParcel, fetchParcelRequest, sendParcelRequest} from "state/parcel/actions";
+import {IParcel} from "state/parcel/types";
+import {fetchParcelsEndpoint} from "state/parcel/endpoints";
+import useParametricSelector from "hooks/useParametricSelector";
+import {Button} from 'antd';
 
 function useContainer({edit, remove}: IPagePropsPermissions) {
     const dispatch = useDispatch();
@@ -18,6 +19,10 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
     const {endpoint: getParcelEndpoint} = fetchParcelsEndpoint;
     const {parcel, parcelMeta} = useTypedSelector(({parcels}) => parcels);
     const {isLoading: isFetchingParcel} = useParametricSelector(getParcelEndpoint);
+
+    const handleSendParcel = (id: string) => {
+        dispatch(sendParcelRequest({params, id}));
+    }
 
     // TODO - create parcel
     const handleCreateParcel = () => {
@@ -61,13 +66,20 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
                 width: '50%',
                 dataIndex: 'operation',
                 render: (_: any, record: IParcel) =>
-                    <TableOperations
-                        isEdit={edit}
-                        isDelete={remove}
-                        record={record}
-                        handleEdit={handleUpdateParcel}
-                        handleDelete={handleDeleteParcel}
-                    />
+                    <div style={{display: 'flex'}}>
+                        <TableOperations
+                            isEdit={edit}
+                            isDelete={remove}
+                            record={record}
+                            handleEdit={handleUpdateParcel}
+                            handleDelete={handleDeleteParcel}
+                        />
+                        <Button
+                            style={{background: '#5BC852', color: 'white'}}
+                            onClick={() => handleSendParcel(String(record.id))}>
+                            Send
+                        </Button>
+                    </div>
             },
         ]
     ), [parcel]);

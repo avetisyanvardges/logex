@@ -5,6 +5,7 @@ import updateParcel from './updateParcel';
 import deleteParcel from './deleteParcel';
 import addOrder from "./addOrder";
 import removeOrder from "./removeOrder";
+import sendParcel from "./sendParcel";
 
 const parcelsOperations = [
     fetchParcels,
@@ -13,8 +14,8 @@ const parcelsOperations = [
     updateParcel,
     deleteParcel,
     addOrder,
-    removeOrder
-
+    removeOrder,
+    sendParcel,
 ];
 
 export default parcelsOperations;

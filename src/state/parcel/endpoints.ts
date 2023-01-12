@@ -7,3 +7,4 @@ export const removeOrderEndpoint = (id: string) => endpoint('post', `admin/parce
 export const createParcelEndpoint = endpoint('post', '/admin/parcels');
 export const updateParcelEndpoint = (id: string) => endpoint('put', `/admin/parcels/${id}`);
 export const deleteParcelEndpoint = (id: string) => endpoint('delete', `/admin/parcels/${id}`);
+export const sendParcelEndpoint = (id: string) => endpoint('post', `/admin/parcels/send/${id}`);

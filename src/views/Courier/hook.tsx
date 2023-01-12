@@ -1,46 +1,30 @@
 import React, {useEffect, useMemo, useState} from "react";
 import {useDispatch} from "react-redux";
-import {useNavigate} from 'react-router-dom';
+import {Button} from 'antd';
+import moment from "moment";
+import useMount from "hooks/useMount";
 import useQueryParams from "hooks/useQueryParams";
 import useTypedSelector from 'hooks/useTypedSelector';
 import useParametricSelector from "hooks/useParametricSelector";
-import useMount from "hooks/useMount";
-import {IPagePropsPermissions} from 'state/types';
-import TableOperations from 'views/shared/TableOperations';
-import {
-    deleteOrder,
-    fetchDeliveryOrdersRequest,
-    fetchOrdersRequest,
-    fetchPickupOrdersRequest
-} from "state/orders/actions";
 import {fetchOrdersEndpoint} from "state/orders/endpoints";
 import {IOrderTypes} from "state/orders/types";
-import moment from "moment";
+import {showModal} from 'state/modals/actions';
+import {fetchDeliveryOrdersRequest, fetchPickupOrdersRequest} from "state/orders/actions";
 
-function useContainer({edit, remove}: IPagePropsPermissions) {
+function useContainer() {
     const { page, params, handleChangeParams } = useQueryParams();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('pickup')
     const { endpoint: getOrdersEndpoint } = fetchOrdersEndpoint;
     const { orders, ordersMeta,courier_orders } = useTypedSelector(({orders}) => orders);
     const { isLoading: isFetchingOrders } = useParametricSelector(getOrdersEndpoint);
+    console.log(courier_orders)
 
-    console.log(courier_orders);
-
-    // TODO - navigate to create page
-    const handleCreateOrder = () => {
-        navigate(`/order/create`);
-    }
-
-    // TODO - navigate to update page
-    const handleUpdateOrder = ({id}: {id: number}) => {
-        navigate(`/order/update/${id}`);
-    }
-
-    // TODO - delete order
-    const handleDeleteOrder = (id: string) => {
-        dispatch(deleteOrder({params, id}))
+    const handleOpenModal = (tracking_code: string, title: string) => {
+        dispatch(showModal({
+            modalType: 'RECEIVED_AND_ACCEPTED_MODAL',
+            modalProps: {tracking_code, params, title},
+        }))
     }
 
     // TODO - handle params update
@@ -65,14 +49,14 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
                 title: 'From',
                 dataIndex: 'from',
                 width: '100px',
-                render: ((from: any) => `${from.warehouse}(${from.address})`)
+                render: ((from: any) => `${from?.warehouse}(${from?.address})`)
 
             },
             {
                 title: 'To',
-                dataIndex: 'to',
+                dataIndex: 'sender',
                 width: '100px',
-                render: ((to: any) => `${to.warehouse}(${to.address})`)
+                render: ((sender: any) => `${sender?.address}`)
             },
             {
                 title: 'Delivery date',
@@ -87,16 +71,20 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
             },
             {
                 title: 'Operations',
-                width: '70px',
+                width: '140px',
                 fixed: 'right' as 'right',
                 render: (_: any, record: IOrderTypes) =>
-                    <TableOperations
-                        isEdit={edit}
-                        isDelete={remove}
-                        record={record}
-                        handleEdit={handleUpdateOrder}
-                        handleDelete={handleDeleteOrder}
-                    />
+                    <div style={{display: 'flex'}}>
+                        <Button onClick={() => handleOpenModal(record?.tracking_code, 'Accepted')}>
+                            Accepted
+                        </Button>
+                        <Button
+                            onClick={() => handleOpenModal(record?.tracking_code, 'Received')}
+                            style={{marginLeft: 5}}
+                        >
+                            Received
+                        </Button>
+                    </div>
             },
         ]
     ), [orders]);
@@ -108,7 +96,6 @@ function useContainer({edit, remove}: IPagePropsPermissions) {
         params,
         isFetchingOrders,
         columns,
-        handleCreateOrder,
         handleChangeParams,
         courier_orders,
         activeTab,

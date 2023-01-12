@@ -10,6 +10,7 @@ export type fetchPermissionsRequestAction = Action<ParcelTypes.FETCH_PERMISSIONS
 export type fetchPermissionsSuccessAction = ActionWithPayload<ParcelTypes.FETCH_PERMISSIONS_SUCCESS, IPermission[]>;
 export type fetchParcelByIdRequestAction = ActionWithPayload<ParcelTypes.FETCH_PARCEL_BY_ID_REQUEST, string>;
 export type fetchParcelByIdSuccessAction = ActionWithPayload<ParcelTypes.FETCH_PARCEL_BY_ID_SUCCESS, IParcel>;
+export type sendParcelRequestAction = ActionWithPayload<ParcelTypes.SEND_PARCEL_REQUEST, {params: IParams, id: string}>;
 
 export const fetchParcelRequest = (params: IParams) => ({
     type: ParcelTypes.FETCH_PARCELS_REQUEST,
@@ -30,7 +31,7 @@ export const addOrderSuccess = (data: any) => ({
     payload: data,
 });
 
-export const removeOrderRequest = (data:{id?:number, tracking_code?:string}) => ({
+export const removeOrderRequest = (data: {id?:number, tracking_code?:string}) => ({
     type: ParcelTypes.REMOVE_ORDER_REQUEST,
     payload: data,
 });
@@ -40,13 +41,8 @@ export const removeOrderSuccess = (data: any) => ({
     payload: data,
 });
 
-export const sendParcelRequest = (params: IParams) => ({
-    type: ParcelTypes.REMOVE_ORDER_SUCCESS,
-    payload: params,
-});
-
-export const sendParcelSuccess = (data: any) => ({
-    type: ParcelTypes.REMOVE_ORDER_SUCCESS,
+export const sendParcelRequest = (data: {params: IParams, id: string}) => ({
+    type: ParcelTypes.SEND_PARCEL_REQUEST,
     payload: data,
 });
 
